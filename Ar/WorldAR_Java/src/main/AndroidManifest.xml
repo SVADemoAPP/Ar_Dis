@@ -1,24 +1,66 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.huawei.hiardemo.java">
-    <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- 读写权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 相机权限 -->
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 蓝牙模块权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
     <application
-        android:resizeableActivity="false"
-        android:allowBackup="false"
+        android:name=".util.DisApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:resizeableActivity="false"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:allowBackup="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.huawei.hiardemo.java.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:configChanges="orientation|screenSize">
+
+        <activity
+            android:name=".activity.FileSearchActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data android:name="com.huawei.ar.engine" android:value="required" />
+        <activity
+            android:name=".activity.HomeActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".activity.FloorMapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PortraitZxingActivity"
+            android:screenOrientation="portrait" /> <!-- 7.0contentProvider -->
+        <provider xmlns:tools="http://schemas.android.com/tools"
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.gyr.disvisibledemo.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <meta-data
+            android:name="com.huawei.ar.engine"
+            android:value="required" />
     </application>
 </manifest>

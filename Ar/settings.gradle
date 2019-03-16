@@ -1,4 +1,4 @@
-include':WorldAR_Java'
+include ':WorldAR_Java', ':lfilepickerlibrary', ':activity_entry_name', ':toprightmenu'
 
 
 

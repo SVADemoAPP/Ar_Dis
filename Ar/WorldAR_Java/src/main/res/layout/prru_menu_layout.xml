@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="110dp"
+    android:layout_height="127dp"
+    android:background="@mipmap/prru_bubble_bg"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/menu_bind"
+        android:layout_width="110dp"
+        android:layout_height="42dp"
+        android:layout_marginLeft="4dp"
+        android:background="@drawable/selector_bubble_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:src="@mipmap/prru_scan" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="扫码绑定"
+            android:textColor="@color/white"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menu_unbind"
+        android:layout_width="102dp"
+        android:layout_height="42dp"
+        android:layout_marginLeft="4dp"
+        android:background="@drawable/selector_bubble_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:src="@mipmap/prru_disable" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="解除绑定"
+            android:textColor="@color/white"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/line_gray2" />
+
+    <LinearLayout
+        android:id="@+id/menu_move"
+        android:layout_width="110dp"
+        android:layout_height="42dp"
+        android:layout_marginLeft="4dp"
+        android:background="@drawable/selector_bubble_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:src="@mipmap/prru_move" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="调整位置"
+            android:textColor="@color/white"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/line_gray2" />
+
+    <LinearLayout
+        android:id="@+id/menu_camera"
+        android:layout_width="110dp"
+        android:layout_height="42dp"
+        android:layout_marginLeft="4dp"
+        android:background="@drawable/selector_bubble_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:src="@mipmap/prru_camera" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="拍照留存"
+            android:textColor="@color/white"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+</LinearLayout>

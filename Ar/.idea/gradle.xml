@@ -9,6 +9,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/WorldAR_Java" />
+            <option value="$PROJECT_DIR$/activity_entry_name" />
+            <option value="$PROJECT_DIR$/lfilepickerlibrary" />
+            <option value="$PROJECT_DIR$/toprightmenu" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
