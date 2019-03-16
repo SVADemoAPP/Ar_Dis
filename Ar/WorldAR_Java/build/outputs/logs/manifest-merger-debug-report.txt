@@ -1,0 +1,166 @@
+-- Merging decision tree log ---
+manifest
+ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:1:1-24:12
+INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:1:1-24:12
+INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:1:1-24:12
+INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:1:1-24:12
+MERGED from [HUAWEI AR Engine SDK_v1.7.0.aar] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\HUAWEI AR Engine SDK_v1.7.0.aar\bba6427ace2692bda33c1909aa44c747\AndroidManifest.xml:2:1-27:12
+MERGED from [com.android.support:design:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\design-27.0.0.aar\1a049b58a3c57aa34cfdb8c003dff13c\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:appcompat-v7:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.0.0.aar\a8e829fc42553c115fe1fc1267619183\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\16c2d31f7301587951f29a7ae49284b1\AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:support-v4:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-v4-27.0.0.aar\933c5819c588a8c254941a5ff65a484d\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-fragment-27.0.0.aar\1fc87c2d2c9ead2b81a4d4c2b90c7bf1\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.0.0.aar\a07f8e3b6128d89a5c72b88436e57207\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.0.0.aar\58da67ba1126abb881d643ea705be71c\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.0.aar\56f045bb71e71ddab414fc88cd9b2966\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:recyclerview-v7:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.0.0.aar\9fb82f750d0ccf7b5834ad35fac17fff\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:transition:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\transition-27.0.0.aar\0f87c0fc3270ea09dbbfe36ec5363464\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.0.0.aar\16de451becd4e890a4ffab89e03910a6\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.0.aar\bfa6fd1ad1e29d36d357106baac9b9be\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-compat-27.0.0.aar\86040828dca6208ca86ae9b8f9b8f304\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\4e9534803c77af8cc2f04ae0344c6bfc\AndroidManifest.xml:17:1-30:12
+INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:1:1-24:12
+INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:1:1-24:12
+INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:1:1-24:12
+	package
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:2:5-39
+		INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml
+		INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:1:1-24:12
+		INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:1:1-24:12
+		INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:1:11-69
+uses-permission#android.permission.CAMERA
+ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:3:5-65
+MERGED from [HUAWEI AR Engine SDK_v1.7.0.aar] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\HUAWEI AR Engine SDK_v1.7.0.aar\bba6427ace2692bda33c1909aa44c747\AndroidManifest.xml:11:5-65
+MERGED from [HUAWEI AR Engine SDK_v1.7.0.aar] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\HUAWEI AR Engine SDK_v1.7.0.aar\bba6427ace2692bda33c1909aa44c747\AndroidManifest.xml:11:5-65
+	android:name
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:3:22-62
+uses-permission#android.permission.INTERNET
+ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:4:5-67
+MERGED from [HUAWEI AR Engine SDK_v1.7.0.aar] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\HUAWEI AR Engine SDK_v1.7.0.aar\bba6427ace2692bda33c1909aa44c747\AndroidManifest.xml:12:5-67
+MERGED from [HUAWEI AR Engine SDK_v1.7.0.aar] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\HUAWEI AR Engine SDK_v1.7.0.aar\bba6427ace2692bda33c1909aa44c747\AndroidManifest.xml:12:5-67
+	android:name
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:4:22-64
+application
+ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:5:5-23:19
+MERGED from [HUAWEI AR Engine SDK_v1.7.0.aar] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\HUAWEI AR Engine SDK_v1.7.0.aar\bba6427ace2692bda33c1909aa44c747\AndroidManifest.xml:14:5-25:19
+MERGED from [HUAWEI AR Engine SDK_v1.7.0.aar] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\HUAWEI AR Engine SDK_v1.7.0.aar\bba6427ace2692bda33c1909aa44c747\AndroidManifest.xml:14:5-25:19
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\16c2d31f7301587951f29a7ae49284b1\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\16c2d31f7301587951f29a7ae49284b1\AndroidManifest.xml:9:5-20
+MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\4e9534803c77af8cc2f04ae0344c6bfc\AndroidManifest.xml:24:5-28:19
+MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\4e9534803c77af8cc2f04ae0344c6bfc\AndroidManifest.xml:24:5-28:19
+	android:supportsRtl
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:11:9-35
+	android:label
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:9:9-41
+	android:resizeableActivity
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:6:9-43
+	android:roundIcon
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:10:9-54
+	android:icon
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:8:9-43
+	android:allowBackup
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:7:9-36
+	android:theme
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:12:9-40
+activity#com.huawei.hiardemo.java.MainActivity
+ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:13:9-21:20
+	android:label
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:14:13-45
+	android:configChanges
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:16:13-59
+	android:theme
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:15:13-63
+	android:name
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:13:19-71
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:17:13-20:29
+action#android.intent.action.MAIN
+ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:18:17-68
+	android:name
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:18:25-66
+category#android.intent.category.LAUNCHER
+ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:19:17-76
+	android:name
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:19:27-74
+meta-data#com.huawei.ar.engine
+ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:22:9-83
+	android:value
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:22:56-80
+	android:name
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml:22:20-55
+uses-sdk
+INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml
+INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml
+MERGED from [HUAWEI AR Engine SDK_v1.7.0.aar] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\HUAWEI AR Engine SDK_v1.7.0.aar\bba6427ace2692bda33c1909aa44c747\AndroidManifest.xml:7:5-9:41
+MERGED from [HUAWEI AR Engine SDK_v1.7.0.aar] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\HUAWEI AR Engine SDK_v1.7.0.aar\bba6427ace2692bda33c1909aa44c747\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:design:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\design-27.0.0.aar\1a049b58a3c57aa34cfdb8c003dff13c\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:design:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\design-27.0.0.aar\1a049b58a3c57aa34cfdb8c003dff13c\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.0.0.aar\a8e829fc42553c115fe1fc1267619183\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.0.0.aar\a8e829fc42553c115fe1fc1267619183\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\16c2d31f7301587951f29a7ae49284b1\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\16c2d31f7301587951f29a7ae49284b1\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:support-v4:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-v4-27.0.0.aar\933c5819c588a8c254941a5ff65a484d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-v4-27.0.0.aar\933c5819c588a8c254941a5ff65a484d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-fragment-27.0.0.aar\1fc87c2d2c9ead2b81a4d4c2b90c7bf1\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-fragment-27.0.0.aar\1fc87c2d2c9ead2b81a4d4c2b90c7bf1\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.0.0.aar\a07f8e3b6128d89a5c72b88436e57207\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.0.0.aar\a07f8e3b6128d89a5c72b88436e57207\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.0.0.aar\58da67ba1126abb881d643ea705be71c\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.0.0.aar\58da67ba1126abb881d643ea705be71c\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.0.aar\56f045bb71e71ddab414fc88cd9b2966\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.0.aar\56f045bb71e71ddab414fc88cd9b2966\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.0.0.aar\9fb82f750d0ccf7b5834ad35fac17fff\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.0.0.aar\9fb82f750d0ccf7b5834ad35fac17fff\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\transition-27.0.0.aar\0f87c0fc3270ea09dbbfe36ec5363464\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\transition-27.0.0.aar\0f87c0fc3270ea09dbbfe36ec5363464\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.0.0.aar\16de451becd4e890a4ffab89e03910a6\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.0.0.aar\16de451becd4e890a4ffab89e03910a6\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.0.aar\bfa6fd1ad1e29d36d357106baac9b9be\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.0.aar\bfa6fd1ad1e29d36d357106baac9b9be\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-compat-27.0.0.aar\86040828dca6208ca86ae9b8f9b8f304\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\support-compat-27.0.0.aar\86040828dca6208ca86ae9b8f9b8f304\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\4e9534803c77af8cc2f04ae0344c6bfc\AndroidManifest.xml:20:5-22:41
+MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\4e9534803c77af8cc2f04ae0344c6bfc\AndroidManifest.xml:20:5-22:41
+INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml
+INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml
+		INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml
+		ADDED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml
+		INJECTED from F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\AndroidManifest.xml
+activity#com.huawei.hiar.LoaderActivity
+ADDED from [HUAWEI AR Engine SDK_v1.7.0.aar] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\HUAWEI AR Engine SDK_v1.7.0.aar\bba6427ace2692bda33c1909aa44c747\AndroidManifest.xml:15:9-24:20
+	android:excludeFromRecents
+		ADDED from [HUAWEI AR Engine SDK_v1.7.0.aar] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\HUAWEI AR Engine SDK_v1.7.0.aar\bba6427ace2692bda33c1909aa44c747\AndroidManifest.xml:18:13-46
+	android:launchMode
+		ADDED from [HUAWEI AR Engine SDK_v1.7.0.aar] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\HUAWEI AR Engine SDK_v1.7.0.aar\bba6427ace2692bda33c1909aa44c747\AndroidManifest.xml:20:13-43
+	android:exported
+		ADDED from [HUAWEI AR Engine SDK_v1.7.0.aar] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\HUAWEI AR Engine SDK_v1.7.0.aar\bba6427ace2692bda33c1909aa44c747\AndroidManifest.xml:19:13-37
+	android:configChanges
+		ADDED from [HUAWEI AR Engine SDK_v1.7.0.aar] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\HUAWEI AR Engine SDK_v1.7.0.aar\bba6427ace2692bda33c1909aa44c747\AndroidManifest.xml:17:13-74
+	android:name
+		ADDED from [HUAWEI AR Engine SDK_v1.7.0.aar] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\HUAWEI AR Engine SDK_v1.7.0.aar\bba6427ace2692bda33c1909aa44c747\AndroidManifest.xml:16:13-58
+meta-data#hwc-theme
+ADDED from [HUAWEI AR Engine SDK_v1.7.0.aar] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\HUAWEI AR Engine SDK_v1.7.0.aar\bba6427ace2692bda33c1909aa44c747\AndroidManifest.xml:21:13-23:65
+	android:value
+		ADDED from [HUAWEI AR Engine SDK_v1.7.0.aar] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\HUAWEI AR Engine SDK_v1.7.0.aar\bba6427ace2692bda33c1909aa44c747\AndroidManifest.xml:23:17-62
+	android:name
+		ADDED from [HUAWEI AR Engine SDK_v1.7.0.aar] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\HUAWEI AR Engine SDK_v1.7.0.aar\bba6427ace2692bda33c1909aa44c747\AndroidManifest.xml:22:17-41
+meta-data#android.arch.lifecycle.VERSION
+ADDED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\4e9534803c77af8cc2f04ae0344c6bfc\AndroidManifest.xml:25:9-27:47
+	android:value
+		ADDED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\4e9534803c77af8cc2f04ae0344c6bfc\AndroidManifest.xml:27:13-44
+	android:name
+		ADDED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\XHF\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\4e9534803c77af8cc2f04ae0344c6bfc\AndroidManifest.xml:26:13-58

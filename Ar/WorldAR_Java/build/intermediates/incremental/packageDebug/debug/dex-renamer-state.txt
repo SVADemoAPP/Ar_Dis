@@ -1,0 +1,4 @@
+#Sat Mar 16 17:08:40 CST 2019
+base.0=C\:\\Users\\39773\\Desktop\\JavaSample\\WorldAR_Java\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex
