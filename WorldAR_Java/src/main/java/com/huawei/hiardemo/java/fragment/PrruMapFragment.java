@@ -66,13 +66,13 @@ public class PrruMapFragment extends Fragment {
     private View mMenuMove;
     private View mMenuCamera;
     private Context mContext;
-    private String mScale;  //比例尺
+    private float mScale;  //比例尺
     private CircleShape mCircleShape;
 
     //当前地图所有未绑定的prru列表
     private List<PrruInfoShape> prruInfoShapes;
 
-    public String getmScale() {
+    public float getmScale() {
         return mScale;
     }
 
@@ -270,14 +270,14 @@ public class PrruMapFragment extends Fragment {
             //如果是同一楼层
             if (floorName.equals(XmlUntils.getAttributeValueByName(element, "floorCode"))) {
                 Element element1 = XmlUntils.getElementByName(element, "DrawMap");
-                mScale = XmlUntils.getAttributeValueByName(element1, "scale");
+                mScale = Float.parseFloat(XmlUntils.getAttributeValueByName(element1, "scale"));
                 ((FloorMapActivity) getActivity()).setScale(Float.valueOf(mScale));
                 List<Element> nes = XmlUntils.getElementListByName(XmlUntils.getElementByName(element, "NEs"), "NE");
                 prruInfoShapes = new ArrayList<>(nes.size());
                 for (Element ne : nes) {
                     PrruInfoShape prruInfoShape = new PrruInfoShape(XmlUntils.getAttributeValueByName(ne, "id"), Color.YELLOW, mContext);
                     prruInfoShape.setId(XmlUntils.getAttributeValueByName(ne, "id"));
-                    prruInfoShape.setValues(Float.parseFloat(XmlUntils.getAttributeValueByName(ne, "x")), Float.parseFloat(XmlUntils.getAttributeValueByName(ne, "y")));
+                    prruInfoShape.setValues(Float.parseFloat(XmlUntils.getAttributeValueByName(ne, "x")), mHeight - Float.parseFloat(XmlUntils.getAttributeValueByName(ne, "y")));
                     prruInfoShape.setBind(false);
                     prruInfoShape.setMove(false);
                     prruInfoShape.setPrruShowType(PrruInfoShape.pRRUType.outArea);
