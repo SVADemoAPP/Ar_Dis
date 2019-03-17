@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-
 import com.huawei.hiardemo.java.R;
 import com.huawei.hiardemo.java.activity.FloorMapActivity;
 import com.huawei.hiardemo.java.framework.activity.BaseActivity;
@@ -43,9 +42,9 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.functions.Consumer;
 
 public class PrruMapFragment extends Fragment {
@@ -68,6 +67,9 @@ public class PrruMapFragment extends Fragment {
     private Context mContext;
     private String mScale;  //比例尺
     private CircleShape mCircleShape;
+
+    //当前地图所有未绑定的prru列表
+    private List<PrruInfoShape> prruInfoShapes;
 
     public String getmScale() {
         return mScale;
@@ -257,6 +259,7 @@ public class PrruMapFragment extends Fragment {
                 mScale = XmlUntils.getAttributeValueByName(element1, "scale");
                 ((FloorMapActivity) getActivity()).setScale(Float.valueOf(mScale));
                 List<Element> nes = XmlUntils.getElementListByName(XmlUntils.getElementByName(element, "NEs"), "NE");
+                prruInfoShapes = new ArrayList<>(nes.size());
                 for (Element ne : nes) {
                     PrruInfoShape prruInfoShape = new PrruInfoShape(XmlUntils.getAttributeValueByName(ne, "id"), Color.YELLOW, mContext);
                     prruInfoShape.setId(XmlUntils.getAttributeValueByName(ne, "id"));
@@ -267,6 +270,7 @@ public class PrruMapFragment extends Fragment {
                     if (StringUtil.isNullOrEmpty(XmlUntils.getAttributeValueByName(ne, "esn"))) {
                         prruInfoShape.setBind(false);
                         prruInfoShape.setPrruShowType(PrruInfoShape.pRRUType.outArea);
+                        prruInfoShapes.add(prruInfoShape);
                     } else {
                         prruInfoShape.setBind(true);
                         prruInfoShape.setPrruShowType(PrruInfoShape.pRRUType.inArea);
