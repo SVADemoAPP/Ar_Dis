@@ -77,6 +77,8 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
     };
     private boolean hasPlane = false;
 
+    private boolean hasplat = false;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -341,11 +343,15 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
                 for (ARPlane plane : mSession.getAllTrackables(ARPlane.class)) {
                     if (plane.getType() != ARPlane.PlaneType.UNKNOWN_FACING &&
                             plane.getTrackingState() == ARTrackable.TrackingState.TRACKING) {
+                        hasplat = true;
                         hideLoadingMessage();
                         break;
+                    } else {
+                        hasplat = false;
                     }
                 }
             }
+            Log.e("XHF","hasplat="+hasplat+"------------------------");
             mPlaneRenderer.drawPlanes(mSession.getAllTrackables(ARPlane.class), camera.getDisplayOrientedPose(), projmtx);
 
             Iterator<ARAnchor> ite = mAnchors.iterator();

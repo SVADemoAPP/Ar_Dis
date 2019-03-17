@@ -232,7 +232,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
                     Toast.makeText(this, "扫描结果: " + result.getContents(), Toast.LENGTH_LONG).show();
 
                     mContents = result.getContents();
-
+                    showDialog("消息","请在安装pRRU位置扫一扫然后点击确认");
                 }
             }
         }
