@@ -64,7 +64,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
     private File ffile;
     private Bitmap mBitmap;
     private SelectPopupWindow mSelectPopupWindow;
-    private PointF mSelectPointF ;
+    private PointF mSelectPointF;
     private float mScale;
 
 
@@ -158,7 +158,8 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
                     int distancetoPixtoY = DistanceUtil.getDistancetoPix(mScale, ty);
                     int mapX = (int) (mSelectPointF.x + distancetoPixtoX);
                     int mapY = (int) (mSelectPointF.y + distancetoPixtoY);
-                    prruMapFragment.setNowLocation(mapX, mapY);
+                    prruMapFragment.setNowLocation(mapX, mapY);  //设置当前坐标
+//                    DistanceUtil.getMinDistacePrru(mScale,1,,mapX,mapY)//判断距离Prru位置 如果小于1m进行弹窗
                 }
             }
         });
@@ -347,6 +348,9 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
             // 回收并且置为null
             mBitmap.recycle();
             mBitmap = null;
+        }
+        if (mSelectPopupWindow != null) {
+            mSelectPopupWindow.hidePopupWindow();
         }
         super.onDestroy();
     }
