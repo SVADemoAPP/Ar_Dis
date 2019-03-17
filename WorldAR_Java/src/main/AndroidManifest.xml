@@ -50,7 +50,7 @@
             android:screenOrientation="portrait" /> <!-- 7.0contentProvider -->
         <provider xmlns:tools="http://schemas.android.com/tools"
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.gyr.disvisibledemo.fileprovider"
+            android:authorities="com.huawei.hiardemo.java.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true"
             tools:replace="android:authorities">
