@@ -272,6 +272,14 @@ public class PrruMapFragment extends Fragment {
 
     }
 
+    /**
+     * 刷新当前地图页面
+     */
+    public void refreshMap() {
+        mFloorMap.clearShapes();
+        getPrruData();
+    }
+
     public String getSelectId() {
         return mpRRUId;
     }
