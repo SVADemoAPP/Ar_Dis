@@ -133,18 +133,18 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
     private static final float[] DEFAULT_COLOR = new float[]{0f, 0f, 0f, 0f};
 
     // Anchors created from taps used for object placing with a given color.
-    private static class ColoredARAnchor {
-        public final ARAnchor anchor;
-        public final float[] color;
-
-        public ColoredARAnchor(ARAnchor a, float[] color4f) {
-            this.anchor = a;
-            this.color = color4f;
-        }
-    }
+//    private static class ColoredARAnchor {
+//        public final ARAnchor anchor;
+//        public final float[] color;
+//
+//        public ColoredARAnchor(ARAnchor a, float[] color4f) {
+//            this.anchor = a;
+//            this.color = color4f;
+//        }
+//    }
 
     private ArrayBlockingQueue<MotionEvent> mQueuedSingleTaps = new ArrayBlockingQueue<>(2);
-    private ArrayList<ColoredARAnchor> mAnchors = new ArrayList<>();
+    private ArrayList<ARAnchor> mAnchors = new ArrayList<>();
 
     private float mScaleFactor = 0.15f;
     private boolean installRequested;
@@ -313,7 +313,7 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
                     mGetArPoseHandler.post(mGetArPosRunnable);
                 }
             }
-            handleTap(frame, camera);
+//            handleTap(frame, camera);
 
             mBackgroundRenderer.draw(frame);
 
@@ -348,15 +348,15 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
             }
             mPlaneRenderer.drawPlanes(mSession.getAllTrackables(ARPlane.class), camera.getDisplayOrientedPose(), projmtx);
 
-            Iterator<ColoredARAnchor> ite = mAnchors.iterator();
+            Iterator<ARAnchor> ite = mAnchors.iterator();
             while (ite.hasNext()) {
-                ColoredARAnchor coloredAnchor = ite.next();
-                if (coloredAnchor.anchor.getTrackingState() == ARTrackable.TrackingState.STOPPED) {
+                ARAnchor coloredAnchor = ite.next();
+                if (coloredAnchor.getTrackingState() == ARTrackable.TrackingState.STOPPED) {
                     ite.remove();
-                } else if (coloredAnchor.anchor.getTrackingState() == ARTrackable.TrackingState.TRACKING) {
-                    coloredAnchor.anchor.getPose().toMatrix(mAnchorMatrix, 0);
+                } else if (coloredAnchor.getTrackingState() == ARTrackable.TrackingState.TRACKING) {
+                    coloredAnchor.getPose().toMatrix(mAnchorMatrix, 0);
                     mVirtualObject.updateModelMatrix(mAnchorMatrix, mScaleFactor);
-                    mVirtualObject.draw(viewmtx, projmtx, lightIntensity, coloredAnchor.color);
+                    mVirtualObject.draw(viewmtx, projmtx, lightIntensity, DEFAULT_COLOR);
                 }
             }
 
@@ -416,65 +416,65 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
     }
 
     // Handle only one tap per frame, as taps are usually low frequency compared to frame rate.
-    private void handleTap(ARFrame frame, ARCamera camera) {
-        MotionEvent tap = mQueuedSingleTaps.poll();
-
-        if (tap != null && camera.getTrackingState() == ARTrackable.TrackingState.TRACKING) {
-            ARHitResult hitResult = null;
-            ARTrackable trackable = null;
-            boolean hasHitFlag = false;
-
-            List<ARHitResult> hitTestResult = frame.hitTest(tap);
-            for (int i = 0; i < hitTestResult.size(); i++) {
-                // Check if any plane was hit, and if it was hit inside the plane polygon
-                ARHitResult hitResultTemp = hitTestResult.get(i);
-                trackable = hitResultTemp.getTrackable();
-                if ((trackable instanceof ARPlane
-                        && ((ARPlane) trackable).isPoseInPolygon(hitResultTemp.getHitPose())
-                        && (PlaneRenderer.calculateDistanceToPlane(hitResultTemp.getHitPose(), camera.getPose()) > 0))
-                        || (trackable instanceof ARPoint
-                        && ((ARPoint) trackable).getOrientationMode() == ARPoint.OrientationMode.ESTIMATED_SURFACE_NORMAL)) {
-                    hasHitFlag = true;
-                    hitResult = hitResultTemp;
-                }
-
-                if (trackable instanceof ARPlane) {
-                    break;
-                }
-            }
-
-            //if hit both Plane and Point,take Plane at the first priority.
-            if (hasHitFlag != true) {
-                return;
-            }
-
-            // Hits are sorted by depth. Consider only closest hit on a plane or oriented point.
-            // Cap the number of objects created. This avoids overloading both the
-            // rendering system and ARCore.
-            if (mAnchors.size() >= UtilsCommon.MAX_TRACKING_ANCHOR_NUM) {
-                mAnchors.get(0).anchor.detach();
-                mAnchors.remove(0);
-            }
-
-            // Assign a color to the object for rendering based on the trackable type
-            // this anchor attached to. For AR_TRACKABLE_POINT, it's blue color, and
-            // for AR_TRACKABLE_PLANE, it's green color.
-            float[] objColor;
-            trackable = hitResult.getTrackable();
-            if (trackable instanceof ARPoint) {
-                objColor = new float[]{66.0f, 133.0f, 244.0f, 255.0f};
-            } else if (trackable instanceof ARPlane) {
-                objColor = new float[]{139.0f, 195.0f, 74.0f, 255.0f};
-            } else {
-                objColor = DEFAULT_COLOR;
-            }
-
-            // Adding an Anchor tells ARCore that it should track this position in
-            // space. This anchor is created on the Plane to place the 3D model
-            // in the correct position relative both to the world and to the plane.
-            mAnchors.add(new ColoredARAnchor(hitResult.createAnchor(), objColor));   //添加锚点
-        }
-    }
+//    private void handleTap(ARFrame frame, ARCamera camera) {
+//        MotionEvent tap = mQueuedSingleTaps.poll();
+//
+//        if (tap != null && camera.getTrackingState() == ARTrackable.TrackingState.TRACKING) {
+//            ARHitResult hitResult = null;
+//            ARTrackable trackable = null;
+//            boolean hasHitFlag = false;
+//
+//            List<ARHitResult> hitTestResult = frame.hitTest(tap);
+//            for (int i = 0; i < hitTestResult.size(); i++) {
+//                // Check if any plane was hit, and if it was hit inside the plane polygon
+//                ARHitResult hitResultTemp = hitTestResult.get(i);
+//                trackable = hitResultTemp.getTrackable();
+//                if ((trackable instanceof ARPlane
+//                        && ((ARPlane) trackable).isPoseInPolygon(hitResultTemp.getHitPose())
+//                        && (PlaneRenderer.calculateDistanceToPlane(hitResultTemp.getHitPose(), camera.getPose()) > 0))
+//                        || (trackable instanceof ARPoint
+//                        && ((ARPoint) trackable).getOrientationMode() == ARPoint.OrientationMode.ESTIMATED_SURFACE_NORMAL)) {
+//                    hasHitFlag = true;
+//                    hitResult = hitResultTemp;
+//                }
+//
+//                if (trackable instanceof ARPlane) {
+//                    break;
+//                }
+//            }
+//
+//            //if hit both Plane and Point,take Plane at the first priority.
+//            if (hasHitFlag != true) {
+//                return;
+//            }
+//
+//            // Hits are sorted by depth. Consider only closest hit on a plane or oriented point.
+//            // Cap the number of objects created. This avoids overloading both the
+//            // rendering system and ARCore.
+//            if (mAnchors.size() >= UtilsCommon.MAX_TRACKING_ANCHOR_NUM) {
+//                mAnchors.get(0).anchor.detach();
+//                mAnchors.remove(0);
+//            }
+//
+//            // Assign a color to the object for rendering based on the trackable type
+//            // this anchor attached to. For AR_TRACKABLE_POINT, it's blue color, and
+//            // for AR_TRACKABLE_PLANE, it's green color.
+//            float[] objColor;
+//            trackable = hitResult.getTrackable();
+//            if (trackable instanceof ARPoint) {
+//                objColor = new float[]{66.0f, 133.0f, 244.0f, 255.0f};
+//            } else if (trackable instanceof ARPlane) {
+//                objColor = new float[]{139.0f, 195.0f, 74.0f, 255.0f};
+//            } else {
+//                objColor = DEFAULT_COLOR;
+//            }
+//
+//            // Adding an Anchor tells ARCore that it should track this position in
+//            // space. This anchor is created on the Plane to place the 3D model
+//            // in the correct position relative both to the world and to the plane.
+////            mAnchors.add(new ARAnchor(hitResult.createAnchor(), objColor));   //添加锚点
+//        }
+//    }
 
     public void setArCameraListener(ArCameraListener arCameraListener) {
         mListener = arCameraListener;
@@ -482,5 +482,10 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
 
     public interface ArCameraListener {
         void getCameraPose(ARPose arPose);
+    }
+
+    public void setCameraPose() {
+        ARPose arPose = mSession.update().getCamera().getDisplayOrientedPose();
+        mAnchors.add(mSession.createAnchor(arPose));
     }
 }

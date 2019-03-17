@@ -434,6 +434,12 @@ public class PrruMapFragment extends Fragment {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ((FloorMapActivity) getActivity()).setAnchor();
+                            }
+                        });
                         ((FloorMapActivity) mContext).openZxing(); //打开扫描界面
                         showToast("请扫描pRRU设备二维码，然后进行安装");
                     }
