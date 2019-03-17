@@ -3,10 +3,15 @@ package com.huawei.hiardemo.java.util;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
+import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
-import org.dom4j.io.SAXWriter;
+import org.dom4j.io.XMLWriter;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.List;
 
 public class XmlUntils {
@@ -40,7 +45,24 @@ public class XmlUntils {
         element.attributeValue(attributeName,attributeValue);
     }
 
-    public static void writeXmlFile(String filePath, Element rootElement){
-        SAXWriter writer = new SAXWriter();
+    /**
+     * 将修改后的Document存入指定文件
+     * @param document
+     * @param xmlFile
+     * @throws IOException
+     */
+    public static void saveDocument(Document document, File xmlFile) throws IOException {
+        // 创建输出流
+        Writer osWrite = new OutputStreamWriter(new FileOutputStream(xmlFile));
+        // 获取输出的指定格式
+        OutputFormat format = OutputFormat.createPrettyPrint();
+        // 设置编码 ，确保解析的xml为UTF-8格式
+        format.setEncoding("UTF-8");
+        // 指定输出文件以及格式
+        XMLWriter writer = new XMLWriter(osWrite, format);// XMLWriter
+        // 把document写入xmlFile指定的文件(可以为被解析的文件或者新创建的文件)
+        writer.write(document);
+        writer.flush();
+        writer.close();
     }
 }
