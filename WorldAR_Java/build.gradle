@@ -53,5 +53,6 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.0.1'
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar' //权限library
 
-    compile 'de.hdodenhof:circleimageview:2.1.0'//圆形图片加载
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'org.jetbrains:annotations-java5:15.0'//圆形图片加载
 }
