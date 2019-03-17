@@ -271,9 +271,11 @@ public class PrruMapFragment extends Fragment {
         }
 
     }
-    public String getSelectId(){
+
+    public String getSelectId() {
         return mpRRUId;
     }
+
     /**
      * 判断是否在范围内安装
      *

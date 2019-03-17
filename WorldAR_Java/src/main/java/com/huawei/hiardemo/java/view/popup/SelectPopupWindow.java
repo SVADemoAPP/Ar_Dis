@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.PointF;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.huawei.hiardemo.java.R;
@@ -26,6 +27,7 @@ public class SelectPopupWindow {
     private PointF mSelectPointF;
     private View mTvConfirm;
     private SelectPointListener mSelectPointListener;
+    private Context mContext;
 
     public SelectPopupWindow(Context context, Bitmap mapBitmap) {
         mMapBitmap = mapBitmap;
@@ -71,9 +73,14 @@ public class SelectPopupWindow {
         mTvConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hidePopupWindow();
+
                 if (mSelectPointListener != null) {
-                    mSelectPointListener.getPoint(mSelectPointF); //获取选中点
+                    if (mSelectPointF != null) {
+                        mSelectPointListener.getPoint(mSelectPointF); //获取选中点
+                        hidePopupWindow();
+                    } else {
+                        Toast.makeText(mContext, "请在地图上选择当前位置", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }
