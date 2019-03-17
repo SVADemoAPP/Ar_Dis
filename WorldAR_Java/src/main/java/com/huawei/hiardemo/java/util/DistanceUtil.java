@@ -53,7 +53,7 @@ public class DistanceUtil {
      * @param y
      * @return
      */
-    public static PrruInfoShape getMinDistacePrru(float scale, float flag, List<PrruInfoShape> data, int x, int y) {
+    public static PrruInfoShape getMinDistacePrru(float scale, float flag, List<PrruInfoShape> data, float x, float y) {
         int min = -1;//最近prru下标；
         int minDistance = -1;
         Log.e("XHF", "data=" + data.size());

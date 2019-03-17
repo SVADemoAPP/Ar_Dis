@@ -157,10 +157,8 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
                     float tx = arPose.tx();
                     float ty = -arPose.tz();
                     float[] real = DistanceUtil.mapToReal(mScale, mSelectPointF.x, mSelectPointF.y, mHeight);
-                    float[] distancetoPix = DistanceUtil.realToMap(mScale, tx, ty, mHeight);
-                    int mapX = (int) (mSelectPointF.x + distancetoPix[0]);
-                    int mapY = (int) (mSelectPointF.y + distancetoPix[1]);
-                    prruMapFragment.setNowLocation(mapX, mapY);  //设置当前坐标
+                    float[] pix = DistanceUtil.realToMap(mScale, (real[0]+tx), (real[1]+ty), mHeight);
+                    prruMapFragment.setNowLocation(pix[0], pix[1]);  //设置当前坐标
                 }
             }
         });
