@@ -38,6 +38,7 @@ import net.yoojia.imagemap.core.Shape;
 import net.yoojia.imagemap.core.ShapeExtension;
 import net.yoojia.imagemap.core.SpecialShape;
 
+import org.dom4j.Document;
 import org.dom4j.Element;
 
 import java.io.File;
@@ -225,7 +226,8 @@ public class PrruMapFragment extends Fragment {
     private void getPrruData() {
         String siteName = mapPath.substring(0, mapPath.indexOf(File.separator));
         String floorName = mapPath.substring(mapPath.indexOf(File.separator) + 1, mapPath.indexOf("."));
-        Element rootElement = XmlUntils.getRootElement(Constant.DATA_PATH + File.separator + siteName + File.separator + "project.xml");
+        Document document = XmlUntils.getDocument(Constant.DATA_PATH + File.separator + siteName + File.separator + "project.xml");
+        Element rootElement = XmlUntils.getRootElement(document);
         Element floors = XmlUntils.getElementByName(rootElement, "Floors");
         List<Element> floorList = XmlUntils.getElementListByName(floors, "Floor");
         boolean flag = false;
