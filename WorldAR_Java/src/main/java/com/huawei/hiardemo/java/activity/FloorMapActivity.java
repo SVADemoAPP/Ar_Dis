@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.PointF;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -27,18 +27,25 @@ import com.huawei.hiardemo.java.R;
 import com.huawei.hiardemo.java.fragment.ARFragment;
 import com.huawei.hiardemo.java.fragment.PrruMapFragment;
 import com.huawei.hiardemo.java.framework.activity.BaseActivity;
+import com.huawei.hiardemo.java.framework.utils.StringUtil;
 import com.huawei.hiardemo.java.util.Constant;
 import com.huawei.hiardemo.java.util.DistanceUtil;
+import com.huawei.hiardemo.java.util.XmlUntils;
 import com.huawei.hiardemo.java.view.popup.SelectPopupWindow;
 
+import net.yoojia.imagemap.core.PrruInfoShape;
+
+import org.dom4j.Document;
+import org.dom4j.Element;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.List;
 
 import static com.google.zxing.integration.android.IntentIntegrator.REQUEST_CODE;
 
@@ -188,10 +195,30 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
                     Toast.makeText(this, "扫描结果: " + result.getContents(), Toast.LENGTH_LONG).show();
 
                     String contents = result.getContents();
-                    String mapAdress = Constant.DATA_PATH + File.separator + mapPath;
+                    String floorName = mapPath.substring(mapPath.indexOf(File.separator) + 1, mapPath.indexOf("."));
+                    String xmlFilePath = Constant.DATA_PATH + File.separator + "project.xml";
                     if (prruMapFragment.judgeSamePrru()) { //判断是否是同一个Prru 同一个存入信息
                         prruMapFragment.cancelPrrusetDialog();
                         showToast("本次扫码绑定有效");
+                        Document document = XmlUntils.getDocument(xmlFilePath);
+                        Element rootElement = XmlUntils.getRootElement(document);
+                        Element floors = XmlUntils.getElementByName(rootElement, "Floors");
+                        List<Element> floorList = XmlUntils.getElementListByName(floors, "Floor");
+                        for (Element element : floorList) {
+                            //如果是同一楼层
+                            if (floorName.equals(XmlUntils.getAttributeValueByName(element, "floorCode"))) {
+                                List<Element> nes = XmlUntils.getElementListByName(XmlUntils.getElementByName(element, "NEs"), "NE");
+                                for (Element ne : nes) {
+                                    if(XmlUntils.getAttributeValueByName(ne,"id").equals(prruMapFragment.getSelectId())){
+                                        XmlUntils.setAttributeValueByName(ne,"esn",contents);
+                                        XmlUntils.saveDocument(document,new File(xmlFilePath));
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+
                     } else {
                         showToast("本次扫码绑定无效");
                         prruMapFragment.cancelPrrusetDialog();
