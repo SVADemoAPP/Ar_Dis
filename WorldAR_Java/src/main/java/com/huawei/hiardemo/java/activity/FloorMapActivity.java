@@ -66,15 +66,9 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
         mBack = findViewById(R.id.back);
         mToolName = findViewById(R.id.tool_top_name);
         mAdd = findViewById(R.id.tool_right_add);
-//        mAdd.setVisibility(View.GONE);
+        mAdd.setVisibility(View.GONE);
         mBack.setVisibility(View.VISIBLE);
         mBack.setOnClickListener(this);
-        mAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSelectPopupWindow.showPopupWindow();
-            }
-        });
     }
 
     public Bitmap getBitmap() {
@@ -109,13 +103,11 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
         super.onWindowFocusChanged(hasFocus);
 
         if (hasFocus) {
-//            if (!mFirst) {
-//                mFirst = true;
-//            }
-            if(arFragment!=null)
-            {
-                arFragment.test();
+            if (!mFirst) {
+                mFirst = true;
+                mSelectPopupWindow.showPopupWindow();
             }
+
         }
     }
 
@@ -127,13 +119,14 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
         arFragment = new ARFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.add(R.id.prru_replace, prruMapFragment);
+        fragmentTransaction.add(R.id.prru_replace, prruMapFragment);
         fragmentTransaction.add(R.id.ar_replace, arFragment);
         fragmentTransaction.commit();
         mSelectPopupWindow = new SelectPopupWindow(mContext, mBitmap);
         mSelectPopupWindow.setSelectListener(new SelectPopupWindow.SelectPointListener() {
             @Override
             public void getPoint(PointF pointF) { //有选择点返回
+                Log.e("XHF", "PointF=" + pointF.toString());
                 mSelectPointF = pointF;
             }
 
@@ -268,7 +261,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
         } else {
             return null;
         }
-        return FileProvider.getUriForFile(mContext, "com.gyr.disvisibledemo.fileprovider", mediaFile);
+        return FileProvider.getUriForFile(mContext, "com.huawei.hiardemo.java.fileprovider", mediaFile);
     }
 
     //24以下版本获取

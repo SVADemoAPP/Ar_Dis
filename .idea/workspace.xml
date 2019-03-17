@@ -5,71 +5,50 @@
       <config />
     </shared>
   </component>
-  <component name="AvailableLibraryUpdateStorage">
-    <library-updates>
-      <library-update>
-        <group-id>com.android.support</group-id>
-        <name>appcompat-v7</name>
-        <version>26.0.0-alpha1</version>
-        <repository>Android Repository</repository>
-      </library-update>
-      <library-update>
-        <group-id>junit</group-id>
-        <name>junit</name>
-        <version>4.13-beta-2</version>
-        <repository>JCenter</repository>
-      </library-update>
-      <library-update>
-        <group-id>com.android.support.test</group-id>
-        <name>runner</name>
-        <version>0.6-alpha</version>
-        <repository>Android Repository</repository>
-      </library-update>
-      <library-update>
-        <group-id>com.android.support.test.espresso</group-id>
-        <name>espresso-core</name>
-        <version>2.3-alpha</version>
-        <repository>Android Repository</repository>
-      </library-update>
-      <library-update>
-        <group-id>com.android.support</group-id>
-        <name>recyclerview-v7</name>
-        <version>26.0.0-alpha1</version>
-        <repository>Android Repository</repository>
-      </library-update>
-      <library-update>
-        <group-id>com.android.support</group-id>
-        <name>design</name>
-        <version>26.0.0-alpha1</version>
-        <repository>Android Repository</repository>
-      </library-update>
-    </library-updates>
-    <last-search-timestamp>1552728871757</last-search-timestamp>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="56a7533a-acbd-43c2-b87b-d2f3de995a17" name="Default Changelist" comment="">
+    <list default="true" id="c9a60f4e-7893-4068-b890-07e32dd24001" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars___C__Users_XHF__gradle_caches_transforms_1_files_1_1_HUAWEI_AR_Engine_SDK_v1_7_0_aar_9b2cad9d27724feada847dbf8fea8732_unspecified_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars___F__AR_Ar_Dis_WorldAR_Java_libs_dom4j_2_0_2_jar_unspecified_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars___F__AR_Ar_Dis_activity_entry_name_libs_androidsvg_1_2_0_jar_unspecified_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars___F__AR_Ar_Dis_activity_entry_name_libs_nineoldandroids_2_4_0_jar_unspecified_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WorldAR_Java/src/main/res/mipmap-xhdpi/map_select_bg_cancel_default.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WorldAR_Java/src/main/res/mipmap-xhdpi/map_select_bg_cancel_press.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WorldAR_Java/src/main/res/mipmap-xhdpi/map_select_bg_confirm_default.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WorldAR_Java/src/main/res/mipmap-xhdpi/map_select_bg_confirm_press.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/jarAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskJars.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskJars.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars___C__Users_XHF__gradle_caches_transforms_1_files_1_1_HUAWEI_AR_Engine_SDK_v1_7_0_aar_bba6427ace2692bda33c1909aa44c747_unspecified_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars___F__AR_Ar_Dis_Ar_WorldAR_Java_libs_dom4j_2_0_2_jar_unspecified_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars___F__AR_Ar_Dis_Ar_activity_entry_name_libs_androidsvg_1_2_0_jar_unspecified_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars___F__AR_Ar_Dis_Ar_activity_entry_name_libs_nineoldandroids_2_4_0_jar_unspecified_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WorldAR_Java/build/intermediates/incremental/packageDebug/debug/dex-renamer-state.txt" beforeDir="false" afterPath="$PROJECT_DIR$/WorldAR_Java/build/intermediates/incremental/packageDebug/debug/dex-renamer-state.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WorldAR_Java/build/intermediates/incremental/packageDebug/debug/file-input-save-data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/WorldAR_Java/build/intermediates/incremental/packageDebug/debug/file-input-save-data.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WorldAR_Java/build/intermediates/manifests/full/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WorldAR_Java/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WorldAR_Java/build/intermediates/res/debug/resources-debug.ap_" beforeDir="false" afterPath="$PROJECT_DIR$/WorldAR_Java/build/intermediates/res/debug/resources-debug.ap_" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WorldAR_Java/build/outputs/apk/debug/WorldAR_Java-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/WorldAR_Java/build/outputs/apk/debug/WorldAR_Java-debug.apk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WorldAR_Java/build/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/WorldAR_Java/build/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WorldAR_Java/WorldAR_Java.iml" beforeDir="false" afterPath="$PROJECT_DIR$/WorldAR_Java/WorldAR_Java.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WorldAR_Java/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/WorldAR_Java/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WorldAR_Java/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WorldAR_Java/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/activity/FloorMapActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/activity/FloorMapActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/fragment/ARFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/fragment/ARFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/activity_entry_name/activity_entry_name.iml" beforeDir="false" afterPath="$PROJECT_DIR$/activity_entry_name/activity_entry_name.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lfilepickerlibrary/lfilepickerlibrary.iml" beforeDir="false" afterPath="$PROJECT_DIR$/lfilepickerlibrary/lfilepickerlibrary.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toprightmenu/toprightmenu.iml" beforeDir="false" afterPath="$PROJECT_DIR$/toprightmenu/toprightmenu.iml" afterDir="false" />
     </list>
-    <ignored path=".gradle/" />
-    <ignored path=".idea/" />
-    <ignored path="build/" />
-    <ignored path="gradle/" />
-    <ignored path="WorldAR_Java/build/" />
-    <ignored path="Ar.iml" />
-    <ignored path="JavaSample.iml" />
-    <ignored path="local.properties" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,48 +68,46 @@
     </system>
   </component>
   <component name="FUSProjectUsageTrigger">
-    <session id="-1076714070">
+    <session id="1692376286">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
-          <entry key="project.open.time.1" value="2" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.21" value="1" />
           <entry key="project.opened" value="2" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="gitignore" value="2" />
-          <entry key="gradle" value="15" />
-          <entry key="iml" value="1" />
-          <entry key="java" value="65" />
-          <entry key="properties" value="2" />
-          <entry key="xml" value="13" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="Groovy" value="15" />
-          <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="65" />
-          <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Properties" value="2" />
-          <entry key="XML" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="gradle" value="18" />
-          <entry key="java" value="19" />
-          <entry key="txt" value="11" />
-          <entry key="xml" value="17" />
+          <entry key="gradle" value="14" />
+          <entry key="java" value="193" />
+          <entry key="xml" value="195" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Groovy" value="18" />
-          <entry key="JAVA" value="19" />
-          <entry key="PLAIN_TEXT" value="11" />
-          <entry key="XML" value="17" />
+          <entry key="Groovy" value="14" />
+          <entry key="JAVA" value="193" />
+          <entry key="XML" value="195" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="class" value="1" />
+          <entry key="gitignore" value="1" />
+          <entry key="iml" value="1" />
+          <entry key="java" value="13" />
+          <entry key="pro" value="1" />
+          <entry key="xml" value="5" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="CLASS" value="1" />
+          <entry key="IDEA_MODULE" value="1" />
+          <entry key="JAVA" value="13" />
+          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="ProGuard File" value="1" />
+          <entry key="XML" value="5" />
         </counts>
       </usages-collector>
     </session>
@@ -138,98 +115,88 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WorldAR_Java/build.gradle">
+        <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-228" />
+            <state relative-caret-position="152">
+              <caret line="253" column="58" selection-start-line="253" selection-start-column="58" selection-end-line="253" selection-end-column="58" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/fragment/ARFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="247">
+              <caret line="240" selection-start-line="240" selection-end-line="240" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#14735#15103#0" expanded="true" />
+                <element signature="e#15102#15103#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/AndroidManifest.xml">
+          <provider editor-type-id="android-manifest" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="703">
+              <caret line="37" column="49" selection-start-line="37" selection-start-column="49" selection-end-line="37" selection-end-column="49" />
+            </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/AndroidManifest.xml">
-          <provider editor-type-id="android-manifest" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="42" column="28" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WorldAR_Java/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/toprightmenu/.gitignore">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/activity/MainActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-93">
-              <caret line="171" column="42" selection-start-line="171" selection-start-column="42" selection-end-line="171" selection-end-column="42" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/activity/HomeActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="618">
-              <caret line="57" column="38" selection-start-line="57" selection-start-column="38" selection-end-line="57" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/settings.gradle">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/activity/FloorMapActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="124" column="47" selection-start-line="124" selection-start-column="47" selection-end-line="124" selection-end-column="47" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="99">
+              <caret line="43" column="20" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/activity/FileSearchActivity.java">
+        <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/HUAWEI AR Engine SDK_v1.7.0.aar/9b2cad9d27724feada847dbf8fea8732/jars/classes.jar!/com/huawei/hiar/AREnginesApk.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="312" column="50" selection-start-line="312" selection-start-column="50" selection-end-line="312" selection-end-column="50" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="177">
+              <caret line="24" column="47" selection-start-line="24" selection-start-column="47" selection-end-line="24" selection-end-column="47" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WorldAR_Java/WorldAR_Java.iml">
+        <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/CameraPermissionHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="38" column="39" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/res/layout/fragment_ar_layout.xml">
+          <provider editor-type-id="android-designer2" />
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>padi</find>
+      <find>CircleImageView</find>
+      <find>mCICancel</find>
+      <find>ColoredARAnchor</find>
+      <find>hasPermission</find>
+      <find>onwI</find>
+      <find>FragmentMa</find>
+      <find>add</find>
+      <find>tool_right_add</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
     <option name="myGradleHomes">
@@ -247,14 +214,14 @@
         <entry>
           <key>
             <ExternalProjectPojo>
-              <option name="name" value="Ar" />
+              <option name="name" value="Ar_Dis" />
               <option name="path" value="$PROJECT_DIR$" />
             </ExternalProjectPojo>
           </key>
           <value>
             <list>
               <ExternalProjectPojo>
-                <option name="name" value="Ar" />
+                <option name="name" value="Ar_Dis" />
                 <option name="path" value="$PROJECT_DIR$" />
               </ExternalProjectPojo>
               <ExternalProjectPojo>
@@ -288,7 +255,7 @@
                 <option name="name" value="splitsDiscoveryTaskDebugAndroidTest" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the sub-projects of root project 'Ar'." />
+                <option name="description" value="Displays the sub-projects of root project 'Ar_Dis'." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="projects" />
               </ExternalTaskPojo>
@@ -352,7 +319,7 @@
                 <option name="name" value="assembleDebugUnitTest" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the configuration model of root project 'Ar'. [incubating]" />
+                <option name="description" value="Displays the configuration model of root project 'Ar_Dis'. [incubating]" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="model" />
               </ExternalTaskPojo>
@@ -370,7 +337,7 @@
                 <option name="name" value="bundleAppClassesDebug" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the tasks runnable from root project 'Ar' (some of the displayed tasks may belong to subprojects)." />
+                <option name="description" value="Displays the tasks runnable from root project 'Ar_Dis' (some of the displayed tasks may belong to subprojects)." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="tasks" />
               </ExternalTaskPojo>
@@ -401,7 +368,7 @@
                 <option name="name" value="transformNativeLibsWithIntermediateJniLibsForRelease" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays all dependencies declared in root project 'Ar'." />
+                <option name="description" value="Displays all dependencies declared in root project 'Ar_Dis'." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="dependencies" />
               </ExternalTaskPojo>
@@ -478,7 +445,7 @@
                 <option name="name" value="compileDebugAndroidTestJavaWithJavac" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the components produced by root project 'Ar'. [incubating]" />
+                <option name="description" value="Displays the components produced by root project 'Ar_Dis'. [incubating]" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="components" />
               </ExternalTaskPojo>
@@ -624,7 +591,7 @@
                 <option name="name" value="uninstallDebugAndroidTest" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the insight into a specific dependency in root project 'Ar'." />
+                <option name="description" value="Displays the insight into a specific dependency in root project 'Ar_Dis'." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="dependencyInsight" />
               </ExternalTaskPojo>
@@ -910,12 +877,12 @@
                 <option name="name" value="transformDexArchiveWithDexMergerForDebugAndroidTest" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the dependent components of components in root project 'Ar'. [incubating]" />
+                <option name="description" value="Displays the dependent components of components in root project 'Ar_Dis'. [incubating]" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="dependentComponents" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays all buildscript dependencies declared in root project 'Ar'." />
+                <option name="description" value="Displays all buildscript dependencies declared in root project 'Ar_Dis'." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="buildEnvironment" />
               </ExternalTaskPojo>
@@ -1051,7 +1018,7 @@
                 <option name="name" value="generateReleaseResValues" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the properties of root project 'Ar'." />
+                <option name="description" value="Displays the properties of root project 'Ar_Dis'." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="properties" />
               </ExternalTaskPojo>
@@ -4464,7 +4431,7 @@
                   </entry>
                 </map>
               </option>
-              <option name="name" value="Ar" />
+              <option name="name" value="Ar_Dis" />
               <option name="projectBuildClasspath">
                 <list>
                   <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.6-all/bcst21l2brirad8k2ben1letg/gradle-4.6/src/announce" />
@@ -4630,40 +4597,20 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/toprightmenu/build.gradle" />
-        <option value="$PROJECT_DIR$/lfilepickerlibrary/build.gradle" />
-        <option value="$PROJECT_DIR$/activity_entry_name/build.gradle" />
         <option value="$PROJECT_DIR$/WorldAR_Java/build.gradle" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/framework/entity/BaseResponse.java" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/view/popup/LoadingDialog.java" />
+        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/res/layout/popupwindow_select_map.xml" />
         <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/view/popup/SelectPopupWindow.java" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/view/popup/SuperPopupWindow.java" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/util/WindowChangeUtils.java" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/util/ZipUtils.java" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/rending/BackgroundRenderer.java" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/rending/PlaneRenderer.java" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/rending/PointCloudRenderer.java" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/rending/VirtualObjectRenderer.java" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/fragment/ARFragment.java" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/fragment/PrruMapFragment.java" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/adapter/RvGroupAdapter.java" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/adapter/RvMemberAdapter.java" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/adapter/RvSearchAdapter.java" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/adapter/SearchZipAdapter.java" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/activity/MainActivity.java" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/activity/HomeActivity.java" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/activity/FloorMapActivity.java" />
-        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/activity/FileSearchActivity.java" />
+        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/MainActivity.java" />
         <option value="$PROJECT_DIR$/WorldAR_Java/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/fragment/ARFragment.java" />
+        <option value="$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/activity/FloorMapActivity.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="552" />
-    <option name="y" value="71" />
-    <option name="width" value="1518" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="246" />
+    <option name="y" value="17" />
+    <option name="width" value="1520" />
     <option name="height" value="940" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -4677,92 +4624,125 @@
       </profile-state>
     </entry>
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView">
+        <subPane>
           <expand>
             <path>
-              <item name="Ar" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="Ar_Dis" type="1abcf292:AndroidViewProjectNode" />
+              <item name="WorldAR_Java" type="feadf853:AndroidModuleNode" />
             </path>
             <path>
-              <item name="Ar" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="WorldAR_Java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="Ar" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="WorldAR_Java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="Ar" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="WorldAR_Java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="Ar_Dis" type="1abcf292:AndroidViewProjectNode" />
+              <item name="WorldAR_Java" type="feadf853:AndroidModuleNode" />
+              <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="Ar" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Ar" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="Ar_Dis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Ar_Dis" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
-              <item name="Ar" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Ar" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="Ar_Dis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Ar_Dis" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="WorldAR_Java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
-              <item name="Ar" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Ar" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="Ar_Dis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Ar_Dis" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="WorldAR_Java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Ar" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Ar" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="Ar_Dis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Ar_Dis" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="WorldAR_Java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Ar_Dis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Ar_Dis" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="WorldAR_Java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Ar_Dis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Ar_Dis" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="WorldAR_Java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Ar_Dis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Ar_Dis" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="WorldAR_Java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="activity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Ar_Dis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Ar_Dis" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="WorldAR_Java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="fragment" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Ar_Dis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Ar_Dis" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="WorldAR_Java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Ar_Dis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Ar_Dis" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="WorldAR_Java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+              <item name="layout" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="E:/Software/Android/sdk" />
-    <property name="device.picker.selection" value="96cbbce6" />
-    <property name="last_opened_file_path" value="F:/Dis/app/toprightmenu" />
-    <property name="project.structure.last.edited" value="SDK Location" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Ignored.Files" />
+    <property name="device.picker.selection" value="66J5T18A28026962" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\AR\Ar_Dis\Ar\WorldAR_Java" />
-      <recent name="F:\AR\Ar_Dis\Ar\WorldAR_Java\libs" />
-      <recent name="F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\res" />
-      <recent name="F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\res\values" />
-      <recent name="F:\AR\Ar_Dis\Ar\WorldAR_Java\src\main\res\mipmap-xxxhdpi" />
+      <recent name="F:\AR\Ar_Dis\WorldAR_Java\src\main\res\mipmap-xhdpi" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -4875,67 +4855,36 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="56a7533a-acbd-43c2-b87b-d2f3de995a17" name="Default Changelist" comment="" />
-      <created>1552728055759</created>
+      <changelist id="c9a60f4e-7893-4068-b890-07e32dd24001" name="Default Changelist" comment="" />
+      <created>1552733299596</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1552728055759</updated>
+      <updated>1552733299596</updated>
     </task>
-    <task id="LOCAL-00001" summary="1.合并dis">
-      <created>1552731094033</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1552731094033</updated>
-    </task>
-    <task id="LOCAL-00002" summary="1.合并dis2">
-      <created>1552731164297</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1552731164297</updated>
-    </task>
-    <task id="LOCAL-00003" summary="1.合并dis3">
-      <created>1552731308505</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1552731308505</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-  </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.3297587" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.25536194" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
       <window_info id="Image Layers" order="5" />
       <window_info id="Designer" order="6" />
       <window_info id="Capture Tool" order="7" />
-      <window_info anchor="bottom" id="Run" />
-      <window_info anchor="bottom" id="Find" />
-      <window_info anchor="bottom" id="Debug" />
-      <window_info anchor="bottom" id="Version Control" order="0" visible="true" weight="0.32892805" />
-      <window_info anchor="bottom" id="Logcat" order="1" />
-      <window_info anchor="bottom" id="TODO" order="2" weight="0.32892805" />
-      <window_info anchor="bottom" id="Terminal" order="3" weight="0.32892805" />
-      <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.5010482" side_tool="true" weight="0.37815127" />
-      <window_info anchor="bottom" id="Build" order="5" sideWeight="0.4989518" weight="0.31571218" />
-      <window_info anchor="bottom" id="Android Profiler" order="6" />
-      <window_info anchor="right" id="Preview" />
+      <window_info anchor="bottom" id="Run" order="0" weight="0.5433186" />
+      <window_info active="true" anchor="bottom" id="Logcat" order="1" visible="true" weight="0.44199705" />
+      <window_info anchor="bottom" id="TODO" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" />
+      <window_info anchor="bottom" id="Terminal" order="4" />
+      <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="6" />
+      <window_info anchor="bottom" id="Build" order="7" weight="0.16152717" />
+      <window_info anchor="bottom" id="Android Profiler" order="8" />
+      <window_info anchor="right" id="Preview" weight="0.14812332" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" />
@@ -4946,419 +4895,125 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="1.合并dis" />
-    <MESSAGE value="1.合并dis2" />
-    <MESSAGE value="1.合并dis3" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.合并dis3" />
-  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/util/WindowChangeUtils.java">
+    <entry file="file://$PROJECT_DIR$/activity_entry_name/build.gradle">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WorldAR_Java/WorldAR_Java.iml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="14" column="52" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="228">
+          <caret line="12" column="47" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/util/UtilsCommon.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/res/layout/popup_search_layout.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/util/ScanFileCountUtil.java">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.hdodenhof/circleimageview/2.1.0/f099f4aafdd665b05e0c31d59b900812a172e30f/circleimageview-2.1.0-sources.jar!/de/hdodenhof/circleimageview/CircleImageView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/util/FileUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/util/DisApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/util/Constant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/util/BlueUntils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/util/BitMapUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/rending/BackgroundRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1406">
-          <caret line="90" column="31" lean-forward="true" selection-start-line="90" selection-start-column="31" selection-end-line="90" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/rending/PlaneRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1216">
-          <caret line="106" column="37" lean-forward="true" selection-start-line="106" selection-start-column="37" selection-end-line="106" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/rending/PointCloudRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="115" column="52" lean-forward="true" selection-start-line="115" selection-start-column="52" selection-end-line="115" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/rending/Triangulator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="17" column="7" lean-forward="true" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/rending/VirtualObjectRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="156" column="42" lean-forward="true" selection-start-line="156" selection-start-column="42" selection-end-line="156" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/rendering/PlaneRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="47" column="13" selection-start-line="47" selection-start-column="13" selection-end-line="47" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/rendering/PointCloudRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/rendering/ShaderHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/rendering/Triangulator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/rendering/VirtualObjectRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="40" column="13" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/rendering/BackgroundRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="-1615">
+          <caret line="38" column="28" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/framework/activity/BaseActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-171">
-          <caret line="3" column="7" lean-forward="true" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
+        <state relative-caret-position="170">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#6618#7123#0" expanded="true" />
+            <element signature="e#7122#7123#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/framework/entity/BaseModel.java">
+    <entry file="file://$PROJECT_DIR$/WorldAR_Java/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        <state relative-caret-position="152">
+          <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/framework/entity/BaseResponse.java">
+    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/view/popup/SelectPopupWindow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        <state relative-caret-position="82">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/framework/fragment/BaseFragment.java">
+    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/res/layout/popupwindow_select_map.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+        <state relative-caret-position="198">
+          <caret line="41" column="21" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/framework/sharef/CameraPermissionHelper.java">
+    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/view/popup/SuperPopupWindow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        <state relative-caret-position="46">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/framework/sharef/DisplayRotationHelper.java">
+    <entry file="file://$PROJECT_DIR$/WorldAR_Java/proguard-rules.pro">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WorldAR_Java/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/res/layout/fragment_ar_layout.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/CameraPermissionHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        <state relative-caret-position="330">
+          <caret line="38" column="39" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="39" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/framework/sharef/ShaderHelper.java">
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/HUAWEI AR Engine SDK_v1.7.0.aar/9b2cad9d27724feada847dbf8fea8732/jars/classes.jar!/com/huawei/hiar/AREnginesApk.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="17" column="7" lean-forward="true" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="177">
+          <caret line="24" column="47" selection-start-line="24" selection-start-column="47" selection-end-line="24" selection-end-column="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/framework/sharef/SharedPrefHelper.java">
+    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/framework/sharef/ShareMapHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/framework/utils/CommonTools.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/framework/utils/DateUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/framework/utils/NumUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/framework/utils/StringUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        <state relative-caret-position="703">
+          <caret line="37" column="49" selection-start-line="37" selection-start-column="49" selection-end-line="37" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/fragment/ARFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="173" lean-forward="true" selection-start-line="173" selection-end-line="173" />
+        <state relative-caret-position="247">
+          <caret line="240" selection-start-line="240" selection-end-line="240" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#14735#15103#0" expanded="true" />
+            <element signature="e#15102#15103#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/fragment/PrruMapFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="242" column="29" selection-start-line="242" selection-start-column="29" selection-end-line="242" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/bean/SiteModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/bean/FloorModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/adapter/RvGroupAdapter.java">
+    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
-          <caret line="140" column="72" selection-start-line="140" selection-start-column="72" selection-end-line="140" selection-end-column="72" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/adapter/RvMemberAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-429">
-          <caret line="35" column="26" selection-start-line="35" selection-start-column="26" selection-end-line="35" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/adapter/RvSearchAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="32" column="58" selection-start-line="32" selection-start-column="58" selection-end-line="32" selection-end-column="58" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/adapter/SearchZipAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="67" column="38" selection-start-line="67" selection-start-column="38" selection-end-line="67" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/activity/PortraitZxingActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/activity/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-93">
-          <caret line="171" column="42" selection-start-line="171" selection-start-column="42" selection-end-line="171" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/activity/HomeActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="618">
-          <caret line="57" column="38" selection-start-line="57" selection-start-column="38" selection-end-line="57" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="253" column="58" selection-start-line="253" selection-start-column="58" selection-end-line="253" selection-end-column="58" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/activity/FloorMapActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="124" column="47" selection-start-line="124" selection-start-column="47" selection-end-line="124" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="99">
+          <caret line="43" column="20" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="20" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/java/com/huawei/hiardemo/java/activity/FileSearchActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="312" column="50" selection-start-line="312" selection-start-column="50" selection-end-line="312" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/WorldAR_Java.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-228" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/toprightmenu/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorldAR_Java/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="42" column="28" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest" />
     </entry>
   </component>
   <component name="masterDetails">

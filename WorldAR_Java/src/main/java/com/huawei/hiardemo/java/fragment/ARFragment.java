@@ -1,5 +1,6 @@
 package com.huawei.hiardemo.java.fragment;
 
+import android.graphics.Color;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -38,6 +40,7 @@ import com.huawei.hiar.exceptions.ARUnavailableServiceApkTooOldException;
 import com.huawei.hiar.exceptions.ARUnavailableServiceNotInstalledException;
 import com.huawei.hiar.exceptions.ARUnavailableUserDeclinedInstallationException;
 import com.huawei.hiardemo.java.DisplayRotationHelper;
+import com.huawei.hiardemo.java.MainActivity;
 import com.huawei.hiardemo.java.R;
 import com.huawei.hiardemo.java.UtilsCommon;
 import com.huawei.hiardemo.java.framework.sharef.CameraPermissionHelper;
@@ -56,64 +59,18 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
-    private static final String TAG = ARFragment.class.getSimpleName();
-    private ARSession mSession;
-    private GLSurfaceView mSurfaceView;
-    private GestureDetector mGestureDetector;
-    private DisplayRotationHelper mDisplayRotationHelper;
-
-    private BackgroundRenderer mBackgroundRenderer = new BackgroundRenderer();
-    private VirtualObjectRenderer mVirtualObject = new VirtualObjectRenderer();
-    private PlaneRenderer mPlaneRenderer = new PlaneRenderer();
-    private PointCloudRenderer mPointCloud = new PointCloudRenderer();
-
-    private final float[] mAnchorMatrix = new float[UtilsCommon.MATRIX_NUM];
-    private static final float[] DEFAULT_COLOR = new float[]{0f, 0f, 0f, 0f};
-
-    // Anchors created from taps used for object placing with a given color.
-    private static class ColoredARAnchor {
-        public final ARAnchor anchor;
-        public final float[] color;
-
-        public ColoredARAnchor(ARAnchor a, float[] color4f) {
-            this.anchor = a;
-            this.color = color4f;
-        }
-    }
-
-    private ArrayBlockingQueue<MotionEvent> mQueuedSingleTaps = new ArrayBlockingQueue<>(2);
-    private ArrayList<ColoredARAnchor> mAnchors = new ArrayList<>();
-
-    private float mScaleFactor = 0.15f;
-    private boolean installRequested;
-    private float updateInterval = 0.5f;
-    private long lastInterval;
-    private int frames = 0;
-    private float fps;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View mArView = inflater.inflate(R.layout.fragment_ar_layout, container, false);
-        initView(mArView);
+        View mArView = inflater.inflate(R.layout.activity_main, container, false);
 
-        return mArView;
-    }
-    public  void test(){
-        getActivity().getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-    }
-
-    private void initView(View view) {
-        mSurfaceView = view.findViewById(R.id.surfaceview);
+        mFpsTextView =  mArView.findViewById(R.id.fpsTextView);
+        mSearchingTextView = mArView.findViewById(R.id.searchingTextView);
+        mSurfaceView = mArView.findViewById(R.id.surfaceview);
         mDisplayRotationHelper = new DisplayRotationHelper(getContext());
+
         mGestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
@@ -141,7 +98,48 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
         mSurfaceView.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
 
         installRequested = false;
+
+        return mArView;
     }
+
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private ARSession mSession;
+    private GLSurfaceView mSurfaceView;
+    private GestureDetector mGestureDetector;
+    private DisplayRotationHelper mDisplayRotationHelper;
+
+    private BackgroundRenderer mBackgroundRenderer = new BackgroundRenderer();
+    private VirtualObjectRenderer mVirtualObject = new VirtualObjectRenderer();
+    private PlaneRenderer mPlaneRenderer = new PlaneRenderer();
+    private PointCloudRenderer mPointCloud = new PointCloudRenderer();
+
+    private final float[] mAnchorMatrix = new float[UtilsCommon.MATRIX_NUM];
+    private static final float[] DEFAULT_COLOR = new float[] {0f, 0f, 0f, 0f};
+    // Anchors created from taps used for object placing with a given color.
+    private static class ColoredARAnchor {
+        public final ARAnchor anchor;
+        public final float[] color;
+
+        public ColoredARAnchor(ARAnchor a, float[] color4f) {
+            this.anchor = a;
+            this.color = color4f;
+        }
+    }
+
+    private ArrayBlockingQueue<MotionEvent> mQueuedSingleTaps = new ArrayBlockingQueue<>(2);
+    private ArrayList<ColoredARAnchor> mAnchors = new ArrayList<>();
+
+    private float mScaleFactor = 0.15f;
+    private boolean installRequested;
+    private float updateInterval = 0.5f;
+    private long lastInterval;
+    private int frames = 0;
+    private float fps;
+    private TextView mFpsTextView;
+    private TextView mSearchingTextView;
+
+
+
 
     @Override
     public void onResume() {
@@ -153,7 +151,7 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
                 //If you do not want to switch engines, AREnginesSelector is useless.
                 // You just need to use AREnginesApk.requestInstall() and the default engine
                 // is Huawei AR Engine.
-                AREnginesSelector.AREnginesAvaliblity enginesAvaliblity = AREnginesSelector.checkAllAvailableEngines(getActivity());
+                AREnginesSelector.AREnginesAvaliblity enginesAvaliblity = AREnginesSelector.checkAllAvailableEngines(getContext());
                 if ((enginesAvaliblity.ordinal() &
                         AREnginesSelector.AREnginesAvaliblity.HWAR_ENGINE_SUPPORTED.ordinal()) != 0) {
 
@@ -172,7 +170,7 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
                         return;
                     }
 
-                    mSession = new ARSession(/*context=*/getActivity());
+                    mSession = new ARSession(/*context=*/getContext());
                     ARConfigBase config = new ARWorldTrackingConfig(mSession);
                     mSession.configure(config);
                 } else {
@@ -199,12 +197,12 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
             } catch (ARUnSupportedConfigurationException e) {
                 message = "The configuration is not supported by the device!";
                 exception = e;
-            } catch (Exception e) {
+            }catch (Exception e) {
                 message = "exception throwed";
                 exception = e;
             }
             if (message != null) {
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
                 Log.e(TAG, "Creating sesson", exception);
                 if (mSession != null) {
                     mSession.stop();
@@ -314,20 +312,20 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
             mPointCloud.draw(viewmtx, projmtx);
             arPointCloud.release();
 
-//            if (mSearchingTextView != null) {
-//                for (ARPlane plane : mSession.getAllTrackables(ARPlane.class)) {
-//                    if (plane.getType() != ARPlane.PlaneType.UNKNOWN_FACING &&
-//                            plane.getTrackingState() == ARTrackable.TrackingState.TRACKING) {
-//                        hideLoadingMessage();
-//                        break;
-//                    }
-//                }
-//            }
+            if (mSearchingTextView != null) {
+                for (ARPlane plane : mSession.getAllTrackables(ARPlane.class)) {
+                    if (plane.getType() != ARPlane.PlaneType.UNKNOWN_FACING &&
+                            plane.getTrackingState() == ARTrackable.TrackingState.TRACKING) {
+                        hideLoadingMessage();
+                        break;
+                    }
+                }
+            }
             mPlaneRenderer.drawPlanes(mSession.getAllTrackables(ARPlane.class), camera.getDisplayOrientedPose(), projmtx);
 
             Iterator<ColoredARAnchor> ite = mAnchors.iterator();
             while (ite.hasNext()) {
-                ColoredARAnchor coloredAnchor = ite.next();
+               ColoredARAnchor coloredAnchor = ite.next();
                 if (coloredAnchor.anchor.getTrackingState() == ARTrackable.TrackingState.STOPPED) {
                     ite.remove();
                 } else if (coloredAnchor.anchor.getTrackingState() == ARTrackable.TrackingState.TRACKING) {
@@ -344,15 +342,15 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
 
 
     private void hideLoadingMessage() {
-//        getActivity().runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-////                if (mSearchingTextView != null) {
-////                    mSearchingTextView.setVisibility(View.GONE);
-////                    mSearchingTextView = null;
-////                }
-//            }
-//        });
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mSearchingTextView != null) {
+                    mSearchingTextView.setVisibility(View.GONE);
+                    mSearchingTextView = null;
+                }
+            }
+        });
     }
 
 
@@ -366,14 +364,25 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
     }
 
     private void showFpsTextView(final String text) {
-
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mFpsTextView.setTextColor(Color.RED);
+                mFpsTextView.setTextSize(15f);
+                if (text != null) {
+                    mFpsTextView.setText(text);
+                } else {
+                    mFpsTextView.setText("");
+                }
+            }
+        });
     }
 
     float FPSCalculate() {
         ++frames;
         long timeNow = System.currentTimeMillis();
         if (((timeNow - lastInterval) / 1000) > updateInterval) {
-            fps = (frames / ((timeNow - lastInterval) / 1000.0f));
+            fps =  (frames / ((timeNow - lastInterval) / 1000.0f));
             frames = 0;
             lastInterval = timeNow;
         }
@@ -440,4 +449,5 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
             mAnchors.add(new ColoredARAnchor(hitResult.createAnchor(), objColor));
         }
     }
+
 }
