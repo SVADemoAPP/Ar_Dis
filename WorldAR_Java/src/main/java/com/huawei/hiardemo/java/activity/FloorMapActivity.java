@@ -403,5 +403,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
         intentIntegrator.initiateScan();
     }
 
-
+    public void setAnchor() {
+        mArFragment.setCameraPose();
+    }
 }
