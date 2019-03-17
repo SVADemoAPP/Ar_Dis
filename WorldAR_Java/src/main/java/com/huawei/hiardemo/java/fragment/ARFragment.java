@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -29,6 +30,7 @@ import com.huawei.hiar.ARLightEstimate;
 import com.huawei.hiar.ARPlane;
 import com.huawei.hiar.ARPoint;
 import com.huawei.hiar.ARPointCloud;
+import com.huawei.hiar.ARPose;
 import com.huawei.hiar.ARSession;
 import com.huawei.hiar.ARTrackable;
 import com.huawei.hiar.ARWorldTrackingConfig;
@@ -61,12 +63,25 @@ import javax.microedition.khronos.opengles.GL10;
 public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
 
 
+    private ARPose mArPose;  //摄像头位置的实时坐标
+    private ArCameraListener mListener;  //监听器
+    private long intervalTime = 1000;
+    private Handler mGetArPoseHandler = new Handler();
+    private boolean isFirstFlag = false;
+    private Runnable mGetArPosRunnable = new Runnable() {  //定时获取坐标
+        @Override
+        public void run() {
+            mGetArPoseHandler.postDelayed(this, intervalTime);
+            mListener.getCameraPose(mArPose);
+        }
+    };
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mArView = inflater.inflate(R.layout.activity_main, container, false);
 
-        mFpsTextView =  mArView.findViewById(R.id.fpsTextView);
+        mFpsTextView = mArView.findViewById(R.id.fpsTextView);
         mSearchingTextView = mArView.findViewById(R.id.searchingTextView);
         mSurfaceView = mArView.findViewById(R.id.surfaceview);
         mDisplayRotationHelper = new DisplayRotationHelper(getContext());
@@ -114,7 +129,8 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
     private PointCloudRenderer mPointCloud = new PointCloudRenderer();
 
     private final float[] mAnchorMatrix = new float[UtilsCommon.MATRIX_NUM];
-    private static final float[] DEFAULT_COLOR = new float[] {0f, 0f, 0f, 0f};
+    private static final float[] DEFAULT_COLOR = new float[]{0f, 0f, 0f, 0f};
+
     // Anchors created from taps used for object placing with a given color.
     private static class ColoredARAnchor {
         public final ARAnchor anchor;
@@ -138,8 +154,9 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
     private TextView mFpsTextView;
     private TextView mSearchingTextView;
 
-
-
+    public ARPose getArPose() {
+        return mArPose;
+    }
 
     @Override
     public void onResume() {
@@ -197,7 +214,7 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
             } catch (ARUnSupportedConfigurationException e) {
                 message = "The configuration is not supported by the device!";
                 exception = e;
-            }catch (Exception e) {
+            } catch (Exception e) {
                 message = "exception throwed";
                 exception = e;
             }
@@ -287,7 +304,11 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
             mSession.setCameraTextureName(mBackgroundRenderer.getTextureId());
             ARFrame frame = mSession.update();
             ARCamera camera = frame.getCamera();
-
+            mArPose = camera.getDisplayOrientedPose();  //获取摄像头位置（即为定位位置）
+            if (!isFirstFlag) {  //判断第一次进入
+                isFirstFlag = true;
+                mGetArPoseHandler.post(mGetArPosRunnable);
+            }
             handleTap(frame, camera);
 
             mBackgroundRenderer.draw(frame);
@@ -325,7 +346,7 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
 
             Iterator<ColoredARAnchor> ite = mAnchors.iterator();
             while (ite.hasNext()) {
-               ColoredARAnchor coloredAnchor = ite.next();
+                ColoredARAnchor coloredAnchor = ite.next();
                 if (coloredAnchor.anchor.getTrackingState() == ARTrackable.TrackingState.STOPPED) {
                     ite.remove();
                 } else if (coloredAnchor.anchor.getTrackingState() == ARTrackable.TrackingState.TRACKING) {
@@ -382,7 +403,7 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
         ++frames;
         long timeNow = System.currentTimeMillis();
         if (((timeNow - lastInterval) / 1000) > updateInterval) {
-            fps =  (frames / ((timeNow - lastInterval) / 1000.0f));
+            fps = (frames / ((timeNow - lastInterval) / 1000.0f));
             frames = 0;
             lastInterval = timeNow;
         }
@@ -446,8 +467,15 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
             // Adding an Anchor tells ARCore that it should track this position in
             // space. This anchor is created on the Plane to place the 3D model
             // in the correct position relative both to the world and to the plane.
-            mAnchors.add(new ColoredARAnchor(hitResult.createAnchor(), objColor));
+            mAnchors.add(new ColoredARAnchor(hitResult.createAnchor(), objColor));   //添加锚点
         }
     }
 
+    public void setArCameraListener(ArCameraListener arCameraListener) {
+        mListener = arCameraListener;
+    }
+
+    public interface ArCameraListener {
+        void getCameraPose(ARPose arPose);
+    }
 }

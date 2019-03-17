@@ -9,6 +9,7 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -21,11 +22,13 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.huawei.hiar.ARPose;
 import com.huawei.hiardemo.java.R;
 import com.huawei.hiardemo.java.fragment.ARFragment;
 import com.huawei.hiardemo.java.fragment.PrruMapFragment;
 import com.huawei.hiardemo.java.framework.activity.BaseActivity;
 import com.huawei.hiardemo.java.util.Constant;
+import com.huawei.hiardemo.java.util.DistanceUtil;
 import com.huawei.hiardemo.java.view.popup.SelectPopupWindow;
 
 import org.jetbrains.annotations.Nullable;
@@ -35,6 +38,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 import static com.google.zxing.integration.android.IntentIntegrator.REQUEST_CODE;
 
@@ -56,11 +60,17 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
     private Uri photoUri;
     private String mapPath;
     private PrruMapFragment prruMapFragment;
-    private ARFragment arFragment;
+    private ARFragment mArFragment;
     private File ffile;
     private Bitmap mBitmap;
     private SelectPopupWindow mSelectPopupWindow;
-    private PointF mSelectPointF;
+    private PointF mSelectPointF ;
+    private float mScale;
+
+
+    public void setScale(float scale) {
+        mScale = scale;
+    }
 
     @Override
     public void findView() {
@@ -117,11 +127,12 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
         mapPath = (String) getIntent().getExtras().get("floormap");
         mBitmap = BitmapFactory.decodeFile(Constant.DATA_PATH + File.separator + mapPath);
         prruMapFragment = new PrruMapFragment();
-        arFragment = new ARFragment();
+        prruMapFragment = new PrruMapFragment();
+        mArFragment = new ARFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.prru_replace, prruMapFragment);
-        fragmentTransaction.add(R.id.ar_replace, arFragment);
+        fragmentTransaction.add(R.id.ar_replace, mArFragment);
         fragmentTransaction.commit();
         mSelectPopupWindow = new SelectPopupWindow(mContext, mBitmap);
         mSelectPopupWindow.setSelectListener(new SelectPopupWindow.SelectPointListener() {
@@ -134,6 +145,21 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void cancel() {  //没有选择
 
+            }
+        });
+
+        mArFragment.setArCameraListener(new ARFragment.ArCameraListener() {
+            @Override
+            public void getCameraPose(ARPose arPose) {   //获取到相机返回的实时坐标
+                if (mSelectPointF != null) {
+                    float tx = arPose.tx();
+                    float ty = arPose.tz();
+                    int distancetoPixtoX = DistanceUtil.getDistancetoPix(mScale, tx);
+                    int distancetoPixtoY = DistanceUtil.getDistancetoPix(mScale, ty);
+                    int mapX = (int) (mSelectPointF.x + distancetoPixtoX);
+                    int mapY = (int) (mSelectPointF.y + distancetoPixtoY);
+                    prruMapFragment.setNowLocation(mapX, mapY);
+                }
             }
         });
     }
