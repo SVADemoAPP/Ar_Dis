@@ -66,6 +66,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
     private SelectPopupWindow mSelectPopupWindow;
     private PointF mSelectPointF;
     private float mScale;
+    private int mHeight;
 
 
     public void setScale(float scale) {
@@ -126,6 +127,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
     public void dealLogicBeforeInitView() {
         mapPath = (String) getIntent().getExtras().get("floormap");
         mBitmap = BitmapFactory.decodeFile(Constant.DATA_PATH + File.separator + mapPath);
+        mHeight = mBitmap.getHeight();
         prruMapFragment = new PrruMapFragment();
         prruMapFragment = new PrruMapFragment();
         mArFragment = new ARFragment();
@@ -153,13 +155,12 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
             public void getCameraPose(ARPose arPose) {   //获取到相机返回的实时坐标
                 if (mSelectPointF != null) {
                     float tx = arPose.tx();
-                    float ty = arPose.tz();
-                    int distancetoPixtoX = DistanceUtil.getDistancetoPix(mScale, tx);
-                    int distancetoPixtoY = DistanceUtil.getDistancetoPix(mScale, ty);
-                    int mapX = (int) (mSelectPointF.x + distancetoPixtoX);
-                    int mapY = (int) (mSelectPointF.y + distancetoPixtoY);
+                    float ty = -arPose.tz();
+                    float[] real = DistanceUtil.mapToReal(mScale, mSelectPointF.x, mSelectPointF.y, mHeight);
+                    float[] distancetoPix = DistanceUtil.realToMap(mScale, tx, ty, mHeight);
+                    int mapX = (int) (mSelectPointF.x + distancetoPix[0]);
+                    int mapY = (int) (mSelectPointF.y + distancetoPix[1]);
                     prruMapFragment.setNowLocation(mapX, mapY);  //设置当前坐标
-//                    DistanceUtil.getMinDistacePrru(mScale,1,,mapX,mapY)//判断距离Prru位置 如果小于1m进行弹窗
                 }
             }
         });

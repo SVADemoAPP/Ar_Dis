@@ -22,6 +22,7 @@ import com.huawei.hiardemo.java.activity.FloorMapActivity;
 import com.huawei.hiardemo.java.framework.activity.BaseActivity;
 import com.huawei.hiardemo.java.framework.utils.StringUtil;
 import com.huawei.hiardemo.java.util.Constant;
+import com.huawei.hiardemo.java.util.DistanceUtil;
 import com.huawei.hiardemo.java.util.XmlUntils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -73,6 +74,10 @@ public class PrruMapFragment extends Fragment {
 
     public String getmScale() {
         return mScale;
+    }
+
+    public List<PrruInfoShape> getUnbindPrruInfo() {
+        return prruInfoShapes;
     }
 
     @Override
@@ -235,9 +240,17 @@ public class PrruMapFragment extends Fragment {
             mCircleShape = new CircleShape("loc", Color.RED);
             mCircleShape.setRadius(10);
             mCircleShape.setValues(x, y);
-            mFloorMap.addShape(mCircleShape,false);
-        }else {
+            mFloorMap.addShape(mCircleShape, false);
+        } else {
             mCircleShape.setValues(x, y);
+            if (prruInfoShapes != null && prruInfoShapes.size() > 0) {
+                PrruInfoShape minDistacePrru = DistanceUtil.getMinDistacePrru(Float.valueOf(mScale), 5, prruInfoShapes, x, y);//判断距离Prru位置 如果小于1m进行弹窗
+                Toast.makeText(mContext, "请在附件放置prrux="+x+"   ,   "+y, Toast.LENGTH_SHORT).show();
+                if (minDistacePrru != null) {
+                    Toast.makeText(mContext, "请在附件放置prru", Toast.LENGTH_SHORT).show();
+                }
+            }
+
         }
 
     }

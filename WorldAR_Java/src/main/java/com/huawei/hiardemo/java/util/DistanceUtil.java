@@ -1,22 +1,32 @@
 package com.huawei.hiardemo.java.util;
 
 import android.graphics.PointF;
+import android.util.Log;
 
 import net.yoojia.imagemap.core.PrruInfoShape;
 
 import java.util.List;
 
 public class DistanceUtil {
+    public static float[] realToMap(float mapScale, float rx, float ry, int height) {
+        return new float[]{rx * mapScale, height - ry * mapScale};
+    }
+
+
+    public static float[] mapToReal(float mapScale, float mx, float my, int height) {
+        return new float[]{mx / mapScale, (height - my) / mapScale};
+    }
+
     /**
      * 获取像素转实际距离（m）
      *
      * @param scale  比例尺
      * @param pointF 点坐标
      */
-    public static float[] getPixtoReal(float scale, PointF pointF) {
+    public static float[] getPixtoReal(float scale, PointF pointF, int height) {
         float[] distance = new float[2];
         distance[0] = pointF.x / scale;
-        distance[1] = pointF.y / scale;
+        distance[1] = height - pointF.y / scale;
         return distance;
     }
 
@@ -37,7 +47,7 @@ public class DistanceUtil {
      * 获取距离最近的prru
      *
      * @param scale
-     * @param flag m
+     * @param flag  m
      * @param data
      * @param x
      * @param y
@@ -46,10 +56,11 @@ public class DistanceUtil {
     public static PrruInfoShape getMinDistacePrru(float scale, float flag, List<PrruInfoShape> data, int x, int y) {
         int min = -1;//最近prru下标；
         int minDistance = -1;
+        Log.e("XHF", "data=" + data.size());
         for (int i = 0; i < data.size(); i++) {
             PrruInfoShape prruInfoShape = data.get(i);
             PointF centerPoint = prruInfoShape.getCenterPoint();
-            int pixDistance = (int) Math.sqrt((centerPoint.x - x) * (centerPoint.x - x) + (centerPoint.y - y) * (centerPoint.x - x));
+            int pixDistance = (int) Math.sqrt((centerPoint.x - x) * (centerPoint.x - x) + (centerPoint.y - y) * (centerPoint.y - y));
 //            if (minDistance == -1) {
 //                minDistance = pixDistance;
 //                min = i;
@@ -58,11 +69,14 @@ public class DistanceUtil {
 //                minDistance = pixDistance;
 //                min = i;
 //            }
+            Log.e("XHF", "pixDistance=" + pixDistance + "----------flag * scale=" + flag * scale);
             if (pixDistance <= flag * scale) {
                 min = i;
+                Log.e("XHF2", "pixDistance=" + pixDistance);
+                return data.get(min);
             }
         }
-        return data.get(min);
+        return null;
     }
 
 
