@@ -1,6 +1,8 @@
 package com.huawei.hiardemo.java.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -74,6 +76,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
     private PointF mSelectPointF;
     private float mScale;
     private int mHeight;
+    private String mContents;
 
 
     public void setScale(float scale) {
@@ -182,6 +185,39 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
 
     }
 
+    public void writeToXml() {
+        String siteName = mapPath.substring(0, mapPath.indexOf(File.separator));
+        String floorName = mapPath.substring(mapPath.indexOf(File.separator) + 1, mapPath.indexOf("."));
+        String xmlFilePath = Constant.DATA_PATH + File.separator + siteName + File.separator + "project.xml";
+        if (prruMapFragment.judgeSamePrru()) { //判断是否是同一个Prru 同一个存入信息
+            prruMapFragment.cancelPrrusetDialog();
+            showToast("本次扫码绑定有效");
+            Document document = XmlUntils.getDocument(xmlFilePath);
+            Element rootElement = XmlUntils.getRootElement(document);
+            Element floors = XmlUntils.getElementByName(rootElement, "Floors");
+            List<Element> floorList = XmlUntils.getElementListByName(floors, "Floor");
+            for (Element element : floorList) {
+                //如果是同一楼层
+                if (floorName.equals(XmlUntils.getAttributeValueByName(element, "floorCode"))) {
+                    List<Element> nes = XmlUntils.getElementListByName(XmlUntils.getElementByName(element, "NEs"), "NE");
+                    for (Element ne : nes) {
+                        if (XmlUntils.getAttributeValueByName(ne, "id").equals(prruMapFragment.getSelectId())) {
+                            Log.e("XHF", "");
+                            XmlUntils.setAttributeValueByName(ne, "esn", mContents);
+                            XmlUntils.saveDocument(document, new File(xmlFilePath));
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            prruMapFragment.refreshMap();
+        } else {
+            showToast("本次扫码绑定无效");
+            prruMapFragment.cancelPrrusetDialog();
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -191,40 +227,12 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
             if (result != null) {
                 if (result.getContents() == null) {
                     Toast.makeText(this, "取消", Toast.LENGTH_LONG).show();
+                    prruMapFragment.cancelPrrusetDialog();
                 } else {
                     Toast.makeText(this, "扫描结果: " + result.getContents(), Toast.LENGTH_LONG).show();
 
-                    String contents = result.getContents();
-                    String siteName = mapPath.substring(0, mapPath.indexOf(File.separator));
-                    String floorName = mapPath.substring(mapPath.indexOf(File.separator) + 1, mapPath.indexOf("."));
-                    String xmlFilePath = Constant.DATA_PATH + File.separator + siteName + File.separator + "project.xml";
-                    if (prruMapFragment.judgeSamePrru()) { //判断是否是同一个Prru 同一个存入信息
-                        prruMapFragment.cancelPrrusetDialog();
-                        showToast("本次扫码绑定有效");
-                        Document document = XmlUntils.getDocument(xmlFilePath);
-                        Element rootElement = XmlUntils.getRootElement(document);
-                        Element floors = XmlUntils.getElementByName(rootElement, "Floors");
-                        List<Element> floorList = XmlUntils.getElementListByName(floors, "Floor");
-                        for (Element element : floorList) {
-                            //如果是同一楼层
-                            if (floorName.equals(XmlUntils.getAttributeValueByName(element, "floorCode"))) {
-                                List<Element> nes = XmlUntils.getElementListByName(XmlUntils.getElementByName(element, "NEs"), "NE");
-                                for (Element ne : nes) {
-                                    if (XmlUntils.getAttributeValueByName(ne, "id").equals(prruMapFragment.getSelectId())) {
-                                        Log.e("XHF","");
-                                        XmlUntils.setAttributeValueByName(ne, "esn", contents);
-                                        XmlUntils.saveDocument(document, new File(xmlFilePath));
-                                        break;
-                                    }
-                                }
-                                break;
-                            }
-                        }
-                        prruMapFragment.refreshMap();
-                    } else {
-                        showToast("本次扫码绑定无效");
-                        prruMapFragment.cancelPrrusetDialog();
-                    }
+                    mContents = result.getContents();
+
                 }
             }
         }
@@ -407,5 +415,36 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
 
     public void setAnchor() {
         mArFragment.setCameraPose();
+    }
+
+    private void showDialog(String title, String message) {
+        /* @setIcon 设置对话框图标
+         * @setTitle 设置对话框标题
+         * @setMessage 设置对话框消息提示
+         * setXXX方法返回Dialog对象，因此可以链式设置属性
+         */
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(mContext);
+//        normalDialog.setIcon(R.drawable.icon_dialog);
+        normalDialog.setTitle(title);
+        normalDialog.setMessage(message);
+        normalDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        writeToXml();
+                        Toast.makeText(mContext, "操作成功", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        normalDialog.setNegativeButton("关闭",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //...To-do
+                        prruMapFragment.cancelPrrusetDialog();
+                    }
+                });
+        // 显示
+        normalDialog.show();
     }
 }
