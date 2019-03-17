@@ -30,6 +30,7 @@ import net.yoojia.imagemap.HighlightImageView1;
 import net.yoojia.imagemap.ImageMap1;
 import net.yoojia.imagemap.TouchImageView1;
 import net.yoojia.imagemap.core.Bubble;
+import net.yoojia.imagemap.core.CircleShape;
 import net.yoojia.imagemap.core.CollectPointShape;
 import net.yoojia.imagemap.core.MoniPointShape;
 import net.yoojia.imagemap.core.PrruInfoShape;
@@ -44,6 +45,7 @@ import org.dom4j.Element;
 import java.io.File;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.functions.Consumer;
 
 public class PrruMapFragment extends Fragment {
@@ -64,13 +66,19 @@ public class PrruMapFragment extends Fragment {
     private View mMenuMove;
     private View mMenuCamera;
     private Context mContext;
+    private String mScale;  //比例尺
+    private CircleShape mCircleShape;
+
+    public String getmScale() {
+        return mScale;
+    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
         mBitmap = ((FloorMapActivity) mContext).getBitmap();
-        mapPath=((FloorMapActivity) mContext).getMap();
+        mapPath = ((FloorMapActivity) mContext).getMap();
     }
 
     @Nullable
@@ -112,7 +120,7 @@ public class PrruMapFragment extends Fragment {
     }
 
     private void initData() {
-        redPrruInfoShape = new PrruInfoShape("temp", Color.GREEN,mContext);
+        redPrruInfoShape = new PrruInfoShape("temp", Color.GREEN, mContext);
         redPrruInfoShape.setPrruShowType(PrruInfoShape.pRRUType.temple);
 
         mWidth = mBitmap.getWidth();
@@ -220,6 +228,18 @@ public class PrruMapFragment extends Fragment {
         });
     }
 
+    public void setNowLocation(int x, int y) {
+        if (mCircleShape == null) {
+            mCircleShape = new CircleShape("loc", Color.RED);
+            mCircleShape.setRadius(10);
+            mCircleShape.setValues(x, y);
+            mFloorMap.addShape(mCircleShape,false);
+        }else {
+            mCircleShape.setValues(x, y);
+        }
+
+    }
+
     /***
      * 从xml文件中读取数据
      */
@@ -230,10 +250,12 @@ public class PrruMapFragment extends Fragment {
         Element rootElement = XmlUntils.getRootElement(document);
         Element floors = XmlUntils.getElementByName(rootElement, "Floors");
         List<Element> floorList = XmlUntils.getElementListByName(floors, "Floor");
-        boolean flag = false;
         for (Element element : floorList) {
             //如果是同一楼层
             if (floorName.equals(XmlUntils.getAttributeValueByName(element, "floorCode"))) {
+                Element element1 = XmlUntils.getElementByName(element, "DrawMap");
+                mScale = XmlUntils.getAttributeValueByName(element1, "scale");
+                ((FloorMapActivity) getActivity()).setScale(Float.valueOf(mScale));
                 List<Element> nes = XmlUntils.getElementListByName(XmlUntils.getElementByName(element, "NEs"), "NE");
                 for (Element ne : nes) {
                     PrruInfoShape prruInfoShape = new PrruInfoShape(XmlUntils.getAttributeValueByName(ne, "id"), Color.YELLOW, mContext);
@@ -251,16 +273,11 @@ public class PrruMapFragment extends Fragment {
                     }
 
                     mFloorMap.addShape(prruInfoShape, false);
-
-
                 }
-                flag = true;
                 break;
             }
 
-            if (flag) {
-                break;
-            }
+
         }
     }
 
@@ -391,7 +408,7 @@ public class PrruMapFragment extends Fragment {
      * 动态获取其他权限
      */
     public void getOtherRxPermission(String[] permission, final BaseActivity.PerMissonListener listener) {
-        RxPermissions rxPermissions = new RxPermissions((FloorMapActivity)mContext); // where this is an Activity instance
+        RxPermissions rxPermissions = new RxPermissions((FloorMapActivity) mContext); // where this is an Activity instance
         rxPermissions.request(permission)
                 .subscribe(new Consumer<Boolean>() {
                     @Override
