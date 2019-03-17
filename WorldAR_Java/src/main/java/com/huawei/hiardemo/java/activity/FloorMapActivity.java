@@ -195,8 +195,9 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
                     Toast.makeText(this, "扫描结果: " + result.getContents(), Toast.LENGTH_LONG).show();
 
                     String contents = result.getContents();
+                    String siteName = mapPath.substring(0, mapPath.indexOf(File.separator));
                     String floorName = mapPath.substring(mapPath.indexOf(File.separator) + 1, mapPath.indexOf("."));
-                    String xmlFilePath = Constant.DATA_PATH + File.separator + "project.xml";
+                    String xmlFilePath = Constant.DATA_PATH + File.separator + siteName + File.separator + "project.xml";
                     if (prruMapFragment.judgeSamePrru()) { //判断是否是同一个Prru 同一个存入信息
                         prruMapFragment.cancelPrrusetDialog();
                         showToast("本次扫码绑定有效");
@@ -209,16 +210,17 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
                             if (floorName.equals(XmlUntils.getAttributeValueByName(element, "floorCode"))) {
                                 List<Element> nes = XmlUntils.getElementListByName(XmlUntils.getElementByName(element, "NEs"), "NE");
                                 for (Element ne : nes) {
-                                    if(XmlUntils.getAttributeValueByName(ne,"id").equals(prruMapFragment.getSelectId())){
-                                        XmlUntils.setAttributeValueByName(ne,"esn",contents);
-                                        XmlUntils.saveDocument(document,new File(xmlFilePath));
+                                    if (XmlUntils.getAttributeValueByName(ne, "id").equals(prruMapFragment.getSelectId())) {
+                                        Log.e("XHF","");
+                                        XmlUntils.setAttributeValueByName(ne, "esn", contents);
+                                        XmlUntils.saveDocument(document, new File(xmlFilePath));
                                         break;
                                     }
                                 }
                                 break;
                             }
                         }
-
+                        prruMapFragment.refreshMap();
                     } else {
                         showToast("本次扫码绑定无效");
                         prruMapFragment.cancelPrrusetDialog();

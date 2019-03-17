@@ -291,6 +291,9 @@ public class PrruMapFragment extends Fragment {
      */
     public boolean judgeSamePrru() {
         PrruInfoShape minDistacePrru = DistanceUtil.getMinDistacePrru(Float.valueOf(mScale), mMi, prruInfoShapes, mX, mY, mHeight);
+        if (minDistacePrru == null) {
+            return false;
+        }
         String id = minDistacePrru.getId();
         if (id.equals(mpRRUId)) {
             return true;
