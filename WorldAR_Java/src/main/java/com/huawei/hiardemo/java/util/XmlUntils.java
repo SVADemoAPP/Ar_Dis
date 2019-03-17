@@ -46,7 +46,7 @@ public class XmlUntils {
     }
 
     public static void setAttributeValueByName(Element element, String attributeName, String attributeValue){
-        element.attributeValue(attributeName,attributeValue);
+        element.addAttribute(attributeName,attributeValue);
     }
 
     /**
