@@ -53,14 +53,16 @@ public class DistanceUtil {
      * @param y
      * @return
      */
-    public static PrruInfoShape getMinDistacePrru(float scale, float flag, List<PrruInfoShape> data, float x, float y) {
+    public static PrruInfoShape getMinDistacePrru(float scale, float flag, List<PrruInfoShape> data, float x, float y, int height) {
         int min = -1;//最近prru下标；
         int minDistance = -1;
         Log.e("XHF", "data=" + data.size());
         for (int i = 0; i < data.size(); i++) {
             PrruInfoShape prruInfoShape = data.get(i);
-            PointF centerPoint = prruInfoShape.getCenterPoint();
-            int pixDistance = (int) Math.sqrt((centerPoint.x - x) * (centerPoint.x - x) + (centerPoint.y - y) * (centerPoint.y - y));
+            PointF centerPoint = prruInfoShape.setCenter();
+            float[] real1 = mapToReal(scale, centerPoint.x, centerPoint.y, height);
+            float[] real2 = mapToReal(scale, x, y, height);
+            double pixDistance = Math.sqrt((real1[0] - real2[0]) * (real1[0] - real2[0]) + (real1[1] - real2[1]) * (real1[1] - real2[1]));  //实际距离 m
 //            if (minDistance == -1) {
 //                minDistance = pixDistance;
 //                min = i;
@@ -70,7 +72,7 @@ public class DistanceUtil {
 //                min = i;
 //            }
             Log.e("XHF", "pixDistance=" + pixDistance + "----------flag * scale=" + flag * scale);
-            if (pixDistance <= flag * scale) {
+            if (pixDistance <= flag) {
                 min = i;
                 Log.e("XHF2", "pixDistance=" + pixDistance);
                 return data.get(min);

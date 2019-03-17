@@ -49,7 +49,7 @@ import java.util.List;
 import io.reactivex.functions.Consumer;
 
 public class PrruMapFragment extends Fragment {
-
+    private int mMi = 1;
     private ImageMap1 mFloorMap;  //地图
     private Bitmap mBitmap;  //图片
     private int mWidth;  //图片宽度
@@ -71,6 +71,12 @@ public class PrruMapFragment extends Fragment {
 
     //当前地图所有未绑定的prru列表
     private List<PrruInfoShape> prruInfoShapes;
+    private PrruInfoShape minDistacePrru;
+    private AlertDialog.Builder mPrrusetDialog;
+    private float mX;
+    private float mY;
+    private String mpRRUId;
+
 
     public float getmScale() {
         return mScale;
@@ -127,6 +133,7 @@ public class PrruMapFragment extends Fragment {
     }
 
     private void initData() {
+
         redPrruInfoShape = new PrruInfoShape("temp", Color.GREEN, mContext);
         redPrruInfoShape.setPrruShowType(PrruInfoShape.pRRUType.temple);
 
@@ -236,24 +243,54 @@ public class PrruMapFragment extends Fragment {
     }
 
     public void setNowLocation(float x, float y) {
+        mX = x;
+        mY = y;
         if (mCircleShape == null) {
             mCircleShape = new CircleShape("loc", Color.RED);
             mCircleShape.setRadius(10);
             mCircleShape.setValues(x, y);
             mFloorMap.addShape(mCircleShape, false);
-            
+
         } else {
             mCircleShape.setValues(x, y);
             if (prruInfoShapes != null && prruInfoShapes.size() > 0) {
-                PrruInfoShape minDistacePrru = DistanceUtil.getMinDistacePrru(Float.valueOf(mScale), 5, prruInfoShapes, x, y);//判断距离Prru位置 如果小于1m进行弹窗
-                Toast.makeText(mContext, "请在附件放置prrux=" + x + "   ,   " + y, Toast.LENGTH_SHORT).show();
+                //判断距离Prru位置 如果小于1m进行弹窗
+                minDistacePrru = DistanceUtil.getMinDistacePrru(Float.valueOf(mScale), mMi, prruInfoShapes, x, y, mHeight);
                 if (minDistacePrru != null) {
-                    Toast.makeText(mContext, "请在附件放置prru", Toast.LENGTH_SHORT).show();
+                    if (mPrrusetDialog == null) { //控制弹窗
+                        mpRRUId = minDistacePrru.getId();
+                        Toast.makeText(mContext, "请在附件放置prru", Toast.LENGTH_SHORT).show(); //
+                        showNormalScanDialog("已找到prru", "附件有pRRU安装点要确定扫码安装么？");
+
+                    }
+                } else {
+
                 }
             }
 
         }
 
+    }
+
+    /**
+     * 判断是否在范围内安装
+     *
+     * @return
+     */
+    public boolean judgeSamePrru() {
+        PrruInfoShape minDistacePrru = DistanceUtil.getMinDistacePrru(Float.valueOf(mScale), mMi, prruInfoShapes, mX, mY, mHeight);
+        String id = minDistacePrru.getId();
+        if (id.equals(mpRRUId)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void cancelPrrusetDialog() {
+        if (mPrrusetDialog != null) {
+            mPrrusetDialog = null;
+        }
     }
 
     /***
@@ -377,35 +414,27 @@ public class PrruMapFragment extends Fragment {
         }
     };
 
-    private void showNormalDialog(String title, String message) {
-        final AlertDialog.Builder normalDialog =
-                new AlertDialog.Builder(mContext);
-        normalDialog.setTitle(title);
-        normalDialog.setMessage(message);
-        normalDialog.setPositiveButton("确定",
+    private void showNormalScanDialog(String title, String message) {
+        mPrrusetDialog = new AlertDialog.Builder(mContext);
+        mPrrusetDialog.setTitle(title);
+        mPrrusetDialog.setMessage(message);
+        mPrrusetDialog.setPositiveButton("确定",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        showToast("pRRU位置修改成功");
-                        tempPrruInfoShape.setValues(redPrruInfoShape.getCenterX(), redPrruInfoShape.getCenterY());
-                        mFloorMap.removeShape("temp"); //移除红色
-                        mFloorMap.addShape(tempPrruInfoShape, false);//还原
-                        mFloorMap.setShowBubble(true);
+                        ((FloorMapActivity) mContext).openZxing(); //打开扫描界面
+                        showToast("请扫描pRRU设备二维码，然后进行安装");
                     }
                 });
-        normalDialog.setNegativeButton("取消",
+        mPrrusetDialog.setNegativeButton("取消",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        showToast("已取消修改");
-                        mFloorMap.removeShape("temp"); //移除红色
-                        mFloorMap.addShape(tempPrruInfoShape, false);//还原
-                        tempPrruInfoShape = null;
-                        mFloorMap.setShowBubble(true);
+                        cancelPrrusetDialog();
                     }
                 });
         // 显示
-        normalDialog.show();
+        mPrrusetDialog.show();
     }
 
     /**
@@ -447,5 +476,32 @@ public class PrruMapFragment extends Fragment {
         super.onDestroy();
     }
 
-
+    private void showNormalDialog(String title, String message) {
+        /* @setIcon 设置对话框图标
+         * @setTitle 设置对话框标题
+         * @setMessage 设置对话框消息提示
+         * setXXX方法返回Dialog对象，因此可以链式设置属性
+         */
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(mContext);
+//        normalDialog.setIcon(R.drawable.icon_dialog);
+        normalDialog.setTitle(title);
+        normalDialog.setMessage(message);
+        normalDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(mContext, "操作成功", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        normalDialog.setNegativeButton("关闭",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //...To-do
+                    }
+                });
+        // 显示
+        normalDialog.show();
+    }
 }

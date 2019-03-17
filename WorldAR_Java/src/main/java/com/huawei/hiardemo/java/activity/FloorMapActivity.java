@@ -157,7 +157,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
                     float tx = arPose.tx();
                     float ty = -arPose.tz();
                     float[] real = DistanceUtil.mapToReal(mScale, mSelectPointF.x, mSelectPointF.y, mHeight);
-                    float[] pix = DistanceUtil.realToMap(mScale, (real[0]+tx), (real[1]+ty), mHeight);
+                    float[] pix = DistanceUtil.realToMap(mScale, (real[0] + tx), (real[1] + ty), mHeight);
                     prruMapFragment.setNowLocation(pix[0], pix[1]);  //设置当前坐标
                 }
             }
@@ -186,6 +186,16 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
                     Toast.makeText(this, "取消", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(this, "扫描结果: " + result.getContents(), Toast.LENGTH_LONG).show();
+
+                    String contents = result.getContents();
+                    String mapAdress = Constant.DATA_PATH + File.separator + mapPath;
+                    if (prruMapFragment.judgeSamePrru()) { //判断是否是同一个Prru 同一个存入信息
+                        prruMapFragment.cancelPrrusetDialog();
+                        showToast("本次扫码绑定有效");
+                    } else {
+                        showToast("本次扫码绑定无效");
+                        prruMapFragment.cancelPrrusetDialog();
+                    }
                 }
             }
         }

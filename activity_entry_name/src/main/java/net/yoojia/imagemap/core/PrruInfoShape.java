@@ -48,6 +48,10 @@ public class PrruInfoShape extends Shape {
         isBind = bind;
     }
 
+    public PointF setCenter() {
+        return center;
+    }
+
     public enum pRRUType {
         outArea,
         inArea,

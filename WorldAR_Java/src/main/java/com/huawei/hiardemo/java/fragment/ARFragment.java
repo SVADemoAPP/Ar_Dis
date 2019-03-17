@@ -75,6 +75,7 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
             mListener.getCameraPose(mArPose);
         }
     };
+    private boolean hasPlane = false;
 
     @Nullable
     @Override
@@ -307,7 +308,9 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
             mArPose = camera.getDisplayOrientedPose();  //获取摄像头位置（即为定位位置）
             if (!isFirstFlag) {  //判断第一次进入
                 isFirstFlag = true;
-                mGetArPoseHandler.post(mGetArPosRunnable);
+                if(hasPlane){ //开始定位的标志
+                    mGetArPoseHandler.post(mGetArPosRunnable);
+                }
             }
             handleTap(frame, camera);
 
@@ -363,6 +366,7 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
 
 
     private void hideLoadingMessage() {
+        hasPlane = true;
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
