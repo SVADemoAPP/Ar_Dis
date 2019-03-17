@@ -307,8 +307,9 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
             ARCamera camera = frame.getCamera();
             mArPose = camera.getDisplayOrientedPose();  //获取摄像头位置（即为定位位置）
             if (!isFirstFlag) {  //判断第一次进入
-                isFirstFlag = true;
-                if(hasPlane){ //开始定位的标志
+                if (hasPlane) { //开始定位的标志
+                    isFirstFlag = true;
+                    Log.e("XHF", "定位开始");
                     mGetArPoseHandler.post(mGetArPosRunnable);
                 }
             }
