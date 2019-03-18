@@ -211,10 +211,11 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
                     break;
                 }
             }
+            showToast("安装成功");
             prruMapFragment.refreshMap();
             prruMapFragment.cancelPrrusetDialog();
         } else {
-            showToast("本次扫码绑定无效");
+            showToast("安装位置与设计不符，本次安装无效");
             prruMapFragment.cancelPrrusetDialog();
         }
     }
@@ -433,7 +434,6 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         writeToXml();
-                        Toast.makeText(mContext, "操作成功", Toast.LENGTH_SHORT).show();
                     }
                 });
         normalDialog.setNegativeButton("关闭",
