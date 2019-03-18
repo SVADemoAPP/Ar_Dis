@@ -351,7 +351,6 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
                     }
                 }
             }
-            Log.e("XHF","hasplat="+hasplat+"------------------------");
             mPlaneRenderer.drawPlanes(mSession.getAllTrackables(ARPlane.class), camera.getDisplayOrientedPose(), projmtx);
 
             Iterator<ARAnchor> ite = mAnchors.iterator();
@@ -491,7 +490,6 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
     }
 
     public void setCameraPose() {
-        ARPose arPose = mSession.update().getCamera().getDisplayOrientedPose();
-        mAnchors.add(mSession.createAnchor(arPose));
+        mAnchors.add(mSession.createAnchor(mArPose));
     }
 }

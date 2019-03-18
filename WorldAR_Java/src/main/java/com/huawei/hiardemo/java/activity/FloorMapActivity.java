@@ -190,8 +190,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
         String siteName = mapPath.substring(0, mapPath.indexOf(File.separator));
         String floorName = mapPath.substring(mapPath.indexOf(File.separator) + 1, mapPath.indexOf("."));
         String xmlFilePath = Constant.DATA_PATH + File.separator + siteName + File.separator + "project.xml";
-        if (prruMapFragment.judgeSamePrru()) { //判断是否是同一个Prru 同一个存入信息
-            prruMapFragment.cancelPrrusetDialog();
+        if (prruMapFragment.judgeSame()) { //判断是否是同一个Prru 同一个存入信息
             showToast("本次扫码绑定有效");
             Document document = XmlUntils.getDocument(xmlFilePath);
             Element rootElement = XmlUntils.getRootElement(document);
@@ -213,6 +212,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
                 }
             }
             prruMapFragment.refreshMap();
+            prruMapFragment.cancelPrrusetDialog();
         } else {
             showToast("本次扫码绑定无效");
             prruMapFragment.cancelPrrusetDialog();
@@ -231,7 +231,6 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
                     prruMapFragment.cancelPrrusetDialog();
                 } else {
                     Toast.makeText(this, "扫描结果: " + result.getContents(), Toast.LENGTH_LONG).show();
-
                     mContents = result.getContents();
                     showDialog("消息", "请在安装pRRU位置扫一扫然后点击确认");
                 }

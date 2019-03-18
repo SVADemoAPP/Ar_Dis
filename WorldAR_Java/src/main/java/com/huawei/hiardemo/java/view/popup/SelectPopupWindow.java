@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PointF;
+import android.graphics.RectF;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import net.yoojia.imagemap.core.CircleShape;
 
 import zhy.com.highlight.HighLight;
 import zhy.com.highlight.interfaces.HighLightInterface;
+import zhy.com.highlight.position.OnBaseCallback;
 import zhy.com.highlight.position.OnLeftPosCallback;
 import zhy.com.highlight.position.OnTopPosCallback;
 import zhy.com.highlight.shape.RectLightShape;
@@ -164,7 +166,20 @@ public class SelectPopupWindow {
                         mHightLight.next();
                     }
                 })
-                .addHighLight(R.id.pop_select_map, R.layout.view_highlight_find, new OnTopPosCallback(5), new RectLightShape())
+                .addHighLight(R.id.pop_confirm, R.layout.hightlight_pop_confirm, new OnBaseCallback() {
+                    @Override
+                    public void getPosition(float rightMargin, float bottomMargin, RectF rectF, HighLight.MarginInfo marginInfo) {
+                        marginInfo.leftMargin = rectF.right - 600;
+                        marginInfo.bottomMargin = bottomMargin+rectF.height()+offset;
+                    }
+                }, new RectLightShape())
+                .addHighLight(R.id.pop_cancel, R.layout.hightlight_pop_cancel, new OnBaseCallback() {
+                    @Override
+                    public void getPosition(float rightMargin, float bottomMargin, RectF rectF, HighLight.MarginInfo marginInfo) {
+                        marginInfo.leftMargin = rectF.right- rectF.width()/2-250;
+                        marginInfo.bottomMargin = bottomMargin+rectF.height()+offset;
+                    }
+                }, new RectLightShape())
                 .setOnRemoveCallback(new HighLightInterface.OnRemoveCallback() {//监听移除回调
                     @Override
                     public void onRemove() {

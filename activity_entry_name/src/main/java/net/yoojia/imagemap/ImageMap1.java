@@ -334,7 +334,7 @@ public class ImageMap1 extends FrameLayout implements ShapeExtension, OnShapeAct
                 this.bubble.showAtShape(shape);
                 if (showBubble) {
                     if (!shape.getMove()) {
-                        this.view.setVisibility(View.VISIBLE);
+                        this.view.setVisibility(View.GONE);    //xhf ar版本  gone
                     }
                 }
             }

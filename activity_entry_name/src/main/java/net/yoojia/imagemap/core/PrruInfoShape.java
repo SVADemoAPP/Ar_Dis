@@ -48,7 +48,7 @@ public class PrruInfoShape extends Shape {
         isBind = bind;
     }
 
-    public PointF setCenter() {
+    public PointF getCenter() {
         return center;
     }
 

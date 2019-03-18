@@ -185,9 +185,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                     showNormalDialog("合并", "确定进行合并操作吗？");
                     break;
                 case 2:
-                    String path = Constant.DATA_PATH + File.separator + siteName;
-                    FileUtils.deleteDir(new File(path));
-                    showNormalDialog("删除", "确定进行删除操作吗？");
+                    showDeleteDialog("删除", "确定进行删除操作吗？", siteName);
                     break;
                 default:
                     showToast("未知的点击操作" + type);
@@ -195,6 +193,44 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             }
         }
     };
+
+    private void showDeleteDialog(String title, String message, final String name) {
+        /* @setIcon 设置对话框图标
+         * @setTitle 设置对话框标题
+         * @setMessage 设置对话框消息提示
+         * setXXX方法返回Dialog对象，因此可以链式设置属性
+         */
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(mContext);
+//        normalDialog.setIcon(R.drawable.icon_dialog);
+        normalDialog.setTitle(title);
+        normalDialog.setMessage(message);
+        normalDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            String path = Constant.DATA_PATH + File.separator + name;
+                            FileUtils.deleteDir(new File(path));
+                            showToast("操作成功");
+                            initSiteAndFloor();
+                            mRvGroupAdapter.notifyDataSetChanged();
+                        } catch (Exception e) {
+                            showToast("操作异常，请查看日志");
+                        }
+
+                    }
+                });
+        normalDialog.setNegativeButton("关闭",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //...To-do
+                    }
+                });
+        // 显示
+        normalDialog.show();
+    }
 
     private void showNormalDialog(String title, String message) {
         /* @setIcon 设置对话框图标

@@ -59,7 +59,7 @@ public class DistanceUtil {
         Log.e("XHF", "data=" + data.size());
         for (int i = 0; i < data.size(); i++) {
             PrruInfoShape prruInfoShape = data.get(i);
-            PointF centerPoint = prruInfoShape.setCenter();
+            PointF centerPoint = prruInfoShape.getCenter();
             float[] real1 = mapToReal(scale, centerPoint.x, centerPoint.y, height);
             float[] real2 = mapToReal(scale, x, y, height);
             double pixDistance = Math.sqrt((real1[0] - real2[0]) * (real1[0] - real2[0]) + (real1[1] - real2[1]) * (real1[1] - real2[1]));  //实际距离 m

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -49,7 +50,7 @@ import java.util.List;
 import io.reactivex.functions.Consumer;
 
 public class PrruMapFragment extends Fragment {
-    private int mMi = 1;
+    private int mMi = 2;
     private ImageMap1 mFloorMap;  //地图
     private Bitmap mBitmap;  //图片
     private int mWidth;  //图片宽度
@@ -72,6 +73,7 @@ public class PrruMapFragment extends Fragment {
     //当前地图所有未绑定的prru列表
     private List<PrruInfoShape> prruInfoShapes;
     private PrruInfoShape minDistacePrru;
+    private PrruInfoShape openZxingPrru;
     private AlertDialog.Builder mPrrusetDialog;
     private float mX;
     private float mY;
@@ -245,7 +247,7 @@ public class PrruMapFragment extends Fragment {
     public void setNowLocation(float x, float y) {
         mX = x;
         mY = y;
-        if (mCircleShape == null) {
+        if (mFloorMap.getShape("loc") == null) {
             mCircleShape = new CircleShape("loc", Color.RED);
             mCircleShape.setRadius(10);
             mCircleShape.setValues(x, y);
@@ -260,8 +262,8 @@ public class PrruMapFragment extends Fragment {
                     if (mPrrusetDialog == null) { //控制弹窗
                         mpRRUId = minDistacePrru.getId();
                         Toast.makeText(mContext, "请在附件放置prru", Toast.LENGTH_SHORT).show(); //
+                        openZxingPrru = minDistacePrru;  //查找当前prru
                         showNormalScanDialog("已找到prru", "附件有pRRU安装点要确定扫码安装么？");
-
                     }
                 } else {
 
@@ -296,6 +298,19 @@ public class PrruMapFragment extends Fragment {
         }
         String id = minDistacePrru.getId();
         if (id.equals(mpRRUId)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean judgeSame() {
+        PointF center = openZxingPrru.getCenter(); //prru坐标
+        float[] real = DistanceUtil.mapToReal(mScale, center.x, center.y, mHeight);
+        float[] real2 = DistanceUtil.mapToReal(mScale, mX, mY, mHeight);
+        double distance = Math.sqrt((real[0] - real2[0]) * (real[0] - real2[0]) + (real[1] - real2[1]) * (real[1] - real2[1]));
+        Log.e("XHF", "distance=" + distance);
+        if (distance < mMi) {  //如果小于经度范围
             return true;
         } else {
             return false;
@@ -444,7 +459,6 @@ public class PrruMapFragment extends Fragment {
                             }
                         });
                         ((FloorMapActivity) mContext).openZxing(); //打开扫描界面
-                        showToast("请扫描pRRU设备二维码，然后进行安装");
                     }
                 });
         mPrrusetDialog.setNegativeButton("取消",
