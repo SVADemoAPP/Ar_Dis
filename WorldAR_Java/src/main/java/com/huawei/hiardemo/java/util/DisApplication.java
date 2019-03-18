@@ -12,6 +12,7 @@ public class DisApplication extends Application {
         super.onCreate();
         Constant.SD_PATH = new StringBuilder(String.valueOf(Environment.getExternalStorageDirectory().getAbsolutePath())).append(File.separator).append("disvisible").toString();
         Constant.DATA_PATH = Constant.SD_PATH + File.separator + "data";
+        Constant.AR_PATH = Constant.SD_PATH + File.separator + "AR";
         initPhotoError();
     }
     private void initPhotoError(){

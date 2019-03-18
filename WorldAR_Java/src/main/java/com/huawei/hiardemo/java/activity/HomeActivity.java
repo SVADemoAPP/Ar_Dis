@@ -86,13 +86,17 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
 
     private void initFloorMapsDir() {
-        File dir = new File(Constant.SD_PATH + "/data/");
+        File dir = new File(Constant.DATA_PATH);
         if (!dir.exists()) {
             dir.mkdirs();
         }
         File photosDir = new File(Constant.SD_PATH + "/photos/");
         if (!photosDir.exists()) {
             photosDir.mkdirs();
+        }
+        File arDir = new File(Constant.AR_PATH);
+        if(!arDir.exists()){
+            arDir.mkdirs();
         }
     }
 

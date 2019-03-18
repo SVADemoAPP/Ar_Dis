@@ -51,8 +51,13 @@ import com.huawei.hiardemo.java.rendering.PlaneRenderer;
 import com.huawei.hiardemo.java.rendering.PointCloudRenderer;
 import com.huawei.hiardemo.java.rendering.VirtualObjectRenderer;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -146,7 +151,8 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
 //    }
 
     private ArrayBlockingQueue<MotionEvent> mQueuedSingleTaps = new ArrayBlockingQueue<>(2);
-    private ArrayList<ARAnchor> mAnchors = new ArrayList<>();
+    private List<ARAnchor> mAnchors = new ArrayList<>();
+    private ARFrame mFrame;
 
     private float mScaleFactor = 0.15f;
     private boolean installRequested;
@@ -305,8 +311,8 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
 
         try {
             mSession.setCameraTextureName(mBackgroundRenderer.getTextureId());
-            ARFrame frame = mSession.update();
-            ARCamera camera = frame.getCamera();
+            mFrame = mSession.update();
+            ARCamera camera = mFrame.getCamera();
             mArPose = camera.getDisplayOrientedPose();  //获取摄像头位置（即为定位位置）
             if (!isFirstFlag) {  //判断第一次进入
                 if (hasPlane) { //开始定位的标志
@@ -317,7 +323,7 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
             }
 //            handleTap(frame, camera);
 
-            mBackgroundRenderer.draw(frame);
+            mBackgroundRenderer.draw(mFrame);
 
             if (camera.getTrackingState() == ARTrackable.TrackingState.PAUSED) {
                 return;
@@ -329,12 +335,12 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
             float[] viewmtx = new float[UtilsCommon.MATRIX_NUM];
             camera.getViewMatrix(viewmtx, 0);
 
-            ARLightEstimate le = frame.getLightEstimate();
+            ARLightEstimate le = mFrame.getLightEstimate();
             float lightIntensity = 1;
             if (le.getState() != ARLightEstimate.State.NOT_VALID) {
                 lightIntensity = le.getPixelIntensity();
             }
-            ARPointCloud arPointCloud = frame.acquirePointCloud();
+            ARPointCloud arPointCloud = mFrame.acquirePointCloud();
             mPointCloud.update(arPointCloud);
             mPointCloud.draw(viewmtx, projmtx);
             arPointCloud.release();
@@ -491,5 +497,47 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
 
     public void setCameraPose() {
         mAnchors.add(mSession.createAnchor(mArPose));
+    }
+
+    public ByteBuffer getMapData(){
+        return mSession.saveSharedData();
+    }
+
+    public Collection<ARAnchor> getARAnchors(){
+        return Collections.unmodifiableList(mAnchors);
+    }
+
+    public ARSession getARSession(){
+        return mSession;
+    }
+
+    public void setMapData(byte[] map ){
+        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(map.length);
+        byteBuffer.put(map);
+        mSession.loadSharedData(byteBuffer);
+    }
+
+    public void setARAnchors(final List<ARAnchor> arAnchors){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                int count = 0;
+                while(true){
+                    ARFrame.AlignState state = mFrame.getAlignState();
+                    Log.e("ARFrame.AlignState",state.toString());
+                    if (state == ARFrame.AlignState.SUCCESS) {
+                        mAnchors = arAnchors;
+                        break;
+                    } else if (state == ARFrame.AlignState.PROCESSING && count == 0) {
+                        count++;
+                    }
+                }
+            }
+        }).start();
     }
 }

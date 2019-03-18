@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.PointF;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -24,18 +23,17 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.huawei.hiar.ARAnchor;
 import com.huawei.hiar.ARPose;
 import com.huawei.hiardemo.java.R;
+import com.huawei.hiardemo.java.ShareMapHelper;
 import com.huawei.hiardemo.java.fragment.ARFragment;
 import com.huawei.hiardemo.java.fragment.PrruMapFragment;
 import com.huawei.hiardemo.java.framework.activity.BaseActivity;
-import com.huawei.hiardemo.java.framework.utils.StringUtil;
 import com.huawei.hiardemo.java.util.Constant;
 import com.huawei.hiardemo.java.util.DistanceUtil;
 import com.huawei.hiardemo.java.util.XmlUntils;
 import com.huawei.hiardemo.java.view.popup.SelectPopupWindow;
-
-import net.yoojia.imagemap.core.PrruInfoShape;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -45,7 +43,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -77,7 +76,8 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
     private float mScale;
     private int mHeight;
     private String mContents;
-
+    private String siteName;
+    private String floorName;
 
     public void setScale(float scale) {
         mScale = scale;
@@ -136,6 +136,8 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void dealLogicBeforeInitView() {
         mapPath = (String) getIntent().getExtras().get("floormap");
+        siteName = mapPath.substring(0, mapPath.indexOf(File.separator));
+        floorName = mapPath.substring(mapPath.indexOf(File.separator) + 1, mapPath.indexOf("."));
         mBitmap = BitmapFactory.decodeFile(Constant.DATA_PATH + File.separator + mapPath);
         mHeight = mBitmap.getHeight();
         prruMapFragment = new PrruMapFragment();
@@ -175,6 +177,18 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
         });
     }
 
+    public void initARData(){
+        File mapData = new File(Constant.AR_PATH + File.separator + siteName + File.separator + floorName+"map.data");
+        if(mapData.exists()){
+            mArFragment.setMapData(ShareMapHelper.readBuffer(mapData));
+        }
+        File arData = new File(Constant.AR_PATH + File.separator + siteName + File.separator + floorName+"ar.data");
+        if(arData.exists()){
+            mArFragment.setARAnchors(ShareMapHelper.readAnchorFromFile(arData,mArFragment.getARSession()));
+        }
+
+    }
+
 
     @Override
     public void initView() {
@@ -183,15 +197,12 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void dealLogicAfterInitView() {
-
+        initARData();
     }
 
     public void writeToXml() {
-        String siteName = mapPath.substring(0, mapPath.indexOf(File.separator));
-        String floorName = mapPath.substring(mapPath.indexOf(File.separator) + 1, mapPath.indexOf("."));
         String xmlFilePath = Constant.DATA_PATH + File.separator + siteName + File.separator + "project.xml";
         if (prruMapFragment.judgeSame()) { //判断是否是同一个Prru 同一个存入信息
-            showToast("本次扫码绑定有效");
             Document document = XmlUntils.getDocument(xmlFilePath);
             Element rootElement = XmlUntils.getRootElement(document);
             Element floors = XmlUntils.getElementByName(rootElement, "Floors");
@@ -212,10 +223,15 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
                 }
             }
             showToast("安装成功");
+            ShareMapHelper.writeBuffer(Constant.AR_PATH + File.separator + siteName + File.separator + floorName+"map.data",mArFragment.getMapData());
+            Collection<ARAnchor> arAnchors = mArFragment.getARAnchors();
+            if(arAnchors.size() > 0){
+                ShareMapHelper.svaAnchorToFile(Constant.AR_PATH + File.separator + siteName + File.separator + floorName + "ar.data",arAnchors);
+            }
             prruMapFragment.refreshMap();
             prruMapFragment.cancelPrrusetDialog();
         } else {
-            showToast("安装位置与设计不符，本次安装无效");
+            showToastLong("安装位置与设计不符，本次安装无效");
             prruMapFragment.cancelPrrusetDialog();
         }
     }
