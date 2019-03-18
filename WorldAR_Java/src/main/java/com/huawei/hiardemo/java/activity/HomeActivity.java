@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.huawei.hiardemo.java.R;
 import com.huawei.hiardemo.java.adapter.RvGroupAdapter;
 import com.huawei.hiardemo.java.adapter.RvMemberAdapter;
@@ -38,6 +40,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.google.zxing.integration.android.IntentIntegrator.REQUEST_CODE;
 
 public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private static final int REQUESTCODE_FROM_ACTIVITY = 1000;  //选择文件返回code
@@ -282,8 +286,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if(mTopRightMenu!=null)
-                {
+                if (mTopRightMenu != null) {
                     mTopRightMenu.showAsDropDown(mllAdd, -200, 20);    //带偏移量
                 }
                 break;

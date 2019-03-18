@@ -30,6 +30,7 @@ public class SelectPopupWindow {
     private Context mContext;
 
     public SelectPopupWindow(Context context, Bitmap mapBitmap) {
+        mContext = context;
         mMapBitmap = mapBitmap;
         mSelectPopupWindow = new SuperPopupWindow(context, R.layout.popupwindow_select_map);
         View popupView = mSelectPopupWindow.getPopupView();

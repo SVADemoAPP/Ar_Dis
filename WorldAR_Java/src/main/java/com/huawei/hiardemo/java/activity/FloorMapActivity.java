@@ -232,7 +232,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
                     Toast.makeText(this, "扫描结果: " + result.getContents(), Toast.LENGTH_LONG).show();
 
                     mContents = result.getContents();
-                    showDialog("消息","请在安装pRRU位置扫一扫然后点击确认");
+                    showDialog("消息", "请在安装pRRU位置扫一扫然后点击确认");
                 }
             }
         }
@@ -404,7 +404,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
     public void openZxing() {
         // 打开扫描界面扫描条形码或二维码
         IntentIntegrator intentIntegrator = new IntentIntegrator(this);
-        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES); //设置扫描的类型
+        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES); //设置扫描的类型  条形码 二维码均可
         intentIntegrator.setOrientationLocked(false);  //方向锁定
         intentIntegrator.setCaptureActivity(PortraitZxingActivity.class);
         intentIntegrator.setCameraId(0); //前置相机还是后置相机
