@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_iv_tip"
+        android:layout_marginLeft="50dp"
+        android:src="@mipmap/highlight_arrow" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitStart"
+        android:src="@mipmap/hightlight_add_text" />
+
+    <ImageView
+        android:id="@+id/id_iv_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:src="@mipmap/highlight_confirm" />
+
+</LinearLayout>

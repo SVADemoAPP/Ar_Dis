@@ -18,8 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 import com.huawei.hiardemo.java.R;
 import com.huawei.hiardemo.java.adapter.RvGroupAdapter;
 import com.huawei.hiardemo.java.adapter.RvMemberAdapter;
@@ -41,7 +39,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.google.zxing.integration.android.IntentIntegrator.REQUEST_CODE;
+import zhy.com.highlight.HighLight;
+import zhy.com.highlight.interfaces.HighLightInterface;
+import zhy.com.highlight.position.OnLeftPosCallback;
+import zhy.com.highlight.shape.RectLightShape;
+import zhy.com.highlight.view.HightLightView;
 
 public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private static final int REQUESTCODE_FROM_ACTIVITY = 1000;  //选择文件返回code
@@ -56,12 +58,24 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout mllAdd;     //右上角添加按钮
     private Context mContext;
     private TopRightMenu mTopRightMenu; //顶部右侧弹出按钮
+    private HighLight mHightLight;
+    private boolean mHightlightFlag = true;
 
     @Override
     public void findView() {
         mRecyclerView = findViewById(R.id.rv_group);
         mllAdd = findViewById(R.id.tool_right_add);
         mllAdd.setOnClickListener(this);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if (hasFocus) {
+            if (mHightlightFlag) {
+                showNextKnownTipView();
+                mHightlightFlag = false;
+            }
+        }
     }
 
     @Override
@@ -431,4 +445,38 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
+    /**
+     * 显示 next模式 我知道了提示高亮布局
+     */
+    public void showNextKnownTipView() {
+        mHightLight = new HighLight(mContext)//
+                .autoRemove(false)//设置背景点击高亮布局自动移除为false 默认为true
+//                .intercept(false)//设置拦截属性为false 高亮布局不影响后面布局的滑动效果
+                .intercept(true)//拦截属性默认为true 使下方ClickCallback生效
+                .enableNext()//开启next模式并通过show方法显示 然后通过调用next()方法切换到下一个提示布局，直到移除自身
+                .setClickCallback(new HighLight.OnClickCallback() {
+                    @Override
+                    public void onClick() {
+                        mHightLight.next();
+                    }
+                })
+                .addHighLight(R.id.tool_right_add, R.layout.view_highlight_find, new OnLeftPosCallback(5), new RectLightShape())
+                .setOnRemoveCallback(new HighLightInterface.OnRemoveCallback() {//监听移除回调
+                    @Override
+                    public void onRemove() {
+
+                    }
+                })
+                .setOnShowCallback(new HighLightInterface.OnShowCallback() {//监听显示回调
+                    @Override
+                    public void onShow(HightLightView hightLightView) {
+                    }
+                }).setOnNextCallback(new HighLightInterface.OnNextCallback() {
+                    @Override
+                    public void onNext(HightLightView hightLightView, View targetView, View tipView) {
+                        // targetView 目标按钮 tipView添加的提示布局 可以直接找到'我知道了'按钮添加监听事件等处理
+                    }
+                });
+        mHightLight.show();
+    }
 }

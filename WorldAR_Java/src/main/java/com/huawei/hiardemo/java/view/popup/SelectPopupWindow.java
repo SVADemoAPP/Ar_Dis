@@ -5,15 +5,24 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.huawei.hiardemo.java.R;
+import com.huawei.hiardemo.java.activity.FloorMapActivity;
 
 import net.yoojia.imagemap.ImageMap1;
 import net.yoojia.imagemap.TouchImageView1;
 import net.yoojia.imagemap.core.CircleShape;
+
+import zhy.com.highlight.HighLight;
+import zhy.com.highlight.interfaces.HighLightInterface;
+import zhy.com.highlight.position.OnLeftPosCallback;
+import zhy.com.highlight.position.OnTopPosCallback;
+import zhy.com.highlight.shape.RectLightShape;
+import zhy.com.highlight.view.HightLightView;
 
 public class SelectPopupWindow {
     private static final String SELECT_ADDRESS = "select";
@@ -28,6 +37,8 @@ public class SelectPopupWindow {
     private View mTvConfirm;
     private SelectPointListener mSelectPointListener;
     private Context mContext;
+    private HighLight mHightLight;
+    private RelativeLayout mRl;
 
     public SelectPopupWindow(Context context, Bitmap mapBitmap) {
         mContext = context;
@@ -47,7 +58,10 @@ public class SelectPopupWindow {
      * 初始化prru
      */
     public void initPopupWindow(View view) {
+        mRl = view.findViewById(R.id.content);
         mAmap = view.findViewById(R.id.pop_select_map);
+        mAmap.setAllowRotate(false);
+        mAmap.setAllowRequestTranslate(false);
         mTvCancel = view.findViewById(R.id.pop_cancel);
         mTvConfirm = view.findViewById(R.id.pop_confirm);
         mAmap.setOnSingleClickListener(new TouchImageView1.OnSingleClickListener() {
@@ -104,6 +118,22 @@ public class SelectPopupWindow {
      */
     public void showPopupWindow() {
         mSelectPopupWindow.showPopupWindow();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                ((FloorMapActivity)mContext).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showNextKnownTipView();
+                    }
+                });
+            }
+        }).start();
     }
 
     /**
@@ -121,4 +151,36 @@ public class SelectPopupWindow {
         void cancel();
     }
 
+    public void showNextKnownTipView() {
+        mHightLight = new HighLight(mContext)//
+                .anchor(mRl)
+                .autoRemove(false)//设置背景点击高亮布局自动移除为false 默认为true
+//                .intercept(false)//设置拦截属性为false 高亮布局不影响后面布局的滑动效果
+                .intercept(true)//拦截属性默认为true 使下方ClickCallback生效
+                .enableNext()//开启next模式并通过show方法显示 然后通过调用next()方法切换到下一个提示布局，直到移除自身
+                .setClickCallback(new HighLight.OnClickCallback() {
+                    @Override
+                    public void onClick() {
+                        mHightLight.next();
+                    }
+                })
+                .addHighLight(R.id.pop_select_map, R.layout.view_highlight_find, new OnTopPosCallback(5), new RectLightShape())
+                .setOnRemoveCallback(new HighLightInterface.OnRemoveCallback() {//监听移除回调
+                    @Override
+                    public void onRemove() {
+
+                    }
+                })
+                .setOnShowCallback(new HighLightInterface.OnShowCallback() {//监听显示回调
+                    @Override
+                    public void onShow(HightLightView hightLightView) {
+                    }
+                }).setOnNextCallback(new HighLightInterface.OnNextCallback() {
+                    @Override
+                    public void onNext(HightLightView hightLightView, View targetView, View tipView) {
+                        // targetView 目标按钮 tipView添加的提示布局 可以直接找到'我知道了'按钮添加监听事件等处理
+                    }
+                });
+        mHightLight.show();
+    }
 }

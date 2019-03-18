@@ -21,4 +21,5 @@
     <color name="transport_pop">#BA000000</color>
     <color name="line_gray2">#5c5b5b</color>
     <color name="colorPrimary_Dark">#2E2D30</color>
+    <color name="colorWhite">#ffffff</color>
 </resources>

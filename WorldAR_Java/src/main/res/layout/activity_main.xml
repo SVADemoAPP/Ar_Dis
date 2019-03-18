@@ -30,7 +30,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="0dp"
         android:background="@android:color/darker_gray"
-        android:text="Searching for surface..."
+        android:text="请移动手机扫描周围场景，出现平面后开始定位"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="512dp" />
 

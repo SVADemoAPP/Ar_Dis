@@ -156,7 +156,8 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
 
             @Override
             public void cancel() {  //没有选择
-
+                mSelectPopupWindow.hidePopupWindow();
+                finish();
             }
         });
 
@@ -177,7 +178,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void initView() {
-        mToolName.setText("pRRU");
+        mToolName.setText("寻找pRRU");
     }
 
     @Override
@@ -408,7 +409,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
         intentIntegrator.setOrientationLocked(false);  //方向锁定
         intentIntegrator.setCaptureActivity(PortraitZxingActivity.class);
         intentIntegrator.setCameraId(0); //前置相机还是后置相机
-        intentIntegrator.setBeepEnabled(false); //是否发出成功的声音
+        intentIntegrator.setBeepEnabled(true); //是否发出成功的声音
         intentIntegrator.setBarcodeImageEnabled(true);
         intentIntegrator.initiateScan();
     }
