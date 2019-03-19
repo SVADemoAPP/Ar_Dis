@@ -44,12 +44,15 @@ import com.huawei.hiar.exceptions.ARUnavailableUserDeclinedInstallationException
 import com.huawei.hiardemo.java.DisplayRotationHelper;
 import com.huawei.hiardemo.java.MainActivity;
 import com.huawei.hiardemo.java.R;
+import com.huawei.hiardemo.java.ShareMapHelper;
 import com.huawei.hiardemo.java.UtilsCommon;
+import com.huawei.hiardemo.java.activity.FloorMapActivity;
 import com.huawei.hiardemo.java.framework.sharef.CameraPermissionHelper;
 import com.huawei.hiardemo.java.rendering.BackgroundRenderer;
 import com.huawei.hiardemo.java.rendering.PlaneRenderer;
 import com.huawei.hiardemo.java.rendering.PointCloudRenderer;
 import com.huawei.hiardemo.java.rendering.VirtualObjectRenderer;
+import com.huawei.hiardemo.java.util.Constant;
 
 import java.io.File;
 import java.io.IOException;
@@ -81,8 +84,8 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
         }
     };
     private boolean hasPlane = false;
-
     private boolean hasplat = false;
+    private boolean initARFlag = false;
 
     @Nullable
     @Override
@@ -92,9 +95,9 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
         mFpsTextView = mArView.findViewById(R.id.fpsTextView);
         mSearchingTextView = mArView.findViewById(R.id.searchingTextView);
         mSurfaceView = mArView.findViewById(R.id.surfaceview);
-        mDisplayRotationHelper = new DisplayRotationHelper(getContext());
+        mDisplayRotationHelper = new DisplayRotationHelper(getActivity());
 
-        mGestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
+        mGestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
                 onSingleTap(e);
@@ -177,7 +180,7 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
                 //If you do not want to switch engines, AREnginesSelector is useless.
                 // You just need to use AREnginesApk.requestInstall() and the default engine
                 // is Huawei AR Engine.
-                AREnginesSelector.AREnginesAvaliblity enginesAvaliblity = AREnginesSelector.checkAllAvailableEngines(getContext());
+                AREnginesSelector.AREnginesAvaliblity enginesAvaliblity = AREnginesSelector.checkAllAvailableEngines(getActivity());
                 if ((enginesAvaliblity.ordinal() &
                         AREnginesSelector.AREnginesAvaliblity.HWAR_ENGINE_SUPPORTED.ordinal()) != 0) {
 
@@ -196,9 +199,30 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
                         return;
                     }
 
-                    mSession = new ARSession(/*context=*/getContext());
+                    mSession = new ARSession(/*context=*/getActivity());
                     ARConfigBase config = new ARWorldTrackingConfig(mSession);
                     mSession.configure(config);
+                    if (!initARFlag) {
+                        initARFlag = true;
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(2000);
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            initARData();
+
+                                        }
+                                    });
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).start();
+                    }
+
                 } else {
                     message = "This device does not support Huawei AR Engine ";
                 }
@@ -499,25 +523,26 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
         mAnchors.add(mSession.createAnchor(mArPose));
     }
 
-    public ByteBuffer getMapData(){
+    public ByteBuffer getMapData() {
         return mSession.saveSharedData();
     }
 
-    public Collection<ARAnchor> getARAnchors(){
+    public Collection<ARAnchor> getARAnchors() {
         return Collections.unmodifiableList(mAnchors);
     }
 
-    public ARSession getARSession(){
+    public ARSession getARSession() {
         return mSession;
     }
 
-    public void setMapData(byte[] map ){
+    public void setMapData(byte[] map) {
         ByteBuffer byteBuffer = ByteBuffer.allocateDirect(map.length);
         byteBuffer.put(map);
+
         mSession.loadSharedData(byteBuffer);
     }
 
-    public void setARAnchors(final List<ARAnchor> arAnchors){
+    public void setARAnchors(final List<ARAnchor> arAnchors) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -527,9 +552,9 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
                     e.printStackTrace();
                 }
                 int count = 0;
-                while(true){
+                while (true) {
                     ARFrame.AlignState state = mFrame.getAlignState();
-                    Log.e("ARFrame.AlignState",state.toString());
+                    Log.e("ARFrame.AlignState", state.toString());
                     if (state == ARFrame.AlignState.SUCCESS) {
                         mAnchors = arAnchors;
                         break;
@@ -539,5 +564,22 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
                 }
             }
         }).start();
+    }
+
+    public void initARData() {
+        String siteName = ((FloorMapActivity) getActivity()).getSiteName();
+        String floorName = ((FloorMapActivity) getActivity()).getFloorName();
+        File mapData = new File(Constant.AR_PATH + File.separator + siteName + File.separator + floorName + "map.data");
+        if (mapData.exists()) {
+            setMapData(ShareMapHelper.readBuffer(mapData));
+        }
+        File arData = new File(Constant.AR_PATH + File.separator + siteName + File.separator + floorName + "ar.data");
+        if (arData.exists()) {
+            List<ARAnchor> arAnchors = ShareMapHelper.readAnchorFromFile(arData, getARSession());
+            if (arAnchors.size()>0)
+            {
+                setARAnchors(arAnchors);
+            }
+        }
     }
 }

@@ -31,6 +31,7 @@ import net.yoojia.imagemap.HighlightImageView1;
 import net.yoojia.imagemap.ImageMap1;
 import net.yoojia.imagemap.TouchImageView1;
 import net.yoojia.imagemap.core.Bubble;
+import net.yoojia.imagemap.core.CircleRangeShape;
 import net.yoojia.imagemap.core.CircleShape;
 import net.yoojia.imagemap.core.CollectPointShape;
 import net.yoojia.imagemap.core.MoniPointShape;
@@ -68,7 +69,7 @@ public class PrruMapFragment extends Fragment {
     private View mMenuCamera;
     private Context mContext;
     private float mScale;  //比例尺
-    private CircleShape mCircleShape;
+    private CircleRangeShape mCircleShape;
 
     //当前地图所有未绑定的prru列表
     private List<PrruInfoShape> prruInfoShapes;
@@ -248,8 +249,9 @@ public class PrruMapFragment extends Fragment {
         mX = x;
         mY = y;
         if (mFloorMap.getShape("loc") == null) {
-            mCircleShape = new CircleShape("loc", Color.RED);
+            mCircleShape = new CircleRangeShape("loc", Color.RED);
             mCircleShape.setRadius(10);
+            mCircleShape.setRange(mMi*mScale);
             mCircleShape.setValues(x, y);
             mFloorMap.addShape(mCircleShape, false);
 
@@ -455,7 +457,7 @@ public class PrruMapFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                ((FloorMapActivity) getActivity()).setAnchor();
+                                ((FloorMapActivity) getActivity()).setAnchor(); //放置ar安装点
                             }
                         });
                         ((FloorMapActivity) mContext).openZxing(); //打开扫描界面

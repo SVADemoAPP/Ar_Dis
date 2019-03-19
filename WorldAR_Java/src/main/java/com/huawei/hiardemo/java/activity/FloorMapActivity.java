@@ -177,18 +177,13 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
         });
     }
 
-    public void initARData(){
-        File mapData = new File(Constant.AR_PATH + File.separator + siteName + File.separator + floorName+"map.data");
-        if(mapData.exists()){
-            mArFragment.setMapData(ShareMapHelper.readBuffer(mapData));
-        }
-        File arData = new File(Constant.AR_PATH + File.separator + siteName + File.separator + floorName+"ar.data");
-        if(arData.exists()){
-            mArFragment.setARAnchors(ShareMapHelper.readAnchorFromFile(arData,mArFragment.getARSession()));
-        }
-
+    public String getSiteName() {
+        return siteName;
     }
 
+    public String getFloorName() {
+        return floorName;
+    }
 
     @Override
     public void initView() {
@@ -197,7 +192,12 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void dealLogicAfterInitView() {
-        initARData();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     public void writeToXml() {
@@ -223,11 +223,14 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
                 }
             }
             showToast("安装成功");
-            ShareMapHelper.writeBuffer(Constant.AR_PATH + File.separator + siteName + File.separator + floorName+"map.data",mArFragment.getMapData());
+            Log.e("XHF", "b1");
+            ShareMapHelper.writeBuffer(Constant.AR_PATH + File.separator + siteName, floorName + "map.data", mArFragment.getMapData());
             Collection<ARAnchor> arAnchors = mArFragment.getARAnchors();
-            if(arAnchors.size() > 0){
-                ShareMapHelper.svaAnchorToFile(Constant.AR_PATH + File.separator + siteName + File.separator + floorName + "ar.data",arAnchors);
+            Log.e("XHF", "b2" + "arSize=" + arAnchors.size());
+            if (arAnchors.size() > 0) {
+                ShareMapHelper.svaAnchorToFile(Constant.AR_PATH + File.separator + siteName + File.separator + floorName + "ar.data", arAnchors);
             }
+            Log.e("XHF", "b3" + "arSize=" + arAnchors.size());
             prruMapFragment.refreshMap();
             prruMapFragment.cancelPrrusetDialog();
         } else {
