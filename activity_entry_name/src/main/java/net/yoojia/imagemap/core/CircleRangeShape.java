@@ -38,7 +38,7 @@ public class CircleRangeShape extends Shape {
      * 初始化范围笔
      */
     private void initRangePaint(int coverColor) {
-        Xfermode xFermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER);
+//        Xfermode xFermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER);
         mRangePaint = new Paint();
         mRangePaint.setColor(Color.RED);
         mRangePaint.setStyle(Paint.Style.FILL);
@@ -46,7 +46,7 @@ public class CircleRangeShape extends Shape {
         mRangePaint.setAntiAlias(true);
         mRangePaint.setDither(true); //防抖动
         mRangePaint.setFilterBitmap(true);
-        mRangePaint.setXfermode(xFermode);
+//        mRangePaint.setXfermode(xFermode);
 
         mPointPaint = new Paint();
         mPointPaint.setColor(coverColor);
@@ -54,7 +54,7 @@ public class CircleRangeShape extends Shape {
         mPointPaint.setAntiAlias(true);
         mPointPaint.setFilterBitmap(true);
         mPointPaint.setTextSize(20);
-        mPointPaint.setXfermode(xFermode);
+//        mPointPaint.setXfermode(xFermode);
     }
 
     /**
@@ -88,8 +88,6 @@ public class CircleRangeShape extends Shape {
     public void draw(Canvas canvas) {
         PointF f = MatrixConverHelper.mapMatrixPoint(mOverMatrix, center.x, center.y);
         canvas.drawCircle(f.x, f.y, radius, mPointPaint);
-        canvas.save();
-        canvas.restore();
         canvas.drawCircle(f.x, f.y, mRange * mScale, mRangePaint);
         canvas.save();
         canvas.restore();

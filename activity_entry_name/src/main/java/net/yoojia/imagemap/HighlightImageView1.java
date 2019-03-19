@@ -83,13 +83,13 @@ public class HighlightImageView1 extends TouchImageView1 implements ShapeExtensi
 
             @Override
             public void touchOutside(float x, float y) {  //判断是否是除开prru的外部包括图片以外
-                boolean flag=false;
+                boolean flag = false;
                 for (Shape shape : shapesCache.values()) {
                     if (shape.inArea(x, y) && shape instanceof PrruInfoShape) {
-                        flag=true;
+                        flag = true;
                     }
                 }
-                if(!flag){
+                if (!flag) {
                     hListener.clickOutSide();
                 }
             }
@@ -233,10 +233,20 @@ public class HighlightImageView1 extends TouchImageView1 implements ShapeExtensi
         Matrix matrix = new Matrix(getImageMatrix());
         super.onDraw(canvas);
         float scale = getScale();
+        Shape temple = null;
         for (Shape shape : this.shapesCache.values()) {
             shape.postMatrixCahnge(matrix);
-            shape.setScale(scale);
-            shape.onDraw(canvas);
+            if (!shape.tag.equals("loc")) {
+                shape.setScale(scale);
+                shape.onDraw(canvas);
+            } else {
+                temple = shape;
+            }
+        }
+        if (temple != null) {
+            temple.setScale(scale);
+            temple.onDraw(canvas);
+            temple = null;
         }
         postInvalidate();
         onDrawWithCanvas(canvas);
@@ -329,6 +339,7 @@ public class HighlightImageView1 extends TouchImageView1 implements ShapeExtensi
         void endTranslate(PrruInfoShape shape, float x, float y);
 
         void clickBlank();
+
         void clickOutSide();
 
     }

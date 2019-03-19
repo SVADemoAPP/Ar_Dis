@@ -5,6 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PointF;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Xfermode;
 import android.view.View;
 import android.view.View.MeasureSpec;
 
@@ -102,6 +105,8 @@ public class PrruInfoShape extends Shape {
         this.tag = tag;
         this.drawPaint.setTextSize(30.0f);
         this.drawPaint.setColor(Color.GRAY);
+//        Xfermode xFermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER);
+//        this.drawPaint.setXfermode(xFermode);
         setPrruShowType(pRRUType.outArea);
     }
 
