@@ -38,7 +38,7 @@ public class CircleRangeShape extends Shape {
      * 初始化范围笔
      */
     private void initRangePaint(int coverColor) {
-        Xfermode xFermode = new PorterDuffXfermode(PorterDuff.Mode.DST_OVER);
+        Xfermode xFermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER);
         mRangePaint = new Paint();
         mRangePaint.setColor(Color.RED);
         mRangePaint.setStyle(Paint.Style.FILL);

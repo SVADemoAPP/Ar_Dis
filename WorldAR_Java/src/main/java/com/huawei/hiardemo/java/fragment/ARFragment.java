@@ -86,17 +86,19 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
     private boolean hasPlane = false;
     private boolean hasplat = false;
     private boolean initARFlag = false;
+    private View mTvRsrp;
+    private View mTvcode;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mArView = inflater.inflate(R.layout.activity_main, container, false);
-
         mFpsTextView = mArView.findViewById(R.id.fpsTextView);
+        mTvRsrp = mArView.findViewById(R.id.prruRsrp);
+        mTvcode = mArView.findViewById(R.id.prru_ne_code);
         mSearchingTextView = mArView.findViewById(R.id.searchingTextView);
         mSurfaceView = mArView.findViewById(R.id.surfaceview);
         mDisplayRotationHelper = new DisplayRotationHelper(getActivity());
-
         mGestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
@@ -557,8 +559,14 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
                     ARFrame.AlignState state = mFrame.getAlignState();
                     Log.e("ARFrame.AlignState", state.toString());
                     if (state == ARFrame.AlignState.SUCCESS) {
-
                         mAnchors = ShareMapHelper.readAnchorFromFile(arData, getARSession());
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mTvRsrp.setVisibility(View.VISIBLE);
+                                mTvcode.setVisibility(View.VISIBLE);
+                            }
+                        });
                         break;
                     } else if (state == ARFrame.AlignState.PROCESSING && count == 0) {
                         count++;
@@ -578,6 +586,8 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
         File arData = new File(Constant.AR_PATH + File.separator + siteName + File.separator + floorName + "ar.data");
         if (arData.exists()) {
             setARAnchors(arData);
+
         }
+
     }
 }
