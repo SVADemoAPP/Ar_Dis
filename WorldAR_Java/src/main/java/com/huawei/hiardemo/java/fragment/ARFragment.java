@@ -542,7 +542,8 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
         mSession.loadSharedData(byteBuffer);
     }
 
-    public void setARAnchors(final List<ARAnchor> arAnchors) {
+    public void setARAnchors(final File arData) {
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -556,7 +557,8 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
                     ARFrame.AlignState state = mFrame.getAlignState();
                     Log.e("ARFrame.AlignState", state.toString());
                     if (state == ARFrame.AlignState.SUCCESS) {
-                        mAnchors = arAnchors;
+
+                        mAnchors = ShareMapHelper.readAnchorFromFile(arData, getARSession());
                         break;
                     } else if (state == ARFrame.AlignState.PROCESSING && count == 0) {
                         count++;
@@ -575,11 +577,7 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
         }
         File arData = new File(Constant.AR_PATH + File.separator + siteName + File.separator + floorName + "ar.data");
         if (arData.exists()) {
-            List<ARAnchor> arAnchors = ShareMapHelper.readAnchorFromFile(arData, getARSession());
-            if (arAnchors.size()>0)
-            {
-                setARAnchors(arAnchors);
-            }
+            setARAnchors(arData);
         }
     }
 }
