@@ -11,10 +11,12 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -32,6 +34,7 @@ import com.huawei.hiardemo.java.fragment.PrruMapFragment;
 import com.huawei.hiardemo.java.framework.activity.BaseActivity;
 import com.huawei.hiardemo.java.util.Constant;
 import com.huawei.hiardemo.java.util.DistanceUtil;
+import com.huawei.hiardemo.java.util.UpdateCommunityInfo;
 import com.huawei.hiardemo.java.util.XmlUntils;
 import com.huawei.hiardemo.java.view.popup.SelectPopupWindow;
 
@@ -78,6 +81,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
     private String mContents;
     private String siteName;
     private String floorName;
+    private UpdateCommunityInfo updateCommunityInfo;
 
     public void setScale(float scale) {
         mScale = scale;
@@ -143,6 +147,8 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
         prruMapFragment = new PrruMapFragment();
         prruMapFragment = new PrruMapFragment();
         mArFragment = new ARFragment();
+        updateCommunityInfo=new UpdateCommunityInfo(this, (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE),new Handler());
+        updateCommunityInfo.startUpdateData();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.prru_replace, prruMapFragment);
@@ -172,6 +178,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
                     float[] real = DistanceUtil.mapToReal(mScale, mSelectPointF.x, mSelectPointF.y, mHeight);
                     float[] pix = DistanceUtil.realToMap(mScale, (real[0] + tx), (real[1] + ty), mHeight);
                     prruMapFragment.setNowLocation(pix[0], pix[1]);  //设置当前坐标
+                    prruMapFragment.setPrruColorPoint(pix[0], pix[1],Integer.parseInt(updateCommunityInfo.RSRP));
                 }
             }
         });

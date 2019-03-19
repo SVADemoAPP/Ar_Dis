@@ -80,6 +80,8 @@ public class PrruMapFragment extends Fragment {
     private float mY;
     private String mpRRUId;
 
+    private int rsrpCount;
+
 
     public float getmScale() {
         return mScale;
@@ -108,6 +110,7 @@ public class PrruMapFragment extends Fragment {
     }
 
     private void initView(View view) {
+        rsrpCount = 0;
         mFloorMap = view.findViewById(R.id.imagemap); //地图对象
         mMenuView = View.inflate(mContext, R.layout.prru_menu_layout, null);
         mMenuBind = mMenuView.findViewById(R.id.menu_bind);
@@ -274,6 +277,28 @@ public class PrruMapFragment extends Fragment {
 
         }
 
+    }
+
+    /**
+     * 设置 PrruColor
+     */
+    public synchronized void setPrruColorPoint(float x,float y,int prru) {
+        int color;
+        if (-75 < prru && prru <= 0) {  //1e8449
+            color = Color.parseColor("#1e8449");
+        } else if (-95 < prru && prru <= -75) { //浅绿色
+            color = Color.GREEN;
+        } else if (-105 < prru && prru <= -95) {  //黄色
+            color = Color.YELLOW;
+        } else if (-120 < prru && prru <= -105) { //红色
+            color = Color.RED;
+        } else {
+            color = Color.BLACK;
+        }
+        CircleShape shape = new CircleShape("rsrp"+rsrpCount, color);
+        rsrpCount++;
+        shape.setValues(x, y);
+        mFloorMap.addShape(shape, false);
     }
 
     /**
