@@ -47,7 +47,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PortraitZxingActivity"
-            android:screenOrientation="portrait" /> <!-- 7.0contentProvider -->
+            android:screenOrientation="portrait" > <!-- 7.0contentProvider -->
+        </activity>
         <provider xmlns:tools="http://schemas.android.com/tools"
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.huawei.hiardemo.java.fileprovider"

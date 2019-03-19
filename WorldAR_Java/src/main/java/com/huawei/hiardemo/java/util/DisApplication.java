@@ -4,6 +4,7 @@ import android.app.Application;
 import android.os.Environment;
 import android.os.StrictMode;
 
+import com.facebook.stetho.Stetho;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
@@ -18,6 +19,7 @@ public class DisApplication extends Application {
         Constant.AR_PATH = Constant.SD_PATH + File.separator + "AR";
         initPhotoError();
         FlowManager.init(this); //初始化数据库问题
+        Stetho.initializeWithDefaults(getApplicationContext());
     }
 
     private void initPhotoError() {

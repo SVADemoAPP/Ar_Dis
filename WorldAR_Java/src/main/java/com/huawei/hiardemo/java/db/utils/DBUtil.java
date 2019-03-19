@@ -10,8 +10,8 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.sql.queriable.AsyncQuery;
 import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * 数据库操作工具类
@@ -29,7 +29,7 @@ public class DBUtil {
             ARLoctionModel arLoctionModel = new ARLoctionModel();
             arLoctionModel.setBuildingName(buildingName);
             arLoctionModel.setSiteName(siteName);
-            arLoctionModel.setLocation(initPoint.x + "," + "," + initPoint.y);
+            arLoctionModel.setLocation(initPoint.x + "," + initPoint.y);
             long insert = arLoctionModel.insert();
             return true;
         } catch (Exception e) {
@@ -70,13 +70,13 @@ public class DBUtil {
      * @return
      */
     public static void asyncQueryARLocation(String buildingName, String siteName, final DBListener dbListener) {
-        OperatorGroup op = OperatorGroup.clause().and(ARLoctionModel_Table.buildingName.eq(buildingName)).and(ARLoctionModel_Table.siteName.eq(siteName));  //连接多个查询条件
-        AsyncQuery<ARLoctionModel> arLoctionModelAsyncQuery = SQLite.select().from(ARLoctionModel.class).where(op).async().queryListResultCallback(new QueryTransaction.QueryResultListCallback<ARLoctionModel>() {
+        OperatorGroup op = OperatorGroup.clause().and(ARLoctionModel_Table.buildingName.eq(buildingName)).and(ARLoctionModel_Table.siteName.eq(siteName));  //连接多
+        SQLite.select().from(ARLoctionModel.class).where(op).async().queryListResultCallback(new QueryTransaction.QueryResultListCallback<ARLoctionModel>() {
             @Override
             public void onListQueryResult(QueryTransaction transaction, @NonNull List<ARLoctionModel> tResult) {
                 dbListener.asyncQueryData(tResult);
             }
-        });
+        }).execute();
     }
 
     /**
@@ -84,12 +84,35 @@ public class DBUtil {
      *
      * @param buildingName
      * @param siteName
-     * @param dbListener
      */
-    public static List<ARLoctionModel> syncQueryARLocation(String buildingName, String siteName, final DBListener dbListener) {
+    public static List<ARLoctionModel> syncQueryARLocation(String buildingName, String siteName) {
         OperatorGroup op = OperatorGroup.clause().and(ARLoctionModel_Table.buildingName.eq(buildingName)).and(ARLoctionModel_Table.siteName.eq(siteName));  //连接多个查询条件
         List<ARLoctionModel> arLoctionModels = SQLite.select().from(ARLoctionModel.class).where(op).queryList();
         return arLoctionModels;
+    }
+
+    /**
+     * 删除
+     *
+     * @param arLoctionModel
+     */
+    public static void deleteARLocation(ARLoctionModel arLoctionModel) {
+        arLoctionModel.delete();
+    }
+
+    /**
+     * 删除指定id数据
+     *
+     * @param id
+     */
+    public static void deleteARLocation(int id) {
+        OperatorGroup op = OperatorGroup.clause().and(ARLoctionModel_Table.id.eq(id));  //连接多个查询条件
+        ARLoctionModel arLoctionModel = SQLite.select().from(ARLoctionModel.class).where(op).querySingle();
+        arLoctionModel.delete();
+//        ListIterator<ARLoctionModel> iterators = arLoctionModels.listIterator();
+//        while (iterators.hasNext()) {
+//            iterators.next().delete();
+//        }
     }
 
     public interface DBListener {
