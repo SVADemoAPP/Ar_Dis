@@ -7,11 +7,9 @@ import com.huawei.hiardemo.java.db.table.ARLoctionModel;
 import com.huawei.hiardemo.java.db.table.ARLoctionModel_Table;
 import com.raizlabs.android.dbflow.sql.language.OperatorGroup;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
-import com.raizlabs.android.dbflow.sql.queriable.AsyncQuery;
 import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
 
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * 数据库操作工具类
@@ -109,14 +107,9 @@ public class DBUtil {
         OperatorGroup op = OperatorGroup.clause().and(ARLoctionModel_Table.id.eq(id));  //连接多个查询条件
         ARLoctionModel arLoctionModel = SQLite.select().from(ARLoctionModel.class).where(op).querySingle();
         arLoctionModel.delete();
-//        ListIterator<ARLoctionModel> iterators = arLoctionModels.listIterator();
-//        while (iterators.hasNext()) {
-//            iterators.next().delete();
-//        }
     }
 
     public interface DBListener {
-
         /**
          * 查询数据回调
          *

@@ -29,6 +29,8 @@ import com.huawei.hiar.ARAnchor;
 import com.huawei.hiar.ARPose;
 import com.huawei.hiardemo.java.R;
 import com.huawei.hiardemo.java.ShareMapHelper;
+import com.huawei.hiardemo.java.db.table.ARLoctionModel;
+import com.huawei.hiardemo.java.db.utils.DBUtil;
 import com.huawei.hiardemo.java.fragment.ARFragment;
 import com.huawei.hiardemo.java.fragment.PrruMapFragment;
 import com.huawei.hiardemo.java.framework.activity.BaseActivity;
@@ -127,13 +129,20 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-
         if (hasFocus) {
             if (!mFirst) {
                 mFirst = true;
-                mSelectPopupWindow.showPopupWindow();
-            }
+                DBUtil.asyncQueryARLocation(siteName, floorName, new DBUtil.DBListener() {  //查询数据库 找出当前楼宇下的楼层有无定位数据
+                    @Override
+                    public void asyncQueryData(List<ARLoctionModel> data) {
+                        if (data.size() == 0) {
+                            mSelectPopupWindow.showPopupWindow();
+                        } else {
 
+                        }
+                    }
+                });
+            }
         }
     }
 
@@ -147,7 +156,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
         prruMapFragment = new PrruMapFragment();
         prruMapFragment = new PrruMapFragment();
         mArFragment = new ARFragment();
-        updateCommunityInfo=new UpdateCommunityInfo(this, (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE),new Handler());
+        updateCommunityInfo = new UpdateCommunityInfo(this, (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE), new Handler());
         updateCommunityInfo.startUpdateData();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -158,8 +167,13 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
         mSelectPopupWindow.setSelectListener(new SelectPopupWindow.SelectPointListener() {
             @Override
             public void getPoint(PointF pointF) { //有选择点返回
-                Log.e("XHF", "PointF=" + pointF.toString());
                 mSelectPointF = pointF;
+                try {
+                    DBUtil.addARLocation(siteName, floorName, pointF);//存储
+
+                } catch (Exception e) {
+                    Log.e("XHF", "存储失败");
+                }
             }
 
             @Override
@@ -169,7 +183,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
             }
         });
 
-        mArFragment.setArCameraListener(new ARFragment.ArCameraListener() {
+        mArFragment.setArCameraListener(new ARFragment.ArCameraListener() {  //获取ar返回的实时坐标
             @Override
             public void getCameraPose(ARPose arPose) {   //获取到相机返回的实时坐标
                 if (mSelectPointF != null) {
@@ -178,7 +192,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
                     float[] real = DistanceUtil.mapToReal(mScale, mSelectPointF.x, mSelectPointF.y, mHeight);
                     float[] pix = DistanceUtil.realToMap(mScale, (real[0] + tx), (real[1] + ty), mHeight);
                     prruMapFragment.setNowLocation(pix[0], pix[1]);  //设置当前坐标
-                    prruMapFragment.setPrruColorPoint(pix[0], pix[1],Integer.parseInt(updateCommunityInfo.RSRP));
+                    prruMapFragment.setPrruColorPoint(pix[0], pix[1], Integer.parseInt(updateCommunityInfo.RSRP));
                 }
             }
         });

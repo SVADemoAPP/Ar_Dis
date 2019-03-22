@@ -9,7 +9,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 import java.io.Serializable;
 
 /***
- * 用于存储AR当前定位点的
+ * 用于存储AR当前定位点的Table
  */
 
 @Table(database = AppDataBase.class)

@@ -2,7 +2,9 @@
     package="com.huawei.hiardemo.java">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.Access" />
     <!-- 读写权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 相机权限 -->
@@ -48,6 +50,7 @@
         <activity
             android:name=".activity.PortraitZxingActivity"
             android:screenOrientation="portrait" > <!-- 7.0contentProvider -->
+
         </activity>
         <provider xmlns:tools="http://schemas.android.com/tools"
             android:name="android.support.v4.content.FileProvider"

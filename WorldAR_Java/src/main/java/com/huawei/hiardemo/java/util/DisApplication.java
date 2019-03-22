@@ -3,14 +3,16 @@ package com.huawei.hiardemo.java.util;
 import android.app.Application;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.support.multidex.MultiDexApplication;
 
 import com.facebook.stetho.Stetho;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.squareup.leakcanary.LeakCanary;
 
 import java.io.File;
 
-public class DisApplication extends Application {
+public class DisApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
@@ -19,7 +21,15 @@ public class DisApplication extends Application {
         Constant.AR_PATH = Constant.SD_PATH + File.separator + "AR";
         initPhotoError();
         FlowManager.init(this); //初始化数据库问题
-        Stetho.initializeWithDefaults(getApplicationContext());
+        Stetho.initializeWithDefaults(getApplicationContext()); //初始化facebook chrome 持久化数据查看
+        LogUtils.getInstance()
+                .setDiskPath(Constant.AR_PATH+File.separator+"Log")
+                .setLevel(LogUtils.VERBOSE_LEVEL)
+                .setWriteFlag(true);  //写入日志文件
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
     }
 
     private void initPhotoError() {
