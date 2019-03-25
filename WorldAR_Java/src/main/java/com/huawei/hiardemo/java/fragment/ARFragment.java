@@ -53,6 +53,7 @@ import com.huawei.hiardemo.java.rendering.PlaneRenderer;
 import com.huawei.hiardemo.java.rendering.PointCloudRenderer;
 import com.huawei.hiardemo.java.rendering.VirtualObjectRenderer;
 import com.huawei.hiardemo.java.util.Constant;
+import com.huawei.hiardemo.java.util.UpdateCommunityInfo;
 
 import java.io.File;
 import java.io.IOException;
@@ -88,14 +89,19 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
     private boolean initARFlag = false;
     private View mTvRsrp;
     private View mTvcode;
+    private TextView mPrruNeCode;
+    private TextView mPrruRsrp;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mArView = inflater.inflate(R.layout.activity_main, container, false);
         mFpsTextView = mArView.findViewById(R.id.fpsTextView);
-        mTvRsrp = mArView.findViewById(R.id.prruRsrp);
-        mTvcode = mArView.findViewById(R.id.prru_ne_code);
+        mTvRsrp = mArView.findViewById(R.id.rsrp);
+        mTvcode = mArView.findViewById(R.id.necode);
+        mPrruNeCode = mArView.findViewById(R.id.prru_ne_code);
+        mPrruRsrp = mArView.findViewById(R.id.prruRsrp);
         mSearchingTextView = mArView.findViewById(R.id.searchingTextView);
         mSurfaceView = mArView.findViewById(R.id.surfaceview);
         mDisplayRotationHelper = new DisplayRotationHelper(getActivity());
@@ -565,6 +571,8 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
                             public void run() {
                                 mTvRsrp.setVisibility(View.VISIBLE);
                                 mTvcode.setVisibility(View.VISIBLE);
+                                mPrruNeCode.setVisibility(View.VISIBLE);
+                                mPrruNeCode.setVisibility(View.VISIBLE);
                             }
                         });
                         break;
@@ -589,5 +597,10 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
 
         }
 
+    }
+
+    public void setViewValues(String neCode, String rsrp){
+        mPrruNeCode.setText(neCode);
+        mPrruRsrp.setText(rsrp);
     }
 }

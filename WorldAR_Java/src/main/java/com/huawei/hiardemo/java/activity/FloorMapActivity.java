@@ -132,16 +132,17 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
         if (hasFocus) {
             if (!mFirst) {
                 mFirst = true;
-                DBUtil.asyncQueryARLocation(siteName, floorName, new DBUtil.DBListener() {  //查询数据库 找出当前楼宇下的楼层有无定位数据
-                    @Override
-                    public void asyncQueryData(List<ARLoctionModel> data) {
-                        if (data.size() == 0) {
-                            mSelectPopupWindow.showPopupWindow();
-                        } else {
-
-                        }
-                    }
-                });
+//                DBUtil.asyncQueryARLocation(siteName, floorName, new DBUtil.DBListener() {  //查询数据库 找出当前楼宇下的楼层有无定位数据
+//                    @Override
+//                    public void asyncQueryData(List<ARLoctionModel> data) {
+//                        if (data.size() == 0) {
+//                            mSelectPopupWindow.showPopupWindow();
+//                        } else {
+//
+//                        }
+//                    }
+//                });
+                mSelectPopupWindow.showPopupWindow();
             }
         }
     }
@@ -193,6 +194,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
                     float[] pix = DistanceUtil.realToMap(mScale, (real[0] + tx), (real[1] + ty), mHeight);
                     prruMapFragment.setNowLocation(pix[0], pix[1]);  //设置当前坐标
                     prruMapFragment.setPrruColorPoint(pix[0], pix[1], Integer.parseInt(updateCommunityInfo.RSRP));
+                    mArFragment.setViewValues("0_81_1",updateCommunityInfo.RSRP);
                 }
             }
         });

@@ -11,36 +11,11 @@ import com.journeyapps.barcodescanner.CaptureActivity;
 
 import java.util.List;
 
-public class PortraitZxingActivity extends BaseActivity {
+public class PortraitZxingActivity extends CaptureActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        test();
-    }
-
-    @Override
-    public void findView() {
-
-    }
-
-    @Override
-    public void setContentLayout() {
-
-    }
-
-    @Override
-    public void dealLogicBeforeInitView() {
-
-    }
-
-    @Override
-    public void initView() {
-
-    }
-
-    @Override
-    public void dealLogicAfterInitView() {
-
+//        test();
     }
 
     private void test() {

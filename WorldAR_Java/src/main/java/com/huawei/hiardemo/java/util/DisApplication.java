@@ -26,10 +26,10 @@ public class DisApplication extends MultiDexApplication {
                 .setDiskPath(Constant.AR_PATH+File.separator+"Log")
                 .setLevel(LogUtils.VERBOSE_LEVEL)
                 .setWriteFlag(true);  //写入日志文件
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
-        }
-        LeakCanary.install(this);
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            return;
+//        }
+//        LeakCanary.install(this);
     }
 
     private void initPhotoError() {
