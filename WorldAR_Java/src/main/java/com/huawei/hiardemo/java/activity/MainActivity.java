@@ -103,14 +103,12 @@ public class MainActivity extends AppCompatActivity implements GLSurfaceView.Ren
     private long lastInterval;
     private int frames = 0;
     private float fps;
-    private TextView mFpsTextView;
     private TextView mSearchingTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mFpsTextView =  findViewById(R.id.fpsTextView);
         mSearchingTextView = findViewById(R.id.searchingTextView);
         mSurfaceView = findViewById(R.id.surfaceview);
         mDisplayRotationHelper = new DisplayRotationHelper(this);
@@ -293,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements GLSurfaceView.Ren
 
     @Override
     public void onDrawFrame(GL10 unused) {
-        showFpsTextView(String.valueOf(FPSCalculate()));
+        //showFpsTextView(String.valueOf(FPSCalculate()));
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
         if (null == mSession) {
@@ -381,7 +379,7 @@ public class MainActivity extends AppCompatActivity implements GLSurfaceView.Ren
         super.onDestroy();
     }
 
-    private void showFpsTextView(final String text) {
+/*    private void showFpsTextView(final String text) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -394,7 +392,7 @@ public class MainActivity extends AppCompatActivity implements GLSurfaceView.Ren
                 }
             }
         });
-    }
+    }*/
 
     float FPSCalculate() {
         ++frames;

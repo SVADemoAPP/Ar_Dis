@@ -23,12 +23,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.huawei.hiar.ARAnchor;
 import com.huawei.hiar.ARPose;
 import com.huawei.hiardemo.java.R;
 import com.huawei.hiardemo.java.ShareMapHelper;
+import com.huawei.hiardemo.java.bean.LocAndPrruInfoResponse;
+import com.huawei.hiardemo.java.bean.PrruSigalModel;
 import com.huawei.hiardemo.java.db.table.ARLoctionModel;
 import com.huawei.hiardemo.java.db.utils.DBUtil;
 import com.huawei.hiardemo.java.fragment.ARFragment;
@@ -50,6 +56,7 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -84,6 +91,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
     private String siteName;
     private String floorName;
     private UpdateCommunityInfo updateCommunityInfo;
+    private PrruSigalModel prruSigalModel;
 
     public void setScale(float scale) {
         mScale = scale;
@@ -194,7 +202,12 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
                     float[] pix = DistanceUtil.realToMap(mScale, (real[0] + tx), (real[1] + ty), mHeight);
                     prruMapFragment.setNowLocation(pix[0], pix[1]);  //设置当前坐标
                     prruMapFragment.setPrruColorPoint(pix[0], pix[1], Integer.parseInt(updateCommunityInfo.RSRP));
-                    mArFragment.setViewValues("0_81_1",updateCommunityInfo.RSRP);
+                    notifyPrru((real[0] + tx), (real[1] + ty));
+                    if(prruSigalModel != null){
+                        mArFragment.setViewValues(prruSigalModel.gpp, updateCommunityInfo.RSRP);
+                    }else {
+                        mArFragment.setViewValues("0_1_0", updateCommunityInfo.RSRP);
+                    }
                 }
             }
         });
@@ -489,4 +502,46 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
         // 显示
         normalDialog.show();
     }
+
+    public void notifyPrru(final float x, final float y) {
+        Constant.interRequestUtils.getLocAndPrruInfo(Request.Method.POST, Constant.IP_ADDRESS + "/tester/app/prruPhoneApi/getLocAndPrruInfo?userId=" + Constant.USER_ID + "&mapId=" + Constant.MAP_ID, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                LocAndPrruInfoResponse lap = new Gson().fromJson(s, LocAndPrruInfoResponse.class);
+                if (lap.code == 0) {
+                    recordMaxrsrpPostion(x,y,lap.data.prruData);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+//                    LLog.getLog().e("getLocAndPrruInfo错误", volleyError.toString());
+            }
+        });
+
+
+    }
+
+    private synchronized void recordMaxrsrpPostion(float x, float y, List<PrruSigalModel> prruSigalModelList) {
+        if (prruSigalModelList == null || prruSigalModelList.size() < 1) {
+            return;
+        }
+        Collections.sort(prruSigalModelList, new Comparator<PrruSigalModel>() {
+            @Override
+            public int compare(PrruSigalModel p1, PrruSigalModel p2) {
+                float n1 = p1.rsrp;
+                float n2 = p2.rsrp;
+                if (n1 > n2) {
+                    return -1;
+                } else if (n1 < n2) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+        prruSigalModel = prruSigalModelList.get(0);
+    }
+
+
 }

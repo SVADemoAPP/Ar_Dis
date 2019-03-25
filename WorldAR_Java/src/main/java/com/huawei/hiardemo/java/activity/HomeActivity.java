@@ -18,26 +18,37 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.huawei.hiardemo.java.R;
 import com.huawei.hiardemo.java.adapter.RvGroupAdapter;
 import com.huawei.hiardemo.java.adapter.RvMemberAdapter;
 import com.huawei.hiardemo.java.bean.FloorModel;
 import com.huawei.hiardemo.java.bean.SiteModel;
 import com.huawei.hiardemo.java.framework.activity.BaseActivity;
+import com.huawei.hiardemo.java.framework.sharef.SharedPrefHelper;
 import com.huawei.hiardemo.java.util.BlueUntils;
 import com.huawei.hiardemo.java.util.Constant;
 import com.huawei.hiardemo.java.util.FileUtils;
+import com.huawei.hiardemo.java.util.PrruSubscribe;
+import com.huawei.hiardemo.java.util.Subscription;
 import com.huawei.hiardemo.java.util.ZipUtils2;
 import com.huawei.hiardemo.java.view.popup.LoadingDialog;
 import com.leon.lfilepickerlibrary.LFilePicker;
 import com.zaaach.toprightmenu.MenuItem;
 import com.zaaach.toprightmenu.TopRightMenu;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import zhy.com.highlight.HighLight;
 import zhy.com.highlight.interfaces.HighLightInterface;
@@ -60,6 +71,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private TopRightMenu mTopRightMenu; //顶部右侧弹出按钮
     private HighLight mHightLight;
     private boolean mHightlightFlag = true;
+
+    private Subscription subscription;
+    private PrruSubscribe prruSubscribe;
 
     @Override
     public void findView() {
@@ -134,6 +148,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     public void dealLogicBeforeInitView() {
         initFloorMapsDir();
         initSiteAndFloor();
+        subscription = new Subscription(this);
+        prruSubscribe = new PrruSubscribe(this);
     }
 
     @Override
@@ -153,6 +169,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void dealLogicAfterInitView() {
         showTopRightMenu();
+        Map<String, String> map = new HashMap();
+        map.put("username", "admin");
+        map.put("password", "fanbinbin123");
+        login(map);
     }
 
     private RvMemberAdapter.OnMemberItemClickListener onMemberItemClickListener = new RvMemberAdapter.OnMemberItemClickListener() {
@@ -518,5 +538,36 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                     }
                 });
         mHightLight.show();
+    }
+
+    private void login(Map<String, String> map) {
+        Constant.interRequestUtils.login(Request.Method.POST, "https://218.4.33.215:8083/tester/api/app/login", new Response.Listener<JSONObject>() {
+            public void onResponse(JSONObject response) {
+                try {
+                    if (response.getInt("status") == 200) {
+                        SharedPrefHelper.putString(HomeActivity.this, "Cookie", response.getString("Cookie"));
+                        Log.e("登录", "成功");
+                        subscription();
+                        return;
+                    } else {
+                        showToast("Tester登录失败");
+                        Log.e("登录", "失败");
+                    }
+                } catch (JSONException e) {
+                    showToast("Tester登录失败");
+                    Log.e("登录", "失败");
+                }
+            }
+        }, new Response.ErrorListener() {
+            public void onErrorResponse(VolleyError error) {
+                Log.e("登录", "错误");
+                showToast("Tester登录错误");
+            }
+        }, map);
+    }
+
+    private void subscription() {
+        subscription.toSubscription();
+        prruSubscribe.toSubscription();
     }
 }
