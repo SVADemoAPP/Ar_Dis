@@ -42,8 +42,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="neCode："
-        android:textColor="@color/red"
-        android:visibility="gone" />
+        android:textColor="@color/red" />
 
     <TextView
         android:id="@+id/prru_ne_code"
@@ -54,9 +53,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="0_11_1"
-        android:textColor="@color/red"
-        android:visibility="gone" />
+        android:text=""
+        android:textColor="@color/red" />
 
     <TextView
         android:id="@+id/rsrp"
@@ -68,8 +66,7 @@
         android:layout_marginEnd="25dp"
         android:layout_marginRight="10dp"
         android:text="Rsrp："
-        android:textColor="@color/red"
-        android:visibility="gone" />
+        android:textColor="@color/red" />
     <TextView
         android:id="@+id/prruRsrp"
         android:layout_width="wrap_content"
@@ -79,9 +76,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="2dp"
         android:layout_marginRight="10dp"
-        android:text="-102"
-        android:textColor="@color/red"
-        android:visibility="gone" />
+        android:text=""
+        android:textColor="@color/red" />
 
 
 </RelativeLayout>

@@ -1,14 +1,12 @@
 package com.huawei.hiardemo.java.util;
 
-import android.app.Application;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 
+import com.android.volley.toolbox.Volley;
 import com.facebook.stetho.Stetho;
-import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
-import com.squareup.leakcanary.LeakCanary;
 
 import java.io.File;
 
@@ -19,6 +17,9 @@ public class DisApplication extends MultiDexApplication {
         Constant.SD_PATH = new StringBuilder(String.valueOf(Environment.getExternalStorageDirectory().getAbsolutePath())).append(File.separator).append("disvisible").toString();
         Constant.DATA_PATH = Constant.SD_PATH + File.separator + "data";
         Constant.AR_PATH = Constant.SD_PATH + File.separator + "AR";
+
+        Constant.mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        Constant.interRequestUtils = InterRequestUtils.getInstance(getApplicationContext());
         initPhotoError();
         FlowManager.init(this); //初始化数据库问题
         Stetho.initializeWithDefaults(getApplicationContext()); //初始化facebook chrome 持久化数据查看

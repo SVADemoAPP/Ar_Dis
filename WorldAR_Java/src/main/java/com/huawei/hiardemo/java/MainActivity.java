@@ -108,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements GLSurfaceView.Ren
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mFpsTextView =  findViewById(R.id.fpsTextView);
         mSearchingTextView = findViewById(R.id.searchingTextView);
         mSurfaceView = findViewById(R.id.surfaceview);
         mDisplayRotationHelper = new DisplayRotationHelper(this);

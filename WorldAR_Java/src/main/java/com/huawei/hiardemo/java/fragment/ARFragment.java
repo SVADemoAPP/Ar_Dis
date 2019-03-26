@@ -97,7 +97,6 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mArView = inflater.inflate(R.layout.activity_main, container, false);
-        mFpsTextView = mArView.findViewById(R.id.fpsTextView);
         mTvRsrp = mArView.findViewById(R.id.rsrp);
         mTvcode = mArView.findViewById(R.id.necode);
         mPrruNeCode = mArView.findViewById(R.id.prru_ne_code);
@@ -333,7 +332,7 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 unused) {
-        showFpsTextView(String.valueOf(FPSCalculate()));
+//        showFpsTextView(String.valueOf(FPSCalculate()));
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
         if (null == mSession) {
@@ -432,7 +431,7 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
         super.onDestroy();
     }
 
-    private void showFpsTextView(final String text) {
+/*    private void showFpsTextView(final String text) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -445,7 +444,7 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
                 }
             }
         });
-    }
+    }*/
 
     float FPSCalculate() {
         ++frames;
