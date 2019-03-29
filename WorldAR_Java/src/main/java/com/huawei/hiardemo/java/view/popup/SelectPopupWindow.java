@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 
 import com.huawei.hiardemo.java.R;
 import com.huawei.hiardemo.java.activity.FloorMapActivity;
+import com.huawei.hiardemo.java.util.LogUtils;
+import com.huawei.hiardemo.java.view.PieView;
 
 import net.yoojia.imagemap.ImageMap1;
 import net.yoojia.imagemap.TouchImageView1;
@@ -41,6 +44,8 @@ public class SelectPopupWindow {
     private Context mContext;
     private HighLight mHightLight;
     private RelativeLayout mRl;
+    private AngeleListener mListener;
+    private PieView mPieView;
 
     public SelectPopupWindow(Context context, Bitmap mapBitmap) {
         mContext = context;
@@ -56,11 +61,13 @@ public class SelectPopupWindow {
         mSelectPointListener = selectPointListener;
     }
 
+
     /**
      * 初始化prru
      */
     public void initPopupWindow(View view) {
         mRl = view.findViewById(R.id.content);
+        mPieView = view.findViewById(R.id.select_pv);
         mAmap = view.findViewById(R.id.pop_select_map);
         mAmap.setAllowRotate(false);
         mAmap.setAllowRequestTranslate(false);
@@ -100,6 +107,44 @@ public class SelectPopupWindow {
                 }
             }
         });
+        mPieView.setOnPieViewTouchListener(new PieView.OnPieViewTouchListener() {
+            @Override
+            public void onTouch(View v, MotionEvent e, PieView.ClickedDirection d) {
+                float angle=0f;
+               switch (d)
+               {
+                   case UP:
+                       angle=0;
+                       break;
+                   case DOWN:
+                       angle=180;
+                       break;
+                   case LEFT:
+                       angle=270;
+                       break;
+                   case RIGHT:
+                       angle=90;
+                       break;
+                   case CENTER:
+                       angle=-1;
+                       break;
+                   case UP_LEFT:
+                       angle=315;
+                       break;
+                   case UP_RIGHT:
+                       angle=45;
+                       break;
+                   case DOWN_LEFT:
+                       angle=225;
+                       break;
+                   case DOWN_RIGHT:
+                       angle=135;
+                       break;
+
+               }
+                mListener.getAngle(angle);
+            }
+        });
     }
 
     /**
@@ -133,6 +178,13 @@ public class SelectPopupWindow {
                 });
             }
         }).start();
+    }
+
+    public void setSelectAngleListener(AngeleListener listener){
+        mListener =listener;
+    }
+    public interface AngeleListener{
+        void getAngle(float angle);
     }
 
     /**

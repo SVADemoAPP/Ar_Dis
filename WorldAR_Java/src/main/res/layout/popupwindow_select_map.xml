@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -60,6 +61,17 @@
                 android:textColor="@color/white" />
         </LinearLayout>
     </LinearLayout>
-
+    <com.huawei.hiardemo.java.view.PieView
+        android:id="@+id/select_pv"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:padding="10dp"
+        app:dividerColor="#FFFFFFFF"
+        app:defaultColor="#FF414649"
+        app:pressedColor="#FF2F3234"
+        app:gapWidth="1dp"
+        app:arrowLocation="15dp"
+        app:arrowBranchLength="8dp"
+        />
 
 </RelativeLayout>
