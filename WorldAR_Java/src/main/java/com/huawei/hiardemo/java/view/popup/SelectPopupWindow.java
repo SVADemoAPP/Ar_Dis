@@ -46,7 +46,7 @@ public class SelectPopupWindow {
     private RelativeLayout mRl;
     private AngeleListener mListener;
     private PieView mPieView;
-
+    private float mAngle;
     public SelectPopupWindow(Context context, Bitmap mapBitmap) {
         mContext = context;
         mMapBitmap = mapBitmap;
@@ -98,8 +98,14 @@ public class SelectPopupWindow {
             @Override
             public void onClick(View v) {
                 if(mSelectPointListener != null){
+                    if(mAngle<0)
+                    {
+                        Toast.makeText(mContext, "请选择方向，然后点击确定", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     if (mSelectPointF != null) {
                         mSelectPointListener.getPoint(mSelectPointF); //获取选中点
+                        mListener.getAngle(mAngle);
                         hidePopupWindow();
                     } else {
                         Toast.makeText(mContext, "请在地图上选择当前位置", Toast.LENGTH_SHORT).show();
@@ -108,41 +114,43 @@ public class SelectPopupWindow {
             }
         });
         mPieView.setOnPieViewTouchListener(new PieView.OnPieViewTouchListener() {
+
+
             @Override
             public void onTouch(View v, MotionEvent e, PieView.ClickedDirection d) {
-                float angle=0f;
+                mAngle = -1f;
                switch (d)
                {
                    case UP:
-                       angle=0;
+                       mAngle =0;
                        break;
                    case DOWN:
-                       angle=180;
+                       mAngle =180;
                        break;
                    case LEFT:
-                       angle=270;
+                       mAngle =270;
                        break;
                    case RIGHT:
-                       angle=90;
+                       mAngle =90;
                        break;
                    case CENTER:
-                       angle=-1;
+                       mAngle =-1;
                        break;
                    case UP_LEFT:
-                       angle=315;
+                       mAngle =315;
                        break;
                    case UP_RIGHT:
-                       angle=45;
+                       mAngle =45;
                        break;
                    case DOWN_LEFT:
-                       angle=225;
+                       mAngle =225;
                        break;
                    case DOWN_RIGHT:
-                       angle=135;
+                       mAngle =135;
                        break;
 
                }
-                mListener.getAngle(angle);
+
             }
         });
     }
