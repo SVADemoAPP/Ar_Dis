@@ -41,7 +41,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="neCode："
+        android:text="angle："
         android:textColor="@color/red" />
 
     <TextView
@@ -66,7 +66,8 @@
         android:layout_marginEnd="25dp"
         android:layout_marginRight="10dp"
         android:text="Rsrp："
-        android:textColor="@color/red" />
+        android:textColor="@color/red"
+        android:visibility="gone"/>
     <TextView
         android:id="@+id/prruRsrp"
         android:layout_width="wrap_content"

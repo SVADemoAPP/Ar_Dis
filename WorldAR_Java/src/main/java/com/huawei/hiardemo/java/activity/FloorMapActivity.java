@@ -34,14 +34,16 @@ import com.huawei.hiar.ARPose;
 import com.huawei.hiardemo.java.R;
 import com.huawei.hiardemo.java.ShareMapHelper;
 import com.huawei.hiardemo.java.bean.LocAndPrruInfoResponse;
+import com.huawei.hiardemo.java.bean.Position;
 import com.huawei.hiardemo.java.bean.PrruSigalModel;
-import com.huawei.hiardemo.java.db.table.ARLoctionModel;
 import com.huawei.hiardemo.java.db.utils.DBUtil;
 import com.huawei.hiardemo.java.fragment.ARFragment;
 import com.huawei.hiardemo.java.fragment.PrruMapFragment;
 import com.huawei.hiardemo.java.framework.activity.BaseActivity;
+import com.huawei.hiardemo.java.framework.utils.DateUtil;
 import com.huawei.hiardemo.java.util.Constant;
 import com.huawei.hiardemo.java.util.DistanceUtil;
+import com.huawei.hiardemo.java.util.LogUtils;
 import com.huawei.hiardemo.java.util.UpdateCommunityInfo;
 import com.huawei.hiardemo.java.util.XmlUntils;
 import com.huawei.hiardemo.java.view.popup.SelectPopupWindow;
@@ -54,6 +56,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -93,6 +96,12 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
     private UpdateCommunityInfo updateCommunityInfo;
     private PrruSigalModel prruSigalModel;
 
+    private Position currentPosition;
+    private Position initPosition;
+
+    private float angle;
+    private boolean flag = true;
+
     public void setScale(float scale) {
         mScale = scale;
     }
@@ -105,6 +114,13 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
         mAdd.setVisibility(View.GONE);
         mBack.setVisibility(View.VISIBLE);
         mBack.setOnClickListener(this);
+        currentPosition = new Position();
+        currentPosition.setX(0f);
+        currentPosition.setY(0f);
+
+        initPosition = new Position();
+        initPosition.setX(0f);
+        initPosition.setY(0f);
     }
 
     public Bitmap getBitmap() {
@@ -163,7 +179,6 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
         mBitmap = BitmapFactory.decodeFile(Constant.DATA_PATH + File.separator + mapPath);
         mHeight = mBitmap.getHeight();
         prruMapFragment = new PrruMapFragment();
-        prruMapFragment = new PrruMapFragment();
         mArFragment = new ARFragment();
         updateCommunityInfo = new UpdateCommunityInfo(this, (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE), new Handler());
         updateCommunityInfo.startUpdateData();
@@ -195,22 +210,49 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
         mArFragment.setArCameraListener(new ARFragment.ArCameraListener() {  //获取ar返回的实时坐标
             @Override
             public void getCameraPose(ARPose arPose) {   //获取到相机返回的实时坐标
+                getAngle(mArFragment.getAzimuthAngle());
                 if (mSelectPointF != null) {
-                    float tx = arPose.tx();
-                    float ty = -arPose.tz();
+                    float[] point = DistanceUtil.getPoint(arPose.tz(),arPose.tx(),angle);
                     float[] real = DistanceUtil.mapToReal(mScale, mSelectPointF.x, mSelectPointF.y, mHeight);
-                    float[] pix = DistanceUtil.realToMap(mScale, (real[0] + tx), (real[1] + ty), mHeight);
+                    float[] pix = DistanceUtil.realToMap(mScale, (real[0] + point[0]), (real[1] + point[1]), mHeight);
+                    currentPosition.setX((real[0] + point[0]));
+                    currentPosition.setY((real[1] + point[1]));
+                    initPosition.setX(real[0]);
+                    initPosition.setY(real[1]);
                     prruMapFragment.setNowLocation(pix[0], pix[1]);  //设置当前坐标
                     prruMapFragment.setPrruColorPoint(pix[0], pix[1], Integer.parseInt(updateCommunityInfo.RSRP));
-                    notifyPrru((real[0] + tx), (real[1] + ty));
-                    if(prruSigalModel != null){
-                        mArFragment.setViewValues(prruSigalModel.gpp, updateCommunityInfo.RSRP);
-                    }else {
-                        mArFragment.setViewValues("0_1_0", updateCommunityInfo.RSRP);
+                    prruMapFragment.addPrruInfo(real[0] + point[0],real[1] + point[1],Integer.parseInt(updateCommunityInfo.RSRP));
+                    if(prruMapFragment.calculateDistance(currentPosition,initPosition) > 20){
+                        flag = true;
+                        mArFragment.getARSession().stop();
+                        mArFragment = null;
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        mArFragment = new ARFragment();
+                        fragmentTransaction.remove(mArFragment);
+                        fragmentTransaction.add(R.id.ar_replace, mArFragment);
+                        fragmentTransaction.commit();
+                        initPosition.setX(currentPosition.getX());
+                        initPosition.setY(currentPosition.getY());
+                        mSelectPointF.set(pix[0],pix[1]);
                     }
+                  /*  notifyPrru((real[0] + tx), (real[1] + ty));
+                    if (prruSigalModel != null) {
+                        mArFragment.setViewValues(prruSigalModel.gpp, updateCommunityInfo.RSRP);
+                    } else {
+                        mArFragment.setViewValues("0_1_0", updateCommunityInfo.RSRP);
+                    }*/
                 }
             }
         });
+    }
+
+    private void getAngle(float angle){
+        if(flag && (angle > 0.1f || angle < -0.1)){
+            this.angle = angle;
+            LogUtils.d("XHF",DateUtil.getStringDateFromMilliseconds(System.currentTimeMillis())+"azimuthAngle"+angle);
+            flag = false;
+        }
     }
 
     public String getSiteName() {
@@ -509,7 +551,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
             public void onResponse(String s) {
                 LocAndPrruInfoResponse lap = new Gson().fromJson(s, LocAndPrruInfoResponse.class);
                 if (lap.code == 0) {
-                    recordMaxrsrpPostion(x,y,lap.data.prruData);
+                    recordMaxrsrpPostion(x, y, lap.data.prruData);
                 }
             }
         }, new Response.ErrorListener() {
@@ -542,6 +584,5 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
         });
         prruSigalModel = prruSigalModelList.get(0);
     }
-
 
 }

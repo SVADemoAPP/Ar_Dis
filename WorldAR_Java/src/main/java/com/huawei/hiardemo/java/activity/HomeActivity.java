@@ -33,6 +33,7 @@ import com.huawei.hiardemo.java.util.Constant;
 import com.huawei.hiardemo.java.util.FileUtils;
 import com.huawei.hiardemo.java.util.PrruSubscribe;
 import com.huawei.hiardemo.java.util.Subscription;
+import com.huawei.hiardemo.java.util.UpLoad;
 import com.huawei.hiardemo.java.util.ZipUtils2;
 import com.huawei.hiardemo.java.view.popup.LoadingDialog;
 import com.leon.lfilepickerlibrary.LFilePicker;
@@ -74,6 +75,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     private Subscription subscription;
     private PrruSubscribe prruSubscribe;
+    private UpLoad upLoad;
 
     @Override
     public void findView() {
@@ -109,7 +111,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             photosDir.mkdirs();
         }
         File arDir = new File(Constant.AR_PATH);
-        if(!arDir.exists()){
+        if (!arDir.exists()) {
             arDir.mkdirs();
         }
     }
@@ -150,6 +152,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         initSiteAndFloor();
         subscription = new Subscription(this);
         prruSubscribe = new PrruSubscribe(this);
+        upLoad = new UpLoad(this);
+        Constant.USER_ID = upLoad.getLocaIpOrMac();
     }
 
     @Override
@@ -169,10 +173,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void dealLogicAfterInitView() {
         showTopRightMenu();
-        Map<String, String> map = new HashMap();
+/*        Map<String, String> map = new HashMap();
         map.put("username", "admin");
         map.put("password", "fanbinbin123");
-        login(map);
+        login(map);*/
     }
 
     private RvMemberAdapter.OnMemberItemClickListener onMemberItemClickListener = new RvMemberAdapter.OnMemberItemClickListener() {

@@ -90,8 +90,7 @@ public class SelectPopupWindow {
         mTvConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (mSelectPointListener != null) {
+                if(mSelectPointListener != null){
                     if (mSelectPointF != null) {
                         mSelectPointListener.getPoint(mSelectPointF); //获取选中点
                         hidePopupWindow();
@@ -99,7 +98,6 @@ public class SelectPopupWindow {
                         Toast.makeText(mContext, "请在地图上选择当前位置", Toast.LENGTH_SHORT).show();
                     }
                 }
-
             }
         });
     }
@@ -112,7 +110,6 @@ public class SelectPopupWindow {
             mAmap.setMapBitmap(mMapBitmap);
         }
         mSelectShape = new CircleShape(SELECT_ADDRESS, Color.RED, mCircleRadius);
-
     }
 
     /**

@@ -1,12 +1,18 @@
 package com.huawei.hiardemo.java.fragment;
 
-import android.graphics.Color;
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -14,10 +20,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.huawei.hiar.ARAnchor;
 import com.huawei.hiar.ARCamera;
@@ -25,10 +29,8 @@ import com.huawei.hiar.ARConfigBase;
 import com.huawei.hiar.AREnginesApk;
 import com.huawei.hiar.AREnginesSelector;
 import com.huawei.hiar.ARFrame;
-import com.huawei.hiar.ARHitResult;
 import com.huawei.hiar.ARLightEstimate;
 import com.huawei.hiar.ARPlane;
-import com.huawei.hiar.ARPoint;
 import com.huawei.hiar.ARPointCloud;
 import com.huawei.hiar.ARPose;
 import com.huawei.hiar.ARSession;
@@ -48,20 +50,21 @@ import com.huawei.hiardemo.java.ShareMapHelper;
 import com.huawei.hiardemo.java.UtilsCommon;
 import com.huawei.hiardemo.java.activity.FloorMapActivity;
 import com.huawei.hiardemo.java.framework.sharef.CameraPermissionHelper;
+import com.huawei.hiardemo.java.framework.utils.DateUtil;
 import com.huawei.hiardemo.java.rendering.BackgroundRenderer;
 import com.huawei.hiardemo.java.rendering.PlaneRenderer;
 import com.huawei.hiardemo.java.rendering.PointCloudRenderer;
 import com.huawei.hiardemo.java.rendering.VirtualObjectRenderer;
 import com.huawei.hiardemo.java.util.Constant;
-import com.huawei.hiardemo.java.util.UpdateCommunityInfo;
+import com.huawei.hiardemo.java.util.LogUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -91,6 +94,18 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
     private View mTvcode;
     private TextView mPrruNeCode;
     private TextView mPrruRsrp;
+
+
+    /**
+     * 传感器参数
+     */
+    private SensorManager mSensorManager;
+    private Sensor accelerometer; // 加速度传感器
+    private Sensor magnetic; // 地磁场传感器
+    private float[] accelerometerValues = new float[3];
+    private float[] magneticFieldValues = new float[3];
+
+    private float azimuthAngle;
 
 
     @Nullable
@@ -132,7 +147,25 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
 
         installRequested = false;
 
+
+        mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        // 初始化加速度传感器
+        accelerometer = mSensorManager
+                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        // 初始化地磁场传感器
+        magnetic = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        calculateOrientation();
         return mArView;
+    }
+
+    private void setView(final float azimuthAngle) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mPrruNeCode.setText(azimuthAngle + "");
+
+            }
+        });
     }
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -180,8 +213,23 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
     @Override
     public void onResume() {
         super.onResume();
+        createSession();
+        mSession.resume();
+        mSurfaceView.onResume();
+        mDisplayRotationHelper.onResume();
+        lastInterval = System.currentTimeMillis();
+
+        // 注册监听
+        mSensorManager.registerListener(new MySensorEventListener(),
+                accelerometer, Sensor.TYPE_ACCELEROMETER);
+        mSensorManager.registerListener(new MySensorEventListener(), magnetic,
+                Sensor.TYPE_MAGNETIC_FIELD);
+    }
+
+    public void createSession() {
         Exception exception = null;
         String message = null;
+
         if (null == mSession) {
             try {
                 //If you do not want to switch engines, AREnginesSelector is useless.
@@ -209,30 +257,9 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
                     mSession = new ARSession(/*context=*/getActivity());
                     ARConfigBase config = new ARWorldTrackingConfig(mSession);
                     mSession.configure(config);
-                    if (!initARFlag) {
-                        initARFlag = true;
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    Thread.sleep(2000);
-                                    getActivity().runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            initARData();
-
-                                        }
-                                    });
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }).start();
-                    }
-
-                } else {
-                    message = "This device does not support Huawei AR Engine ";
                 }
+
+
             } catch (ARUnavailableServiceNotInstalledException e) {
                 message = "Please install HuaweiARService.apk";
                 exception = e;
@@ -269,21 +296,18 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
             }
         }
 
-        mSession.resume();
-        mSurfaceView.onResume();
-        mDisplayRotationHelper.onResume();
-        lastInterval = System.currentTimeMillis();
     }
 
     @Override
     public void onPause() {
-
         super.onPause();
         if (mSession != null) {
             mDisplayRotationHelper.onPause();
             mSurfaceView.onPause();
             mSession.pause();
         }
+        mSensorManager.unregisterListener(new MySensorEventListener());
+
     }
 
     @Override
@@ -333,6 +357,7 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
     @Override
     public void onDrawFrame(GL10 unused) {
 //        showFpsTextView(String.valueOf(FPSCalculate()));
+        setView(azimuthAngle);
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
         if (null == mSession) {
@@ -431,21 +456,6 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
         super.onDestroy();
     }
 
-/*    private void showFpsTextView(final String text) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mFpsTextView.setTextColor(Color.RED);
-                mFpsTextView.setTextSize(15f);
-                if (text != null) {
-                    mFpsTextView.setText(text);
-                } else {
-                    mFpsTextView.setText("");
-                }
-            }
-        });
-    }*/
-
     float FPSCalculate() {
         ++frames;
         long timeNow = System.currentTimeMillis();
@@ -456,67 +466,6 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
         }
         return fps;
     }
-
-    // Handle only one tap per frame, as taps are usually low frequency compared to frame rate.
-//    private void handleTap(ARFrame frame, ARCamera camera) {
-//        MotionEvent tap = mQueuedSingleTaps.poll();
-//
-//        if (tap != null && camera.getTrackingState() == ARTrackable.TrackingState.TRACKING) {
-//            ARHitResult hitResult = null;
-//            ARTrackable trackable = null;
-//            boolean hasHitFlag = false;
-//
-//            List<ARHitResult> hitTestResult = frame.hitTest(tap);
-//            for (int i = 0; i < hitTestResult.size(); i++) {
-//                // Check if any plane was hit, and if it was hit inside the plane polygon
-//                ARHitResult hitResultTemp = hitTestResult.get(i);
-//                trackable = hitResultTemp.getTrackable();
-//                if ((trackable instanceof ARPlane
-//                        && ((ARPlane) trackable).isPoseInPolygon(hitResultTemp.getHitPose())
-//                        && (PlaneRenderer.calculateDistanceToPlane(hitResultTemp.getHitPose(), camera.getPose()) > 0))
-//                        || (trackable instanceof ARPoint
-//                        && ((ARPoint) trackable).getOrientationMode() == ARPoint.OrientationMode.ESTIMATED_SURFACE_NORMAL)) {
-//                    hasHitFlag = true;
-//                    hitResult = hitResultTemp;
-//                }
-//
-//                if (trackable instanceof ARPlane) {
-//                    break;
-//                }
-//            }
-//
-//            //if hit both Plane and Point,take Plane at the first priority.
-//            if (hasHitFlag != true) {
-//                return;
-//            }
-//
-//            // Hits are sorted by depth. Consider only closest hit on a plane or oriented point.
-//            // Cap the number of objects created. This avoids overloading both the
-//            // rendering system and ARCore.
-//            if (mAnchors.size() >= UtilsCommon.MAX_TRACKING_ANCHOR_NUM) {
-//                mAnchors.get(0).anchor.detach();
-//                mAnchors.remove(0);
-//            }
-//
-//            // Assign a color to the object for rendering based on the trackable type
-//            // this anchor attached to. For AR_TRACKABLE_POINT, it's blue color, and
-//            // for AR_TRACKABLE_PLANE, it's green color.
-//            float[] objColor;
-//            trackable = hitResult.getTrackable();
-//            if (trackable instanceof ARPoint) {
-//                objColor = new float[]{66.0f, 133.0f, 244.0f, 255.0f};
-//            } else if (trackable instanceof ARPlane) {
-//                objColor = new float[]{139.0f, 195.0f, 74.0f, 255.0f};
-//            } else {
-//                objColor = DEFAULT_COLOR;
-//            }
-//
-//            // Adding an Anchor tells ARCore that it should track this position in
-//            // space. This anchor is created on the Plane to place the 3D model
-//            // in the correct position relative both to the world and to the plane.
-////            mAnchors.add(new ARAnchor(hitResult.createAnchor(), objColor));   //添加锚点
-//        }
-//    }
 
     public void setArCameraListener(ArCameraListener arCameraListener) {
         mListener = arCameraListener;
@@ -565,7 +514,7 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
                     Log.e("ARFrame.AlignState", state.toString());
                     if (state == ARFrame.AlignState.SUCCESS) {
                         mAnchors = ShareMapHelper.readAnchorFromFile(arData, getARSession());
-                        getActivity().runOnUiThread(new Runnable() {
+                        /*getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 mTvRsrp.setVisibility(View.VISIBLE);
@@ -573,7 +522,7 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
                                 mPrruNeCode.setVisibility(View.VISIBLE);
                                 mPrruNeCode.setVisibility(View.VISIBLE);
                             }
-                        });
+                        });*/
                         break;
                     } else if (state == ARFrame.AlignState.PROCESSING && count == 0) {
                         count++;
@@ -598,8 +547,57 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
 
     }
 
-    public void setViewValues(String neCode, String rsrp){
+    public void setViewValues(String neCode, String rsrp) {
         mPrruNeCode.setText(neCode);
         mPrruRsrp.setText(rsrp);
     }
+
+    class MySensorEventListener implements SensorEventListener {
+
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+                accelerometerValues = event.values;
+            }
+            if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+                magneticFieldValues = event.values;
+            }
+            calculateOrientation();
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+        }
+    }
+
+    private void calculateOrientation() {
+        float[] values = new float[3];
+        float[] R = new float[9];
+        SensorManager.getRotationMatrix(R, null, accelerometerValues,
+                magneticFieldValues);
+        SensorManager.getOrientation(R, values);
+        azimuthAngle = (float) Math.toDegrees(values[0]);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public float getAzimuthAngle() {
+        List<Float> angles = new ArrayList<Float>(50);
+        try {
+            while (angles.size() < 50) {
+                angles.add(azimuthAngle);
+                Thread.sleep(20);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        angles.sort(new Comparator<Float>() {
+            @Override
+            public int compare(Float o1, Float o2) {
+                return (int)(o1 - o2);
+            }
+        });
+        return angles.get(33);
+    }
+
 }

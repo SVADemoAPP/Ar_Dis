@@ -82,4 +82,29 @@ public class DistanceUtil {
     }
 
 
+    public static float[] getPoint(final float x, final float y, float angle) {
+        final float[] point = new float[2];
+        angle = angle - 47;
+        if (angle < 0) {
+            angle = angle + 360;
+        }
+        point[0] = (float) (x * Math.cos(2 * Math.PI / 360 * angle) + y * Math.sin(2 * Math.PI / 360 * angle));
+        point[1] = (float) (y * Math.cos(2 * Math.PI / 360 * angle) - x * Math.sin(2 * Math.PI / 360 * angle));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                    LogUtils.d("Position-----", "X:" + x + "--Y:" + y);
+                    LogUtils.d("Position-----", "X1:" + point[0] + "--Y1:" + point[1]);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        return point;
+
+    }
+
+
 }

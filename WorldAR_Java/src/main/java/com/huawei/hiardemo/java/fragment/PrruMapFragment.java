@@ -8,6 +8,8 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,14 +18,18 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.huawei.hiardemo.java.R;
 import com.huawei.hiardemo.java.activity.FloorMapActivity;
+import com.huawei.hiardemo.java.bean.Position;
+import com.huawei.hiardemo.java.bean.PrruInfo;
 import com.huawei.hiardemo.java.framework.activity.BaseActivity;
 import com.huawei.hiardemo.java.framework.utils.StringUtil;
 import com.huawei.hiardemo.java.util.Constant;
 import com.huawei.hiardemo.java.util.DistanceUtil;
+import com.huawei.hiardemo.java.util.LogUtils;
 import com.huawei.hiardemo.java.util.XmlUntils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -35,6 +41,7 @@ import net.yoojia.imagemap.core.CircleRangeShape;
 import net.yoojia.imagemap.core.CircleShape;
 import net.yoojia.imagemap.core.CollectPointShape;
 import net.yoojia.imagemap.core.MoniPointShape;
+import net.yoojia.imagemap.core.PrruGkcShape;
 import net.yoojia.imagemap.core.PrruInfoShape;
 import net.yoojia.imagemap.core.PushMessageShape;
 import net.yoojia.imagemap.core.Shape;
@@ -46,7 +53,12 @@ import org.dom4j.Element;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.functions.Consumer;
 
@@ -79,6 +91,7 @@ public class PrruMapFragment extends Fragment {
     private float mX;
     private float mY;
     private String mpRRUId;
+    private Button mConfrim;
 
     private int rsrpCount;
 
@@ -90,6 +103,8 @@ public class PrruMapFragment extends Fragment {
     public List<PrruInfoShape> getUnbindPrruInfo() {
         return prruInfoShapes;
     }
+
+    private List<PrruInfo> prruInfos = new ArrayList<PrruInfo>();
 
     @Override
     public void onAttach(Context context) {
@@ -112,6 +127,21 @@ public class PrruMapFragment extends Fragment {
     private void initView(View view) {
         rsrpCount = 0;
         mFloorMap = view.findViewById(R.id.imagemap); //地图对象
+        mConfrim = view.findViewById(R.id.confirm);
+        mConfrim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //显示下行RSRP结果
+                        List<PrruInfo> prruInfoList = new ArrayList<>();
+                        prruInfoList.addAll(prruInfos);
+                        findPrru(prruInfoList,5,15);
+                    }
+                }).start();
+            }
+        });
         mMenuView = View.inflate(mContext, R.layout.prru_menu_layout, null);
         mMenuBind = mMenuView.findViewById(R.id.menu_bind);
         mMenuUnBind = mMenuView.findViewById(R.id.menu_unbind);
@@ -301,6 +331,21 @@ public class PrruMapFragment extends Fragment {
         mFloorMap.addShape(shape, false);
     }
 
+    public synchronized void addPrruInfo(float x, float y, int prru) {
+        PrruInfo prruInfo = new PrruInfo();
+        prruInfo.setpRRUIndex(-1);
+        prruInfo.setIncludedAngle(-1);
+        prruInfo.setRouteId(-1);
+        prruInfo.setSlope(Double.MAX_VALUE);
+        Position position = new Position();
+        position.setX(x);
+        position.setY(y);
+        prruInfo.setPosition(position);
+        prruInfo.setRsrp(prru);
+
+        prruInfos.add(prruInfo);
+    }
+
     /**
      * 刷新当前地图页面
      */
@@ -367,7 +412,7 @@ public class PrruMapFragment extends Fragment {
                 mScale = Float.parseFloat(XmlUntils.getAttributeValueByName(element1, "scale"));
                 ((FloorMapActivity) getActivity()).setScale(Float.valueOf(mScale));
                 List<Element> nes = XmlUntils.getElementListByName(XmlUntils.getElementByName(element, "NEs"), "NE");
-                prruInfoShapes = new ArrayList<>(nes.size());
+             /*   prruInfoShapes = new ArrayList<>(nes.size());
                 for (Element ne : nes) {
                     PrruInfoShape prruInfoShape = new PrruInfoShape(XmlUntils.getAttributeValueByName(ne, "id"), Color.YELLOW, mContext);
                     prruInfoShape.setId(XmlUntils.getAttributeValueByName(ne, "id"));
@@ -385,7 +430,7 @@ public class PrruMapFragment extends Fragment {
                     }
 
                     mFloorMap.addShape(prruInfoShape, false);
-                }
+                }*/
                 break;
             }
 
@@ -566,4 +611,224 @@ public class PrruMapFragment extends Fragment {
         // 显示
         normalDialog.show();
     }
+
+
+    public void findPrru(List<PrruInfo> prruInfos, int pRRUNumber, int radius) {
+
+        if(prruInfos == null || prruInfos.size() < 1){
+            return;
+        }
+
+        calculateSlopeAndIncludedAngle(prruInfos);
+        //将prruInfo按照RSRP大小降序排列
+        Collections.sort(prruInfos, new Comparator<PrruInfo>() {
+            @Override
+            public int compare(PrruInfo p1, PrruInfo p2) {
+                return p2.getRsrp() - p1.getRsrp();
+            }
+        });
+
+        int prruNumner = 0;
+        List<PrruInfo> result = new ArrayList<>(pRRUNumber);
+        List<PrruInfo> tempDatas = new ArrayList<>();
+        Map<Integer, List<PrruInfo>> routeMap = new HashMap<>();
+        while (prruInfos.size() > 0 && prruNumner < pRRUNumber) {
+            prruNumner += 1;
+            PrruInfo configPrruInfo = prruInfos.get(0);
+            result.add(configPrruInfo);
+            Position p1 = configPrruInfo.getPosition();
+            for (PrruInfo prruInfo : prruInfos) {
+                double distance = calculateDistance(p1, prruInfo.getPosition());
+                if (distance < radius) {
+                    prruInfo.setpRRUIndex(prruNumner);
+                    tempDatas.add(prruInfo);
+                    if (routeMap.containsKey(prruInfo.getRouteId())) {
+                        routeMap.get(prruInfo.getRouteId()).add(prruInfo);
+                    } else {
+                        routeMap.put(prruInfo.getRouteId(), new ArrayList(Arrays.asList(prruInfo)));
+                    }
+                }
+            }
+
+
+           /* if (routeMap.keySet().size() > 1) {
+                //当前prru所在路线
+                List<PrruInfo> prruInfoList = routeMap.get(configPrruInfo.getRouteId());
+
+                algorithm(prruInfoList, routeMap, configPrruInfo, radius, tempDatas);
+            }*/
+
+            //移除prruInfos中prruIndex已经确定的prruInfo
+            prruInfos.removeAll(tempDatas);
+
+            tempDatas.clear();
+            routeMap.clear();
+        }
+
+        Message msg = new Message();
+        msg.what = 1;
+        msg.obj = result;
+        mHandler.sendMessage(msg);
+    }
+
+
+    private void algorithm(List<PrruInfo> prruInfoList, Map<Integer, List<PrruInfo>> routeMap, PrruInfo configPrru, int radius, List<PrruInfo> prruInfos) {
+        List<PrruInfo> cornerPrruInfoList = new ArrayList<>();
+        for (PrruInfo prruInfo : prruInfoList) {
+            if (!compareDouble(prruInfo.getIncludedAngle(), -1)) {
+                cornerPrruInfoList.add(prruInfo);
+            }
+        }
+
+        for (PrruInfo cornerPrruInfo : cornerPrruInfoList) {
+            //转角点与prru距离大于0.5*R
+            if (calculateDistance(configPrru.getPosition(), cornerPrruInfo.getPosition()) > 0.5 * radius) {
+                double k = routeMap.get(0).get(0).getSlope();
+                LogUtils.e("XHF","te-------"+routeMap.size());
+                LogUtils.e("XHF","te1-------"+routeMap.get(0).size());
+                for (int i = 0; i < routeMap.keySet().size(); i++) {
+                    //如果该条线路和prru是同一线路则不做处理继续循环
+                    LogUtils.e("XHF","te2-------"+routeMap.get(i).size());
+                    if (configPrru.getRouteId() == routeMap.get(i).get(0).getRouteId()) {
+                        continue;
+                    }
+                    if (routeMap.get(i).size() > 3) {
+                        double k1 = routeMap.get(i).get(0).getSlope();
+                        if (compareDouble(k, k1)) {
+                            Position avgPosition = calculateAvg(routeMap.get(i));
+                            if (calculateDistance(avgPosition, configPrru.getPosition()) < 8) {
+                                continue;
+                            }
+                        }
+
+                        for (PrruInfo prruInfo : routeMap.get(i)) {
+                            if (calculateDistance(prruInfo.getPosition(), cornerPrruInfo.getPosition()) < 5) {
+                                for (PrruInfo prruInfo1 : routeMap.get(i)) {
+                                    prruInfo1.setpRRUIndex(-1);
+                                }
+                                prruInfos.removeAll(routeMap.get(i));
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    private Position calculateAvg(List<PrruInfo> prruInfos) {
+        Position position = new Position();
+        float x = 0;
+        float y = 0;
+        for (PrruInfo prruInfo : prruInfos) {
+            x += prruInfo.getPosition().getX();
+            y += prruInfo.getPosition().getY();
+        }
+        position.setX(x / prruInfos.size());
+        position.setY(y / prruInfos.size());
+        return position;
+    }
+
+    /**
+     * 计算两点间距离
+     *
+     * @param p1
+     * @param p2
+     * @return
+     */
+    public double calculateDistance(Position p1, Position p2) {
+        double a = p1.getX() - p2.getX();
+        double b = p1.getY() - p2.getY();
+        return Math.sqrt(a * a + b * b);
+    }
+
+    /**
+     * 计算斜率和夹角
+     *
+     * @param prruInfos
+     */
+    private void calculateSlopeAndIncludedAngle(List<PrruInfo> prruInfos) {
+        double x1;
+        double y1;
+        double x2;
+        double y2;
+        double k1;
+        double k2;
+        int routeId = 1;
+        double includeAngle;
+        //从第二个点开始循环计算
+        for (int i = 1; i < prruInfos.size(); i++) {
+            //上一个相邻点的坐标
+            x1 = Math.floor(prruInfos.get(i - 1).getPosition().getX());
+            y1 = Math.floor(prruInfos.get(i - 1).getPosition().getY());
+
+            //该点坐标
+            x2 = Math.floor(prruInfos.get(i).getPosition().getX());
+            y2 = Math.floor(prruInfos.get(i).getPosition().getX());
+
+            //上一个相邻点的斜率
+            k1 = prruInfos.get(i - 1).getSlope();
+
+            //计算并设置该点斜率
+            if (compareDouble(x1, x2)) {
+                k2 = Math.tan(89);
+            } else {
+                k2 = (y2 - y1) / (x2 - x1);
+            }
+            prruInfos.get(i).setSlope(k2);
+
+            //根据斜率值归类路线
+            if (compareDouble(k1, Double.MAX_VALUE)) { //斜率为默认值则表示第一个点，将其与第二个点一起归为路线一
+                prruInfos.get(i - 1).setRouteId(routeId);
+                prruInfos.get(i).setRouteId(routeId);
+            } else if (compareDouble(k1, k2)) { //斜率一样则表示为同一路线，设置为当前线路
+                prruInfos.get(i).setRouteId(routeId);
+            } else { //斜率不同则表示路线变化，线路标识自加1后设置新的路线并计算夹角
+                routeId += 1;
+                prruInfos.get(i).setRouteId(routeId);
+                if ((1 + k2 * k1) == 0) {
+                    includeAngle = 90.0;
+                } else {
+                    double tanA = (k2 - k1) / (1 + k2 * k1);
+                    if (tanA > 0) {
+                        includeAngle = Math.atan(tanA);
+                    } else {
+                        includeAngle = Math.atan(tanA) + 180;
+                    }
+                }
+                prruInfos.get(i - 1).setIncludedAngle(includeAngle);
+                prruInfos.get(i).setIncludedAngle(includeAngle);
+            }
+        }
+    }
+
+    private boolean compareDouble(double d1, double d2) {
+        if (Math.abs(d1 - d2) > 0.01) {
+            return false;
+        }
+        return true;
+    }
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+                    //显示检验过的prru位置
+                    for (PrruInfo prruInfo : (List<PrruInfo>) msg.obj) {
+                        PrruGkcShape pgShape = new PrruGkcShape(prruInfo.getpRRUIndex(), Color.RED, getActivity());
+                        pgShape.setNecodeText("0_8" + prruInfo.getpRRUIndex() + "_0");
+                        pgShape.setPaintColor(Color.parseColor("#ff0000"));
+                        float[] tempMXY = DistanceUtil.realToMap(mScale,prruInfo.getPosition().getX(), prruInfo.getPosition().getY(),mHeight);
+                        pgShape.setValues(tempMXY[0], tempMXY[1]);
+                        mFloorMap.addShape(pgShape, false);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 }
