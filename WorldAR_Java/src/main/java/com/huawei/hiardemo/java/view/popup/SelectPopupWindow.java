@@ -46,7 +46,7 @@ public class SelectPopupWindow {
     private RelativeLayout mRl;
     private AngeleListener mListener;
     private PieView mPieView;
-    private float mAngle;
+    private float mAngle=-1;
     public SelectPopupWindow(Context context, Bitmap mapBitmap) {
         mContext = context;
         mMapBitmap = mapBitmap;
@@ -254,5 +254,11 @@ public class SelectPopupWindow {
                     }
                 });
         mHightLight.show();
+    }
+
+
+    public void setmSelectShape(float x, float y){
+        mSelectShape.setValues(x,y);
+        mSelectPointF.set(x,y);
     }
 }

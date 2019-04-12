@@ -77,7 +77,7 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
 
     private ARPose mArPose;  //摄像头位置的实时坐标
     private ArCameraListener mListener;  //监听器
-    private long intervalTime = 1000;
+    private long intervalTime = 2000;
     private Handler mGetArPoseHandler = new Handler();
     private boolean isFirstFlag = false;
     private Runnable mGetArPosRunnable = new Runnable() {  //定时获取坐标
@@ -580,7 +580,6 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
         azimuthAngle = (float) Math.toDegrees(values[0]);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public float getAzimuthAngle() {
         List<Float> angles = new ArrayList<Float>(50);
         try {
@@ -591,12 +590,7 @@ public class ARFragment extends Fragment implements GLSurfaceView.Renderer {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        angles.sort(new Comparator<Float>() {
-            @Override
-            public int compare(Float o1, Float o2) {
-                return (int)(o1 - o2);
-            }
-        });
+        Collections.sort(angles);
         return angles.get(33);
     }
 

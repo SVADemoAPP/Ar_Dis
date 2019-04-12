@@ -99,8 +99,7 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
     private Position currentPosition;
     private Position initPosition;
 
-    private float angle;
-    private boolean flag = true;
+    private float mAngle;
 
     public void setScale(float scale) {
         mScale = scale;
@@ -179,14 +178,19 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
         mBitmap = BitmapFactory.decodeFile(Constant.DATA_PATH + File.separator + mapPath);
         mHeight = mBitmap.getHeight();
         prruMapFragment = new PrruMapFragment();
-        mArFragment = new ARFragment();
+
         updateCommunityInfo = new UpdateCommunityInfo(this, (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE), new Handler());
         updateCommunityInfo.startUpdateData();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.prru_replace, prruMapFragment);
-        fragmentTransaction.add(R.id.ar_replace, mArFragment);
         fragmentTransaction.commit();
+
+        initSelectPopWindow();
+
+    }
+
+    private void initSelectPopWindow(){
         mSelectPopupWindow = new SelectPopupWindow(mContext, mBitmap);
         mSelectPopupWindow.setSelectListener(new SelectPopupWindow.SelectPointListener() {
             @Override
@@ -194,7 +198,40 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
                 mSelectPointF = pointF;
                 try {
                     DBUtil.addARLocation(siteName, floorName, pointF);//存储
-
+                    mArFragment = new ARFragment();
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.ar_replace, mArFragment);
+                    fragmentTransaction.commit();
+                    mArFragment.setArCameraListener(new ARFragment.ArCameraListener() {  //获取ar返回的实时坐标
+                        @Override
+                        public void getCameraPose(ARPose arPose) {   //获取到相机返回的实时坐标
+                            //getAngle(mArFragment.getAzimuthAngle());
+                            if (mSelectPointF != null) {
+                                float[] point = DistanceUtil.getPoint(arPose.tz(), arPose.tx(), mAngle);
+                                float[] real = DistanceUtil.mapToReal(mScale, mSelectPointF.x, mSelectPointF.y, mHeight);
+                                float[] pix = DistanceUtil.realToMap(mScale, (real[0] + point[0]), (real[1] + point[1]), mHeight);
+                                currentPosition.setX(point[0]);
+                                currentPosition.setY(point[1]);
+                                prruMapFragment.setNowLocation(pix[0], pix[1]);  //设置当前坐标
+                                prruMapFragment.setPrruColorPoint(pix[0], pix[1], Integer.parseInt(updateCommunityInfo.RSRP));
+                                prruMapFragment.addPrruInfo(real[0] + point[0], real[1] + point[1], Integer.parseInt(updateCommunityInfo.RSRP));
+                                if (prruMapFragment.calculateDistance(currentPosition, initPosition) > 25) {
+                                    mSelectPointF = null;
+                                    closeArFragment(pix[0],pix[1]);
+                     /*   initPosition.setX(currentPosition.getX());
+                        initPosition.setY(currentPosition.getY());
+                        mSelectPointF.set(pix[0],pix[1]);*/
+                                }
+                  /*  notifyPrru((real[0] + tx), (real[1] + ty));
+                    if (prruSigalModel != null) {
+                        mArFragment.setViewValues(prruSigalModel.gpp, updateCommunityInfo.RSRP);
+                    } else {
+                        mArFragment.setViewValues("0_1_0", updateCommunityInfo.RSRP);
+                    }*/
+                            }
+                        }
+                    });
                 } catch (Exception e) {
                     Log.e("XHF", "存储失败");
                 }
@@ -207,53 +244,35 @@ public class FloorMapActivity extends BaseActivity implements View.OnClickListen
             }
         });
 
-        mArFragment.setArCameraListener(new ARFragment.ArCameraListener() {  //获取ar返回的实时坐标
+        mSelectPopupWindow.setSelectAngleListener(new SelectPopupWindow.AngeleListener() {
             @Override
-            public void getCameraPose(ARPose arPose) {   //获取到相机返回的实时坐标
-                getAngle(mArFragment.getAzimuthAngle());
-                if (mSelectPointF != null) {
-                    float[] point = DistanceUtil.getPoint(arPose.tz(),arPose.tx(),angle);
-                    float[] real = DistanceUtil.mapToReal(mScale, mSelectPointF.x, mSelectPointF.y, mHeight);
-                    float[] pix = DistanceUtil.realToMap(mScale, (real[0] + point[0]), (real[1] + point[1]), mHeight);
-                    currentPosition.setX((real[0] + point[0]));
-                    currentPosition.setY((real[1] + point[1]));
-                    initPosition.setX(real[0]);
-                    initPosition.setY(real[1]);
-                    prruMapFragment.setNowLocation(pix[0], pix[1]);  //设置当前坐标
-                    prruMapFragment.setPrruColorPoint(pix[0], pix[1], Integer.parseInt(updateCommunityInfo.RSRP));
-                    prruMapFragment.addPrruInfo(real[0] + point[0],real[1] + point[1],Integer.parseInt(updateCommunityInfo.RSRP));
-                    if(prruMapFragment.calculateDistance(currentPosition,initPosition) > 20){
-                        flag = true;
-                        mArFragment.getARSession().stop();
-                        mArFragment = null;
-                        FragmentManager fragmentManager = getSupportFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        mArFragment = new ARFragment();
-                        fragmentTransaction.remove(mArFragment);
-                        fragmentTransaction.add(R.id.ar_replace, mArFragment);
-                        fragmentTransaction.commit();
-                        initPosition.setX(currentPosition.getX());
-                        initPosition.setY(currentPosition.getY());
-                        mSelectPointF.set(pix[0],pix[1]);
-                    }
-                  /*  notifyPrru((real[0] + tx), (real[1] + ty));
-                    if (prruSigalModel != null) {
-                        mArFragment.setViewValues(prruSigalModel.gpp, updateCommunityInfo.RSRP);
-                    } else {
-                        mArFragment.setViewValues("0_1_0", updateCommunityInfo.RSRP);
-                    }*/
-                }
+            public void getAngle(float angle) {
+                mAngle = angle;
             }
         });
     }
 
-    private void getAngle(float angle){
+    private void closeArFragment(float x, float y) {
+        if (mArFragment == null) {
+            return;
+        }
+        mArFragment.getARSession().stop();
+        mArFragment = null;
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        mSelectPopupWindow.setmSelectShape(x,y);
+        mSelectPopupWindow.showPopupWindow();
+    }
+ /*   private void getAngle(float angle){
         if(flag && (angle > 0.1f || angle < -0.1)){
             this.angle = angle;
             LogUtils.d("XHF",DateUtil.getStringDateFromMilliseconds(System.currentTimeMillis())+"azimuthAngle"+angle);
             flag = false;
         }
-    }
+    }*/
 
     public String getSiteName() {
         return siteName;
